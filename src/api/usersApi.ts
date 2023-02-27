@@ -1,5 +1,5 @@
 import axios from "axios";
-import { LoginUser, User } from "../types/user";
+import { LoginUser, NewUser, User } from "../types/user";
 
 const USERS_API_URL = "https://testapi.io/api/rokasandreikenas/resource/user";
 
@@ -8,12 +8,12 @@ export const fetchUsers = async (): Promise<User[]> => {
   return response.data.data;
 };
 
-export const createUser = async (newUser: User): Promise<User> => {
+export const createUser = async (newUser: NewUser): Promise<User> => {
   const response = await axios.post(USERS_API_URL, newUser);
   return response.data;
 };
 
-export const loginUser = async (loggingUser: LoginUser): Promise<LoginUser> => {
+export const loginUser = async (loggingUser: LoginUser): Promise<User> => {
   const users = await fetchUsers();
   return new Promise((resolve, reject) => {
     const { email, password } = loggingUser;

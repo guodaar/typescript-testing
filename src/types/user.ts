@@ -1,11 +1,12 @@
-export type User = {
+import { EntityMeta } from "./entity";
+
+export type NewUser = {
   email: string;
   password: string;
   first_name: string;
   last_name: string;
-  id: number;
-  createdAt: string;
-  updatedAt: string;
 };
 
-export type LoginUser = Omit<User, "createdAt" | "updatedAt">;
+export type User = NewUser & EntityMeta;
+
+export type LoginUser = Omit<NewUser, "first_name" | "last_name">;

@@ -1,13 +1,15 @@
 import styled from "styled-components";
-import { getFullName } from "../../utils/string";
+import { User } from "../../types/user";
+import { getFullName, hidePassword } from "../../utils/string";
 interface UserCardProps {
-  user: any;
+  user: User;
 }
 const UserCard = ({ user }: UserCardProps) => {
   return (
     <Container>
       <Email>{user.email}</Email>
       <p>{getFullName(user.first_name, user.last_name)}</p>
+      <p>{hidePassword(user.password)}</p>
     </Container>
   );
 };
