@@ -10,7 +10,7 @@ export default JobCard;
 const Container = styled.div`
   display: flex;
   align-items: center;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  box-shadow: rgba(179, 183, 254, 0.6) 0px 2px 8px 0px;
   padding: 16px;
   margin-bottom: 16px;
   border-radius: 4px;

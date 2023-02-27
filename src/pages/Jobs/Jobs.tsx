@@ -1,17 +1,38 @@
 import { useJobs } from "../../hooks/jobsHooks";
 import JobCard from "./JobCard";
 import styled from "styled-components";
+import { useContext } from "react";
+import { borderRadius, darkBlue, mainBgColor } from "../../const/styles";
+import Button from "../../components/Button/Button";
+import StyledModal from "../../components/StyledModal/StyledModal";
+import { ModalContext } from "../../context/ModalContext";
+import Emoji from "../../components/Emoji/Emoji";
 
 const Jobs = () => {
-  const { data } = useJobs();
-  const jobs = data || [];
+  const { openModal } = useContext(ModalContext);
+  const { data: jobs, isLoading } = useJobs();
+
+  if (isLoading) {
+    return <div>Jobs are loading...</div>;
+  }
+
+  if (!isLoading && !jobs?.length) {
+    return <div>There are no jobs added yet</div>;
+  }
   console.log(jobs);
 
   return (
     <Container>
-      {jobs.map((job: any) => (
+      <Title>
+        Vilnius Tech Jobs <Emoji symbol="🎉" />
+      </Title>
+      <TopContainer>
+        <Button onClick={openModal} title="post a job" />
+      </TopContainer>
+      {jobs.map((job) => (
         <JobCard key={job.id} job={job} />
       ))}
+      <StyledModal />
     </Container>
   );
 };
@@ -19,6 +40,23 @@ const Jobs = () => {
 export default Jobs;
 
 const Container = styled.div`
-  max-width: 1100px;
-  margin: 40px auto;
+  background-color: ${mainBgColor};
+  margin: 50px 15vw;
+  padding: 32px;
+  border-radius: ${borderRadius};
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: ${darkBlue};
+`;
+
+const TopContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const Title = styled.h2`
+  font-size: 1.8rem;
+  font-weight: 500;
+  text-align: center;
 `;
