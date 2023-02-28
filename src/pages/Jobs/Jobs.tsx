@@ -2,14 +2,28 @@ import { useJobs } from "../../hooks/jobsHooks";
 import JobCard from "./JobCard";
 import styled from "styled-components";
 import { useContext } from "react";
-import { borderRadius, darkGrey, mainBgColor } from "../../const/styles";
+import {
+  borderRadius,
+  darkGrey,
+  lightGrey,
+  mainBgColor,
+} from "../../const/styles";
 import Button from "../../components/Button/Button";
 import StyledModal from "../../components/StyledModal/StyledModal";
 import { ModalContext } from "../../context/ModalContext";
 import Emoji from "../../components/Emoji/Emoji";
+import AddJob from "../AddJob/AddJob";
+import Apply from "../Apply/Apply";
 
 const Jobs = () => {
-  const { openModal } = useContext(ModalContext);
+  const {
+    openModal,
+    modalIsOpen1,
+    openSecondModal,
+    modalIsOpen2,
+    closeModal,
+    closeSecondModal,
+  } = useContext(ModalContext);
   const { data: jobs, isLoading } = useJobs();
 
   if (isLoading) {
@@ -30,11 +44,24 @@ const Jobs = () => {
         <Button greyVariant={true} onClick={openModal} title="post a job" />
       </TopContainer>
       <JobsContainer>
-        {jobs.map((job) => (
-          <JobCard key={job.id} job={job} />
+        {jobs.map((job, index) => (
+          <JobCard key={index} job={job} onClick={openSecondModal} />
         ))}
       </JobsContainer>
-      <StyledModal />
+      <StyledModal
+        modalSize="medium"
+        modalIsOpen={modalIsOpen1}
+        closeModal={closeModal}
+      >
+        <AddJob />
+      </StyledModal>
+      <StyledModal
+        modalSize="small"
+        modalIsOpen={modalIsOpen2}
+        closeModal={closeSecondModal}
+      >
+        <Apply />
+      </StyledModal>
     </Container>
   );
 };
@@ -54,7 +81,7 @@ const Container = styled.div`
 
 const TopContainer = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
 `;
 
 const JobsContainer = styled.div`
