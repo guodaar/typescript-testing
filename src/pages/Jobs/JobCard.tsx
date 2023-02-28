@@ -11,11 +11,13 @@ import {
 } from "../../const/styles";
 import { Job } from "../../types/job";
 import { formatDate } from "../../utils/date";
+import { addHyphen } from "../../utils/string";
 
 interface JobCardProps {
   job: Job;
+  onClick: () => void;
 }
-const JobCard = ({ job }: JobCardProps) => {
+const JobCard = ({ job, onClick }: JobCardProps) => {
   return (
     <Container>
       <LeftWrapper>
@@ -23,12 +25,12 @@ const JobCard = ({ job }: JobCardProps) => {
       </LeftWrapper>
       <MiddleWrapper>
         <Title>
-          {job.title} <span>{job.type}</span>
+          {job.title} <span>{addHyphen(job.type)}</span>
         </Title>
         <Details>
           <p>
             Driver's license required:{" "}
-            {job.has_drivers_license ? <span>yes</span> : <span>no</span>}
+            <span>{job.has_drivers_license ? "yes" : "no"}</span>
           </p>
           <p>
             Starting from: <span>{formatDate(job.starting_from)}</span>
@@ -38,7 +40,7 @@ const JobCard = ({ job }: JobCardProps) => {
       </MiddleWrapper>
       <RightWrapper>
         <Price>€{job.price}</Price>
-        <Button title="apply" />
+        <Button onClick={onClick} title="apply" />
       </RightWrapper>
     </Container>
   );
