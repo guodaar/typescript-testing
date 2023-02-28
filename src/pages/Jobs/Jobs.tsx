@@ -2,7 +2,7 @@ import { useJobs } from "../../hooks/jobsHooks";
 import JobCard from "./JobCard";
 import styled from "styled-components";
 import { useContext } from "react";
-import { borderRadius, darkBlue, mainBgColor } from "../../const/styles";
+import { borderRadius, darkGrey, mainBgColor } from "../../const/styles";
 import Button from "../../components/Button/Button";
 import StyledModal from "../../components/StyledModal/StyledModal";
 import { ModalContext } from "../../context/ModalContext";
@@ -27,11 +27,13 @@ const Jobs = () => {
         Vilnius Tech Jobs <Emoji symbol="🎉" />
       </Title>
       <TopContainer>
-        <Button onClick={openModal} title="post a job" />
+        <Button greyVariant={true} onClick={openModal} title="post a job" />
       </TopContainer>
-      {jobs.map((job) => (
-        <JobCard key={job.id} job={job} />
-      ))}
+      <JobsContainer>
+        {jobs.map((job) => (
+          <JobCard key={job.id} job={job} />
+        ))}
+      </JobsContainer>
       <StyledModal />
     </Container>
   );
@@ -46,13 +48,19 @@ const Container = styled.div`
   border-radius: ${borderRadius};
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  color: ${darkBlue};
+  gap: 18px;
+  color: ${darkGrey};
 `;
 
 const TopContainer = styled.div`
   display: flex;
   justify-content: flex-end;
+`;
+
+const JobsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 `;
 
 const Title = styled.h2`

@@ -4,13 +4,19 @@ import Modal from "react-modal";
 import { useContext } from "react";
 import { ModalContext } from "../../context/ModalContext";
 import * as Yup from "yup";
-import { borderRadius, darkBlue, mainBgColor } from "../../const/styles";
+import {
+  borderRadius,
+  darkGrey,
+  mainBgColor,
+  mediumGrey,
+} from "../../const/styles";
 import Button from "../Button/Button";
 import Emoji from "../Emoji/Emoji";
 import FormikInput from "../Input/FormikInput";
 import { createJob } from "../../api/jobsApi";
 import { NewJob } from "../../types/job";
 import { requiredField } from "../../const/validations";
+import FormikSelect from "../Input/FormikSelect";
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required(requiredField),
@@ -67,13 +73,21 @@ const StyledModal = () => {
                 />
               </InputRowItem>
             </InputRow>
+            <FormikSelect
+              name="type"
+              options={[
+                { value: "fullTime", label: "Full Time" },
+                { value: "partTime", label: "Part Time" },
+                { value: "freelance", label: "Freelance" },
+              ]}
+            />
             <FormikInput
               type="text"
               name="description"
               placeholder="Job description"
             />
             <ButtonsContainer>
-              <Button onClick={closeModal} title="close" />
+              <Button greyVariant={true} onClick={closeModal} title="close" />
               <Button type="submit" title="save" />
             </ButtonsContainer>
           </StyledForm>
@@ -88,7 +102,7 @@ export default StyledModal;
 const Container = styled(Modal)`
   min-height: 18rem;
   background-color: ${mainBgColor};
-  color: ${darkBlue};
+  color: ${mediumGrey};
   margin: 50px 15vw;
   border-radius: ${borderRadius};
   padding: 24px 10vw;
@@ -108,6 +122,7 @@ const Title = styled.h2`
   font-weight: 500;
   text-align: center;
   margin-bottom: 32px;
+  color: ${darkGrey};
 `;
 
 const StyledForm = styled(Form)`

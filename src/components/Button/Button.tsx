@@ -1,15 +1,26 @@
 import styled from "styled-components";
-import { lighterBlue, mainBgColor, mediumBlue } from "../../const/styles";
+import {
+  lighterBlue,
+  lightGrey,
+  mediumBlue,
+  mediumGrey,
+} from "../../const/styles";
 
-type Props = {
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+interface ButtonProps {
+  onClick?: () => void;
   title: string;
-  type?: "submit";
-};
+  type?: "button" | "submit" | "reset";
+  greyVariant?: boolean;
+}
 
-const Button = ({ onClick, title, type }: Props) => {
+const Button = ({
+  onClick,
+  title,
+  type = "button",
+  greyVariant = false,
+}: ButtonProps) => {
   return (
-    <StyledButton onClick={onClick} type={type}>
+    <StyledButton onClick={onClick} type={type} greyVariant={greyVariant}>
       {title}
     </StyledButton>
   );
@@ -17,10 +28,11 @@ const Button = ({ onClick, title, type }: Props) => {
 
 export default Button;
 
-const StyledButton = styled.button`
+const StyledButton = styled.button<{ greyVariant: boolean }>`
   cursor: pointer;
-  background-color: ${lighterBlue};
-  color: ${mainBgColor};
+  background-color: ${({ greyVariant }) =>
+    greyVariant ? lightGrey : lighterBlue};
+  color: white;
   font-size: 0.8rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -31,6 +43,7 @@ const StyledButton = styled.button`
   border-radius: 25px;
   transition: 0.2s ease-in-out;
   &:hover {
-    background-color: ${mediumBlue};
+    background-color: ${({ greyVariant }) =>
+      greyVariant ? mediumGrey : mediumBlue};
   }
 `;
