@@ -7,6 +7,8 @@ import { BrowserRouter } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import Modal from "react-modal";
 import { ModalProvider } from "./context/ModalContext";
+import "flatpickr/dist/themes/material_blue.css";
+import { Toaster } from "react-hot-toast";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -21,6 +23,7 @@ root.render(
       <QueryClientProvider client={queryClient}>
         <ModalProvider>
           <App />
+          <Toaster position="bottom-center" />
         </ModalProvider>
       </QueryClientProvider>
     </BrowserRouter>
