@@ -7,7 +7,7 @@ import {
 } from "../../const/styles";
 
 interface ButtonProps {
-  onClick?: () => void;
+  onClick: () => void;
   title: string;
   type?: "button" | "submit" | "reset";
   greyVariant?: boolean;
