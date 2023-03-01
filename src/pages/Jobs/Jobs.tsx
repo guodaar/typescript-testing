@@ -5,6 +5,7 @@ import Emoji from "../../components/Emoji/Emoji";
 import JobAdForm from "./JobAdForm";
 import JobApplicationForm from "./JobApplicationForm";
 import JobCard from "./JobCard";
+import RegisterForm from "../Register/RegisterForm";
 import StyledModal from "../../components/StyledModal/StyledModal";
 import styled from "styled-components";
 import { useJobs } from "../../hooks/jobsHooks";
@@ -14,6 +15,11 @@ const Jobs = () => {
   const { data: jobs, isLoading } = useJobs();
   const [adFormOpen, setAdFormOpen] = useState(false);
   const [applicationFormOpen, setApplicationFormOpen] = useState(false);
+  const [registerOpen, setRegisterOpen] = useState(false);
+
+  const handleRegisterToggle = () => {
+    setRegisterOpen((prevOpen) => !prevOpen)
+  }
 
   const handleToggleAdForm = () => {
     setAdFormOpen((prevOpen) => !prevOpen);
@@ -37,6 +43,11 @@ const Jobs = () => {
         Vilnius Tech Jobs <Emoji symbol="🎉" />
       </Title>
       <TopContainer>
+      <Button
+          greyVariant={true}
+          onClick={handleRegisterToggle}
+          title="Register"
+        />
         <Button
           greyVariant={true}
           onClick={handleToggleAdForm}
@@ -65,6 +76,13 @@ const Jobs = () => {
         closeModal={handleToggleApplicationForm}
       >
         <JobApplicationForm closeModal={handleToggleApplicationForm} />
+      </StyledModal>
+      <StyledModal
+        modalSize="medium"
+        modalIsOpen={registerOpen}
+        closeModal={handleRegisterToggle}
+        >
+        <RegisterForm closeModal={handleRegisterToggle}/>
       </StyledModal>
     </Container>
   );
