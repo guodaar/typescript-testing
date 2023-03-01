@@ -29,8 +29,8 @@ const initialValues: NewJob = {
 const validationSchema: Yup.ObjectSchema<NewJob> = Yup.object().shape({
   title: Yup.string().required(requiredField),
   price: Yup.number().required(requiredField),
-  description: Yup.string().required(requiredField),
   company_logo: Yup.string().required(requiredField),
+  description: Yup.string().required(requiredField),
   type: Yup.mixed<JobType>()
     .oneOf(["freelance", "fullTime", "partTime"])
     .required(requiredField),
