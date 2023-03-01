@@ -1,7 +1,8 @@
-import { Form, Formik } from "formik";
-import styled from "styled-components";
-import { useContext } from "react";
 import * as Yup from "yup";
+
+import { Form, Formik } from "formik";
+import { JobType, NewJob } from "../../types/job";
+
 import Button from "../../components/Button/Button";
 import Emoji from "../../components/Emoji/Emoji";
 import FormikDatepicker from "../../components/Formik/FormikDatepicker";
@@ -10,10 +11,9 @@ import FormikSelect from "../../components/Formik/FormikSelect";
 import FormikTextArea from "../../components/Formik/FormikTextArea";
 import { darkGrey } from "../../const/styles";
 import { requiredField } from "../../const/validations";
-import { ModalContext } from "../../context/ModalContext";
-import { useCreateJob } from "../../hooks/jobsHooks";
-import { JobType, NewJob } from "../../types/job";
+import styled from "styled-components";
 import { toast } from "react-hot-toast";
+import { useCreateJob } from "../../hooks/jobsHooks";
 
 const initialValues: NewJob = {
   title: "",
@@ -24,6 +24,10 @@ const initialValues: NewJob = {
   user_id: 1,
   description: "",
 };
+
+type Props = {
+  closeModal: () => void;
+}
 
 const validationSchema: Yup.ObjectSchema<NewJob> = Yup.object().shape({
   title: Yup.string().required(requiredField),
@@ -37,12 +41,10 @@ const validationSchema: Yup.ObjectSchema<NewJob> = Yup.object().shape({
   user_id: Yup.number().required(),
 });
 
-const AddJob = () => {
-  const { closeModal } = useContext(ModalContext);
+const JobAddForm = ({closeModal}:Props) => {
   const { mutateAsync: createJob } = useCreateJob();
 
   const handleSubmit = (values: NewJob) => {
-    console.log(values);
     createJob(values)
       .then((response) => {
         closeModal();
@@ -95,6 +97,10 @@ const AddJob = () => {
             name="description"
             placeholder="Job description"
           />
+          <RadioContainer>
+            <FormikInput type="checkbox" name="has_drivers_license" id="has_drivers_license" />
+            <label htmlFor="has_drivers_license">Driving license needed</label>
+          </RadioContainer>
           <ButtonsContainer>
             <Button greyVariant={true} onClick={closeModal} title="close" />
             <Button title="save" onClick={submitForm} />
@@ -105,7 +111,7 @@ const AddJob = () => {
   );
 };
 
-export default AddJob;
+export default JobAddForm;
 
 const ButtonsContainer = styled.div`
   display: flex;
@@ -136,3 +142,8 @@ const InputRow = styled.div`
 const InputRowItem = styled.div`
   flex: 1;
 `;
+
+const RadioContainer = styled.div`
+display: flex;
+flex-direction: row;
+`
