@@ -1,22 +1,24 @@
-import styled from "styled-components";
-import logo from "../../assets/4734105_2392476.jpg";
-import Button from "../../components/Button/Button";
 import {
   borderRadius,
-  lighterBlue,
   lightGrey,
+  lighterBlue,
   mainBgColor,
   mediumGrey,
   smallBorderRadius,
 } from "../../const/styles";
+
+import Button from "../../components/Button/Button";
 import { Job } from "../../types/job";
-import { formatDate } from "../../utils/date";
 import { addHyphen } from "../../utils/string";
+import { formatDate } from "../../utils/date";
+import logo from "../../assets/4734105_2392476.jpg";
+import styled from "styled-components";
 
 interface JobCardProps {
   job: Job;
   onClick: () => void;
 }
+
 const JobCard = ({ job, onClick }: JobCardProps) => {
   return (
     <Container>
