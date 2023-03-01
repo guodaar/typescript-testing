@@ -3,6 +3,7 @@ import * as Yup from "yup";
 import { Form, Formik } from "formik";
 import { darkGrey, lightGrey } from "../../const/styles";
 
+import { AiOutlineCloseSquare } from 'react-icons/ai';
 import Button from "../../components/Button/Button";
 import FormikInput from "../../components/Formik/FormikInput";
 import { NewUser } from "../../types/user";
@@ -106,9 +107,10 @@ const RegisterForm = ({ closeModal }: Props) => {
             <label htmlFor="employer">An Employer</label>
           </InputRow>
           <ButtonsContainer>
-            <Button greyVariant={true} onClick={closeModal} title="close" />
+            <Button greyVariant={true} onClick={closeModal} title="Cancel" />
             <Button title="Register" onClick={submitForm} />
           </ButtonsContainer>
+          <CloseBtn onClick={closeModal}/>
         </StyledForm>
       )}
     </Formik>
@@ -116,6 +118,14 @@ const RegisterForm = ({ closeModal }: Props) => {
 };
 
 export default RegisterForm;
+
+const CloseBtn = styled(AiOutlineCloseSquare)`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 1.2rem;
+`
 
 const ButtonsContainer = styled.div`
   display: flex;

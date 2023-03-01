@@ -1,12 +1,13 @@
-import styled from "styled-components";
-import Modal from "react-modal";
-import { PropsWithChildren } from "react";
 import {
   borderRadius,
   lightGrey,
   mainBgColor,
   mediumGrey,
 } from "../../const/styles";
+
+import Modal from "react-modal";
+import { PropsWithChildren } from "react";
+import styled from "styled-components";
 
 interface StyledModalProps extends PropsWithChildren {
   modalSize: string;
@@ -33,7 +34,8 @@ const StyledModal = ({
 
 export default StyledModal;
 
-const Container = styled(Modal)<{ modalSize: string }>`
+const Container = styled(Modal) <{ modalSize: string }>`
+  position: relative;
   min-height: 18rem;
   background-color: ${mainBgColor};
   color: ${mediumGrey};
