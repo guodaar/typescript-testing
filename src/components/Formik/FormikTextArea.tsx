@@ -1,12 +1,13 @@
-import { Field, ErrorMessage } from "formik";
-import { InputHTMLAttributes } from "react";
-import styled from "styled-components";
+import { ErrorMessage, Field } from "formik";
 import {
   darkGrey,
   lightGrey,
   mainBgColor,
   smallBorderRadius,
 } from "../../const/styles";
+
+import { InputHTMLAttributes } from "react";
+import styled from "styled-components";
 
 type Props = {
   name: string;
@@ -34,6 +35,4 @@ const StyledArea = styled.textarea`
   padding: 10px 14px;
   outline: none;
   width: 100%;
-  box-sizing: border-box;
-  font-family: "Roboto";
 `;
