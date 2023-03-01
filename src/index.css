@@ -14,17 +14,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
 input,
+textarea,
 button {
-  margin: 0;
   box-sizing: border-box;
-  font-family: "Roboto";
 }
 
 a {
@@ -40,7 +33,10 @@ h5,
 h6,
 p,
 ul,
-li {
+li,
+textarea,
+input,
+button {
   margin: 0;
   font-family: "Roboto";
 }

@@ -35,5 +35,4 @@ const StyledArea = styled.textarea`
   outline: none;
   width: 100%;
   box-sizing: border-box;
-  font-family: "Roboto";
 `;
