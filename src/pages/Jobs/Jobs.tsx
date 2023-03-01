@@ -1,14 +1,15 @@
-import { borderRadius, darkGrey, mainBgColor } from "../../const/styles";
+import { borderRadius, darkGrey, mainBgColor } from '../../const/styles';
 
-import Button from "../../components/Button/Button";
-import Emoji from "../../components/Emoji/Emoji";
-import JobAdForm from "./JobAdForm";
-import JobApplicationForm from "./JobApplicationForm";
-import JobCard from "./JobCard";
-import StyledModal from "../../components/StyledModal/StyledModal";
-import styled from "styled-components";
-import { useJobs } from "../../hooks/jobsHooks";
-import { useState } from "react";
+import Button from '../../components/Button/Button';
+import Emoji from '../../components/Emoji/Emoji';
+import JobAdForm from './JobAdForm';
+import JobApplicationForm from './JobApplicationForm';
+import JobCard from './JobCard';
+import Loader from '../../components/Loader/Loader';
+import StyledModal from '../../components/StyledModal/StyledModal';
+import styled from 'styled-components';
+import { useJobs } from '../../hooks/jobsHooks';
+import { useState } from 'react';
 
 const Jobs = () => {
   const { data: jobs, isLoading } = useJobs();
@@ -23,47 +24,26 @@ const Jobs = () => {
     setApplicationFormOpen((prevOpen) => !prevOpen);
   };
 
-  if (isLoading) {
-    return <div>Jobs are loading...</div>;
-  }
-
   if (!isLoading && !jobs?.length) {
     return <div>There are no jobs added yet</div>;
   }
 
   return (
     <Container>
+      <Loader isLoading={isLoading} />
       <Title>
         Vilnius Tech Jobs <Emoji symbol="🎉" />
       </Title>
       <TopContainer>
-        <Button
-          greyVariant={true}
-          onClick={handleToggleAdForm}
-          title="post a job"
-        />
+        <Button greyVariant={true} onClick={handleToggleAdForm} title="post a job" />
       </TopContainer>
       <JobsContainer>
-        {jobs.map((job, index) => (
-          <JobCard
-            key={index}
-            job={job}
-            onClick={handleToggleApplicationForm}
-          />
-        ))}
+        {jobs && jobs.map((job, index) => <JobCard key={index} job={job} onClick={handleToggleApplicationForm} />)}
       </JobsContainer>
-      <StyledModal
-        modalSize="medium"
-        modalIsOpen={adFormOpen}
-        closeModal={handleToggleAdForm}
-      >
+      <StyledModal modalSize="medium" modalIsOpen={adFormOpen} closeModal={handleToggleAdForm}>
         <JobAdForm closeModal={handleToggleAdForm} />
       </StyledModal>
-      <StyledModal
-        modalSize="small"
-        modalIsOpen={applicationFormOpen}
-        closeModal={handleToggleApplicationForm}
-      >
+      <StyledModal modalSize="small" modalIsOpen={applicationFormOpen} closeModal={handleToggleApplicationForm}>
         <JobApplicationForm closeModal={handleToggleApplicationForm} />
       </StyledModal>
     </Container>
