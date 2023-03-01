@@ -5,7 +5,7 @@ import Emoji from "../../components/Emoji/Emoji";
 import JobAdForm from "./JobAdForm";
 import JobApplicationForm from "./JobApplicationForm";
 import JobCard from "./JobCard";
-import LoginForm from "../Login/LoginForm";
+import LoginForm from "./LoginForm";
 import StyledModal from "../../components/StyledModal/StyledModal";
 import styled from "styled-components";
 import { useJobs } from "../../hooks/jobsHooks";
