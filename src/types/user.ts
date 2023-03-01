@@ -15,7 +15,7 @@ export type ApplyUser = {
   first_name: string;
   last_name: string;
   email: string;
-  phone_number: number;
+  phone_number: number | "";
   has_drivers_license: boolean;
   user_id: number;
 };

@@ -7,9 +7,8 @@ body {
   background-image: url("../src/assets/magicpattern-am-yg8wLLIo-unsplash.jpg");
   background-size: contain;
   background-repeat: repeat;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -21,7 +20,8 @@ input::-webkit-inner-spin-button {
 }
 
 input,
-button {
+button,
+textarea {
   margin: 0;
   box-sizing: border-box;
   font-family: "Roboto";
@@ -46,6 +46,5 @@ li {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }

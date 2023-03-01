@@ -1,13 +1,15 @@
-import { Field, ErrorMessage } from "formik";
+import { ErrorMessage, Field } from "formik";
+
 import Input from "../Input/Input";
 import { InputHTMLAttributes } from "react";
 
 type Props = {
   name: string;
-  type?: InputHTMLAttributes<HTMLInputElement>["type"]; //gali but ir stringas
+  id?: InputHTMLAttributes<HTMLInputElement>["id"];
+  type?: InputHTMLAttributes<HTMLInputElement>["type"];
   placeholder?: InputHTMLAttributes<HTMLInputElement>["placeholder"];
+  value?: InputHTMLAttributes<HTMLInputElement>["value"];
 };
-
 const FormikInput = ({ name, ...restProps }: Props) => {
   return (
     <div>
@@ -16,5 +18,4 @@ const FormikInput = ({ name, ...restProps }: Props) => {
     </div>
   );
 };
-
 export default FormikInput;
