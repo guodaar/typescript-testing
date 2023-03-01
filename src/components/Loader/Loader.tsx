@@ -9,8 +9,8 @@ const Loader = ({ isLoading }: Props) => {
     <MutatingDots
       height="100"
       width="100"
-      color="#4fa94d"
-      secondaryColor="#4fa94d"
+      color="rgb(18,0,108)"
+      secondaryColor="rgb(18,0,108)"
       radius="12.5"
       ariaLabel="mutating-dots-loading"
       wrapperStyle={{ justifyContent: 'center', height: '100vh', alignItems: 'center' }}
