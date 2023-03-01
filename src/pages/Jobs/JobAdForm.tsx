@@ -18,8 +18,8 @@ import { useCreateJob } from "../../hooks/jobsHooks";
 const initialValues: NewJob = {
   title: "",
   price: "",
-  type: "fullTime",
   company_logo: "",
+  type: "fullTime",
   starting_from: "",
   has_drivers_license: false,
   user_id: 1,
@@ -30,10 +30,10 @@ const validationSchema: Yup.ObjectSchema<NewJob> = Yup.object().shape({
   title: Yup.string().required(requiredField),
   price: Yup.number().required(requiredField),
   description: Yup.string().required(requiredField),
+  company_logo: Yup.string().required(requiredField),
   type: Yup.mixed<JobType>()
     .oneOf(["freelance", "fullTime", "partTime"])
     .required(requiredField),
-  company_logo: Yup.string().required(requiredField),
   starting_from: Yup.string().required(requiredField),
   has_drivers_license: Yup.boolean().required(requiredField),
   user_id: Yup.number().required(),
