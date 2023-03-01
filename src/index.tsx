@@ -6,7 +6,6 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import Modal from "react-modal";
-import { ModalProvider } from "./context/ModalContext";
 import "flatpickr/dist/themes/material_blue.css";
 import { Toaster } from "react-hot-toast";
 
@@ -21,10 +20,8 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
-        <ModalProvider>
-          <App />
-          <Toaster position="bottom-center" />
-        </ModalProvider>
+        <App />
+        <Toaster position="bottom-center" />
       </QueryClientProvider>
     </BrowserRouter>
   </React.StrictMode>
