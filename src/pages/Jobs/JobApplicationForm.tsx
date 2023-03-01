@@ -63,34 +63,18 @@ const JobApplicationForm = ({ closeModal }: Props) => {
           </Title>
           <InputRow>
             <InputRowItem>
-              <FormikInput
-                type="text"
-                name="first_name"
-                placeholder="First name"
-              />
+              <FormikInput type="text" name="first_name" placeholder="First name" />
             </InputRowItem>
             <InputRowItem>
-              <FormikInput
-                type="text"
-                name="last_name"
-                placeholder="Last name"
-              />
+              <FormikInput type="text" name="last_name" placeholder="Last name" />
             </InputRowItem>
           </InputRow>
           <InputRow>
             <InputRowItem>
-              <FormikInput
-                type="email"
-                name="email"
-                placeholder="Your email address"
-              />
+              <FormikInput type="email" name="email" placeholder="Your email address" />
             </InputRowItem>
             <InputRowItem>
-              <FormikInput
-                type="number"
-                name="phone_number"
-                placeholder="Your phone number"
-              />
+              <FormikInput type="number" name="phone_number" placeholder="Your phone number" />
             </InputRowItem>
           </InputRow>
           <ButtonsContainer>
@@ -123,7 +107,7 @@ const StyledForm = styled(Form)`
   flex-direction: column;
   gap: 16px;
   justify-content: center;
-  padding: 32px;
+  padding: 42px;
 `;
 
 const InputRow = styled.div`
