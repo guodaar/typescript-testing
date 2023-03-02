@@ -1,10 +1,13 @@
-import styled from "styled-components";
-import { User } from "../../types/user";
 import { getFullName, hidePassword } from "../../utils/string";
+
+import { User } from "../../types/user";
+import styled from "styled-components";
+
 interface UserCardProps {
   user: User;
 }
 const UserCard = ({ user }: UserCardProps) => {
+  console.log(user)
   return (
     <Container>
       <Email>{user.email}</Email>
