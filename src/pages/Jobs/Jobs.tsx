@@ -12,6 +12,8 @@ import { Job } from "../../types/job";
 import JobAdForm from "./JobAdForm";
 import JobApplicationForm from "./JobApplicationForm";
 import JobCard from "./JobCard";
+import LoginForm from "./LoginForm";
+import RegisterForm from "../Register/RegisterForm";
 import StyledModal from "../../components/StyledModal/StyledModal";
 import styled from "styled-components";
 import { useJobs } from "../../hooks/jobsHooks";
@@ -28,6 +30,12 @@ const Jobs = () => {
   const { data: jobs, isLoading } = useJobs();
   const [adFormOpen, setAdFormOpen] = useState(false);
   const [applicationFormOpen, setApplicationFormOpen] = useState(false);
+  const [registerOpen, setRegisterOpen] = useState(false);
+  const [loginFormOpen, setLoginFormOpen] = useState(false);
+
+  const handleRegisterToggle = () => {
+    setRegisterOpen((prevOpen) => !prevOpen);
+  };
 
   const handleToggleAdForm = () => {
     setAdFormOpen((prevOpen) => !prevOpen);
@@ -44,6 +52,10 @@ const Jobs = () => {
   const handleClearFilters = () => {
     setSelectedLicenseOption(driversLicenseOptions[0]);
     setSelectedTypeOption(jobTypeOptions[0]);
+  };
+
+  const handleToggleLoginForm = () => {
+    setLoginFormOpen((prevOpen) => !prevOpen);
   };
 
   if (isLoading) {
@@ -84,16 +96,10 @@ const Jobs = () => {
         Vilnius Tech Jobs <Emoji symbol="🎉" />
       </Title>
       <TopContainer>
-        <Button
-          greyVariant={true}
-          onClick={handleToggleFilters}
-          title="filter jobs"
-        />
-        <Button
-          greyVariant={false}
-          onClick={handleToggleAdForm}
-          title="post a job"
-        />
+        <Button onClick={handleToggleFilters} title="filter jobs" greyVariant />
+        <Button onClick={handleRegisterToggle} title="Register" greyVariant />
+        <Button onClick={handleToggleLoginForm} title="Log In" greyVariant />
+        <Button onClick={handleToggleAdForm} title="Post a job" greyVariant />
       </TopContainer>
       <FiltersBar toggle={toggle}>
         <FilterComponent
@@ -115,7 +121,7 @@ const Jobs = () => {
         />
       </FiltersBar>
       <JobsContainer>
-        {filteredByDriversLicense.map((job, index) => (
+        {jobs.map((job, index) => (
           <JobCard
             key={index}
             job={job}
@@ -136,6 +142,20 @@ const Jobs = () => {
         closeModal={handleToggleApplicationForm}
       >
         <JobApplicationForm closeModal={handleToggleApplicationForm} />
+      </StyledModal>
+      <StyledModal
+        modalSize="medium"
+        modalIsOpen={registerOpen}
+        closeModal={handleRegisterToggle}
+      >
+        <RegisterForm closeModal={handleRegisterToggle} />
+      </StyledModal>
+      <StyledModal
+        modalSize="small"
+        modalIsOpen={loginFormOpen}
+        closeModal={handleToggleLoginForm}
+      >
+        <LoginForm closeModal={handleToggleLoginForm} />
       </StyledModal>
     </Container>
   );
