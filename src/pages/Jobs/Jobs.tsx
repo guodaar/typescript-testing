@@ -1,7 +1,20 @@
+import { borderRadius, darkGrey, mainBgColor } from "../../const/styles";
 import { DateOption, PriceOption } from "../../types/select";
 import { borderRadius, darkGrey, mainBgColor } from "../../const/styles";
 import { dateOptions, priceOptions } from "../../const/selectOptions";
 
+import Button from "../../components/Button/Button";
+import Emoji from "../../components/Emoji/Emoji";
+import JobAdForm from "./JobAdForm";
+import JobApplicationForm from "./JobApplicationForm";
+import JobCard from "./JobCard";
+import Loader from "../../components/Loader/Loader";
+import LoginForm from "./LoginForm";
+import RegisterForm from "../Register/RegisterForm";
+import StyledModal from "../../components/StyledModal/StyledModal";
+import styled from "styled-components";
+import { useJobs } from "../../hooks/jobsHooks";
+import { useState } from "react";
 import Button from "../../components/Button/Button";
 import Emoji from "../../components/Emoji/Emoji";
 import JobAdForm from "./JobAdForm";
@@ -19,7 +32,12 @@ const Jobs = () => {
   const { data: jobs, isLoading } = useJobs();
   const [adFormOpen, setAdFormOpen] = useState(false);
   const [applicationFormOpen, setApplicationFormOpen] = useState(false);
+  const [registerOpen, setRegisterOpen] = useState(false);
   const [loginFormOpen, setLoginFormOpen] = useState(false);
+
+  const handleRegisterToggle = () => {
+    setRegisterOpen((prevOpen) => !prevOpen);
+  };
   const [selectedDateOption, setSelectedDateOption] = useState<DateOption>({
     value: "",
     label: "Sort by starting date",
@@ -56,10 +74,6 @@ const Jobs = () => {
     setLoginFormOpen((prevOpen) => !prevOpen);
   };
 
-  if (isLoading) {
-    return <div>Jobs are loading...</div>;
-  }
-
   if (!isLoading && !jobs?.length) {
     return <div>There are no jobs added yet</div>;
   }
@@ -71,7 +85,11 @@ const Jobs = () => {
       <Title>
         Vilnius Tech Jobs <Emoji symbol="🎉" />
       </Title>
+      <Loader isLoading={isLoading} />
       <TopContainer>
+        <Button onClick={handleRegisterToggle} title="Register" greyVariant />
+        <Button onClick={handleToggleLoginForm} title="Log In" greyVariant />
+        <Button onClick={handleToggleAdForm} title="Post a job" greyVariant />
         <Button
           greyVariant={true}
           onClick={handleToggleAdForm}
@@ -93,6 +111,14 @@ const Jobs = () => {
         <Button onClick={handleToggleLoginForm} title="log In" greyVariant />
       </TopContainer>
       <JobsContainer>
+        {jobs &&
+          jobs.map((job, index) => (
+            <JobCard
+              key={index}
+              job={job}
+              onClick={handleToggleApplicationForm}
+            />
+          ))}
         {sortedJobs.map((job, index) => (
           <JobCard
             key={index}
@@ -101,6 +127,16 @@ const Jobs = () => {
           />
         ))}
       </JobsContainer>
+      <StyledModal
+        modalSize="medium"
+        modalIsOpen={adFormOpen}
+        closeModal={handleToggleAdForm}
+      />
+      <StyledModal
+        modalSize="medium"
+        modalIsOpen={adFormOpen}
+        closeModal={handleToggleAdForm}
+      />
       <StyledModal
         modalSize="medium"
         modalIsOpen={adFormOpen}
@@ -114,6 +150,13 @@ const Jobs = () => {
         closeModal={handleToggleApplicationForm}
       >
         <JobApplicationForm closeModal={handleToggleApplicationForm} />
+      </StyledModal>
+      <StyledModal
+        modalSize="medium"
+        modalIsOpen={registerOpen}
+        closeModal={handleRegisterToggle}
+      >
+        <RegisterForm closeModal={handleRegisterToggle} />
       </StyledModal>
       <StyledModal
         modalSize="small"

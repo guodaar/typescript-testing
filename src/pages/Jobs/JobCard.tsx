@@ -11,7 +11,6 @@ import Button from "../../components/Button/Button";
 import { Job } from "../../types/job";
 import { addHyphen } from "../../utils/string";
 import { formatDate } from "../../utils/date";
-import logo from "../../assets/4734105_2392476.jpg";
 import styled from "styled-components";
 
 interface JobCardProps {
@@ -23,7 +22,7 @@ const JobCard = ({ job, onClick }: JobCardProps) => {
   return (
     <Container>
       <LeftWrapper>
-        <img src={logo} alt="company logo" />
+        <img src={job.company_logo} alt="company LOGO" />
       </LeftWrapper>
       <MiddleWrapper>
         <Title>
@@ -65,6 +64,7 @@ const LeftWrapper = styled.div`
   img {
     width: 80px;
     border-radius: ${borderRadius};
+    object-fit: cover;
   }
 `;
 
