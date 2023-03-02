@@ -8,7 +8,7 @@ export const jobTypeOptions: Option[] = [
 ];
 
 export const driversLicenseOptions: Option[] = [
-  { value: null, label: "all" },
+  { value: null, label: "All" },
   { value: true, label: "Yes" },
   { value: false, label: "No" },
 ];

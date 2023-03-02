@@ -33,6 +33,7 @@ const customStyles: StylesConfig<Option, false> = {
     paddingLeft: "12px",
     background: mainBgColor,
     borderRadius: "25px",
+    minWidth: "220px",
   }),
 };
 

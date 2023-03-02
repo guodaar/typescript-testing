@@ -12,6 +12,7 @@ const FiltersBar = ({ toggle, children }: ContainerProps) => {
 export default FiltersBar;
 
 const Container = styled.div<ContainerProps>`
-  gap: 12px;
   display: ${({ toggle }) => (toggle ? "flex" : "none")};
+  gap: 12px;
+  flex-wrap: wrap;
 `;
