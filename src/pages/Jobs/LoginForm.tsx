@@ -30,7 +30,7 @@ const LoginForm = ({ closeModal }: Props) => {
 
   const handleSubmit = (values: LoginUser) => {
     loginUser(values)
-      .then((response) => {
+      .then(() => {
         toast.success("Successfully logged in!");
       })
       .catch((error) => {
@@ -52,15 +52,13 @@ const LoginForm = ({ closeModal }: Props) => {
               <FormikInput type="email" name="email" placeholder="Email" />
             </InputRowItem>
           </InputRow>
-
           <InputRow>
             <InputRowItem>
               <FormikInput type="password" name="password" placeholder="Password" />
             </InputRowItem>
           </InputRow>
-
           <ButtonsContainer>
-            <Button greyVariant={true} onClick={closeModal} title="close" />
+            <Button onClick={closeModal} title="close" greyVariant />
             <Button type="submit" disabled={isSubmitting} title="Login" />
           </ButtonsContainer>
         </StyledForm>
