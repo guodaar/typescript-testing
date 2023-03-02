@@ -1,25 +1,19 @@
-import styled from "styled-components";
+import { useUsers } from "../../hooks/userHooks";
 
-const UserSearch = ({ value, setValue }: any) => {
-    return (
-      <InputWrapper>
-        <Input 
-          placeholder="Search"
-          value={value}
-          onChange={(element) => setValue(element.target.value)}
-        />
-      </InputWrapper>
-    )
-  };
+const UseSearch = () => {
+  const { data } = useUsers();
+  const users = data || [];
 
-export default UserSearch;
+  return (
+    <ul>
+      {users.map((email) => (
+        <li 
+          key={email.first_name}>
+            {email.email}
+          </li>
+      ))}
+    </ul>
+  );
+};
 
-const InputWrapper = styled.div`
-  position: relative;
-`;
-
-const Input = styled.input`
-  border: none; 
-  outline: none;
-  padding: 10px 40px;
-`;
+export default UseSearch;
