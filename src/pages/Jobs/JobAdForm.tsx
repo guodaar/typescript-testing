@@ -23,6 +23,7 @@ const initialValues: NewJob = {
   has_drivers_license: false,
   user_id: 1,
   description: "",
+  image_url: ''
 };
 
 const validationSchema: Yup.ObjectSchema<NewJob> = Yup.object().shape({
@@ -33,6 +34,7 @@ const validationSchema: Yup.ObjectSchema<NewJob> = Yup.object().shape({
   starting_from: Yup.string().required(requiredField),
   has_drivers_license: Yup.boolean().required(requiredField),
   user_id: Yup.number().required(),
+  image_url: Yup.string().required(requiredField)
 });
 
 type Props = {
