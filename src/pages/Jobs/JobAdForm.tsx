@@ -45,7 +45,6 @@ const JobAdForm = ({ closeModal }: Props) => {
   const { mutateAsync: createJob } = useCreateJob();
 
   const handleSubmit = (values: NewJob) => {
-    console.log(values);
     createJob(values)
       .then((response) => {
         closeModal();
