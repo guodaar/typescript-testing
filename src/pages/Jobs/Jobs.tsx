@@ -37,12 +37,12 @@ const Jobs = () => {
 
   const handleDateSortChange = (selectedOption: any) => {
     setSelectedDateOption(selectedOption);
-    setSelectedPriceOption(undefined);
+    setSelectedPriceOption({ value: "", label: "Sort by salary" });
   };
 
   const handlePriceSortChange = (selectedOption: any) => {
     setSelectedPriceOption(selectedOption);
-    setSelectedDateOption(undefined);
+    setSelectedDateOption({ value: "", label: "Sort by starting date" });
   };
 
   if (isLoading) {
