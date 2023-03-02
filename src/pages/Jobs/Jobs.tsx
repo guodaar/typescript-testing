@@ -1,21 +1,16 @@
 import { DateOption, PriceOption } from "../../types/select";
 import { borderRadius, darkGrey, mainBgColor } from "../../const/styles";
 import { dateOptions, priceOptions } from "../../const/selectOptions";
-import {
-  sortSelectByDateAsc,
-  sortSelectByDateDesc,
-  sortSelectByPriceAsc,
-  sortSelectByPriceDesc,
-} from "../../utils/select";
 
 import Button from "../../components/Button/Button";
 import Emoji from "../../components/Emoji/Emoji";
 import JobAdForm from "./JobAdForm";
 import JobApplicationForm from "./JobApplicationForm";
 import JobCard from "./JobCard";
+import LoginForm from "./LoginForm";
 import Select from "react-select";
 import StyledModal from "../../components/StyledModal/StyledModal";
-import StyledSelect from "../../components/Select/StyledSelect";
+import { sortSelect } from "../../utils/select";
 import styled from "styled-components";
 import { useJobs } from "../../hooks/jobsHooks";
 import { useState } from "react";
@@ -24,8 +19,16 @@ const Jobs = () => {
   const { data: jobs, isLoading } = useJobs();
   const [adFormOpen, setAdFormOpen] = useState(false);
   const [applicationFormOpen, setApplicationFormOpen] = useState(false);
-  const [selectedDateOption, setSelectedDateOption] = useState<DateOption>();
-  const [selectedPriceOption, setSelectedPriceOption] = useState<PriceOption>();
+  const [loginFormOpen, setLoginFormOpen] = useState(false);
+  const [selectedDateOption, setSelectedDateOption] = useState<DateOption>({
+    value: "",
+    label: "Sort by starting date",
+  });
+
+  const [selectedPriceOption, setSelectedPriceOption] = useState<PriceOption>({
+    value: "",
+    label: "Sort by salary",
+  });
 
   const handleToggleAdForm = () => {
     setAdFormOpen((prevOpen) => !prevOpen);
@@ -35,14 +38,22 @@ const Jobs = () => {
     setApplicationFormOpen((prevOpen) => !prevOpen);
   };
 
-  const handleDateSortChange = (selectedOption: any) => {
-    setSelectedDateOption(selectedOption);
+  const handleDateSortChange = (selectedOption: DateOption | null) => {
+    setSelectedDateOption(
+      selectedOption || { value: "", label: "Sort by starting date" }
+    );
     setSelectedPriceOption({ value: "", label: "Sort by salary" });
   };
 
-  const handlePriceSortChange = (selectedOption: any) => {
-    setSelectedPriceOption(selectedOption);
+  const handlePriceSortChange = (selectedOption: PriceOption | null) => {
+    setSelectedPriceOption(
+      selectedOption || { value: "", label: "Sort by salary" }
+    );
     setSelectedDateOption({ value: "", label: "Sort by starting date" });
+  };
+
+  const handleToggleLoginForm = () => {
+    setLoginFormOpen((prevOpen) => !prevOpen);
   };
 
   if (isLoading) {
@@ -53,23 +64,7 @@ const Jobs = () => {
     return <div>There are no jobs added yet</div>;
   }
 
-  let sortedJobs = [...jobs];
-
-  if (selectedDateOption) {
-    if (selectedDateOption.value === "descending") {
-      sortedJobs = sortSelectByDateDesc(sortedJobs);
-    } else if (selectedDateOption.value === "ascending") {
-      sortedJobs = sortSelectByDateAsc(sortedJobs);
-    }
-  }
-
-  if (selectedPriceOption) {
-    if (selectedPriceOption.value === "highest") {
-      sortedJobs = sortSelectByPriceDesc(sortedJobs);
-    } else if (selectedPriceOption.value === "lowest") {
-      sortedJobs = sortSelectByPriceAsc(sortedJobs);
-    }
-  }
+  let sortedJobs = sortSelect(jobs, selectedDateOption, selectedPriceOption);
 
   return (
     <Container>
@@ -82,20 +77,20 @@ const Jobs = () => {
           onClick={handleToggleAdForm}
           title="post a job"
         />
-        <StyledSelect>
-          <Select
-            options={dateOptions}
-            value={selectedDateOption}
-            onChange={handleDateSortChange}
-            placeholder="Sort by starting date"
-          />
-          <Select
-            options={priceOptions}
-            value={selectedPriceOption}
-            onChange={handlePriceSortChange}
-            placeholder="Sort by salary"
-          />
-        </StyledSelect>
+        <Select
+          options={dateOptions}
+          value={selectedDateOption}
+          onChange={handleDateSortChange}
+          placeholder="Sort by starting date"
+        />
+        <Select
+          options={priceOptions}
+          value={selectedPriceOption}
+          onChange={handlePriceSortChange}
+          placeholder="Sort by salary"
+        />
+        <Button onClick={handleToggleAdForm} title="post a job" greyVariant />
+        <Button onClick={handleToggleLoginForm} title="log In" greyVariant />
       </TopContainer>
       <JobsContainer>
         {sortedJobs.map((job, index) => (
@@ -119,6 +114,13 @@ const Jobs = () => {
         closeModal={handleToggleApplicationForm}
       >
         <JobApplicationForm closeModal={handleToggleApplicationForm} />
+      </StyledModal>
+      <StyledModal
+        modalSize="small"
+        modalIsOpen={loginFormOpen}
+        closeModal={handleToggleLoginForm}
+      >
+        <LoginForm closeModal={handleToggleLoginForm} />
       </StyledModal>
     </Container>
   );
