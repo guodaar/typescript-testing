@@ -1,7 +1,8 @@
-import axios from "axios";
 import { LoginUser, NewUser, User } from "../types/user";
 
-const USERS_API_URL = "https://testapi.io/api/rokasandreikenas/resource/user";
+import axios from "axios";
+
+const USERS_API_URL = "	https://testapi.io/api/guodaarr/resource/usersServer";
 
 export const fetchUsers = async (): Promise<User[]> => {
   const response = await axios.get(USERS_API_URL);
