@@ -29,9 +29,7 @@ const validationSchema: Yup.ObjectSchema<NewJob> = Yup.object().shape({
   title: Yup.string().required(requiredField),
   price: Yup.number().required(requiredField),
   description: Yup.string().required(requiredField),
-  type: Yup.mixed<JobType>()
-    .oneOf(["freelance", "fullTime", "partTime"])
-    .required(requiredField),
+  type: Yup.mixed<JobType>().oneOf(["freelance", "fullTime", "partTime"]).required(requiredField),
   starting_from: Yup.string().required(requiredField),
   has_drivers_license: Yup.boolean().required(requiredField),
   user_id: Yup.number().required(),
@@ -47,7 +45,7 @@ const JobAdForm = ({ closeModal }: Props) => {
   const handleSubmit = (values: NewJob) => {
     console.log(values);
     createJob(values)
-      .then((response) => {
+      .then(() => {
         closeModal();
         toast("Job added!", {
           icon: "💪",
@@ -72,17 +70,10 @@ const JobAdForm = ({ closeModal }: Props) => {
           <FormikInput type="text" name="title" placeholder="Job title" />
           <InputRow>
             <InputRowItem>
-              <FormikInput
-                type="number"
-                name="price"
-                placeholder="Pay offered"
-              />
+              <FormikInput type="number" name="price" placeholder="Pay offered" />
             </InputRowItem>
             <InputRowItem>
-              <FormikDatepicker
-                name="starting_from"
-                placeholder="Enter start date"
-              />
+              <FormikDatepicker name="starting_from" placeholder="Enter start date" />
             </InputRowItem>
           </InputRow>
           <FormikSelect
@@ -93,21 +84,13 @@ const JobAdForm = ({ closeModal }: Props) => {
               { value: "freelance", label: "Freelance" },
             ]}
           />
-          <FormikTextArea
-            type="text"
-            name="description"
-            placeholder="Job description"
-          />
+          <FormikTextArea type="text" name="description" placeholder="Job description" />
           <RadioContainer>
-            <FormikInput
-              type="checkbox"
-              name="has_drivers_license"
-              id="has_drivers_license"
-            />
+            <FormikInput type="checkbox" name="has_drivers_license" id="has_drivers_license" />
             <label htmlFor="has_drivers_license">Driving license needed</label>
           </RadioContainer>
           <ButtonsContainer>
-            <Button greyVariant={true} onClick={closeModal} title="close" />
+            <Button onClick={closeModal} title="close" greyVariant />
             <Button title="save" onClick={submitForm} />
           </ButtonsContainer>
         </StyledForm>
