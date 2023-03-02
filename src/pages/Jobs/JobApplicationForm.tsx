@@ -42,7 +42,7 @@ const JobApplicationForm = ({ closeModal }: Props) => {
     });
     closeModal();
     // createJob(values)
-    //   .then((response) => {
+    //   .then(() => {
     //     closeModal();
     //   })
     //   .catch((error) => {
@@ -78,7 +78,7 @@ const JobApplicationForm = ({ closeModal }: Props) => {
             </InputRowItem>
           </InputRow>
           <ButtonsContainer>
-            <Button greyVariant={true} onClick={closeModal} title="close" />
+            <Button onClick={closeModal} title="close" greyVariant />
             <Button title="submit application" onClick={submitForm} />
           </ButtonsContainer>
         </StyledForm>
@@ -107,7 +107,7 @@ const StyledForm = styled(Form)`
   flex-direction: column;
   gap: 16px;
   justify-content: center;
-  padding: 42px;
+  padding: 32px;
 `;
 
 const InputRow = styled.div`
