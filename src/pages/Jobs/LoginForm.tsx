@@ -1,11 +1,12 @@
 import * as Yup from "yup";
 
 import { Form, Formik } from "formik";
+import { LoginUser, Role } from "../../types/user";
 import { darkGrey, lightGrey } from "../../const/styles";
 
 import Button from "../../components/Button/Button";
 import FormikInput from "../../components/Formik/FormikInput";
-import { LoginUser } from "../../types/user";
+import FormikSelect from "../../components/Formik/FormikSelect";
 import { requiredField } from "../../const/validations";
 import styled from "styled-components";
 import toast from "react-hot-toast";
@@ -14,11 +15,14 @@ import { useLoginUser } from "../../hooks/userHooks";
 const validationSchema: Yup.ObjectSchema<LoginUser> = Yup.object().shape({
   email: Yup.string().email("Invalid Email").required(requiredField),
   password: Yup.string().required(requiredField),
+  role: Yup.mixed<Role>().oneOf(['employee', 'employeer', 'admin']).required(requiredField)
+
 });
 
 const initialValues: LoginUser = {
   email: "",
   password: "",
+  role: 'employee'
 };
 
 type Props = {
@@ -57,6 +61,14 @@ const LoginForm = ({ closeModal }: Props) => {
               <FormikInput type="password" name="password" placeholder="Password" />
             </InputRowItem>
           </InputRow>
+          <FormikSelect
+            name="type"
+            options={[
+              { value: "employee", label: "Employee" },
+              { value: "employeer", label: "Employeer" },
+              { value: "admin", label: "Admin" },
+            ]}
+          />
           <ButtonsContainer>
             <Button onClick={closeModal} title="close" greyVariant />
             <Button type="submit" disabled={isSubmitting} title="Login" />

@@ -9,8 +9,9 @@ export type NewJob = {
   type: JobType;
   starting_from: string;
   has_drivers_license: boolean;
-  user_id: User["id"]; //jeigu pasikeistu User.id tipas, nereiks ir cia koreguoti
+  user_id: User["id"];
   description?: string;
+  image_url: string;
 };
 
 export type Job = NewJob & EntityMeta;

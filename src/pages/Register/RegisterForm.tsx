@@ -1,12 +1,13 @@
 import * as Yup from "yup";
 
 import { Form, Formik } from "formik";
+import { NewUser, Role } from "../../types/user";
 import { darkGrey, lightGrey } from "../../const/styles";
 
 import { AiOutlineCloseSquare } from 'react-icons/ai';
 import Button from "../../components/Button/Button";
 import FormikInput from "../../components/Formik/FormikInput";
-import { NewUser } from "../../types/user";
+import FormikSelect from "../../components/Formik/FormikSelect";
 import { requiredField } from "../../const/validations";
 import styled from "styled-components";
 import { toast } from "react-hot-toast";
@@ -17,6 +18,7 @@ const initialValues: NewUser = {
   password: '',
   first_name: '',
   last_name: '',
+  role: 'employee'
 };
 
 const validationSchema: Yup.ObjectSchema<NewUser> = Yup.object().shape({
@@ -25,6 +27,7 @@ const validationSchema: Yup.ObjectSchema<NewUser> = Yup.object().shape({
   confirmPassword: Yup.string().required(requiredField).oneOf([Yup.ref("password")], "Your passwords do not match."),
   first_name: Yup.string().required(requiredField),
   last_name: Yup.string().required(requiredField),
+  role: Yup.mixed<Role>().oneOf(['employee', 'employeer', 'admin']).required(requiredField)
 });
 
 type Props = {
@@ -97,14 +100,14 @@ const RegisterForm = ({ closeModal }: Props) => {
               />
             </InputRowItem>
           </InputRow>
-          <InputRow>
-            <FormikInput
-              type="checkbox"
-              name="employer"
-              id="employer"
-            />
-            <label htmlFor="employer">An Employer</label>
-          </InputRow>
+          <FormikSelect
+            name="type"
+            options={[
+              { value: "employee", label: "Employee" },
+              { value: "employeer", label: "Employeer" },
+              { value: "admin", label: "Admin" },
+            ]}
+          />
           <ButtonsContainer>
             <Button greyVariant onClick={closeModal} title="Cancel" />
             <Button title="Register" onClick={submitForm} />
