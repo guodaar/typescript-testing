@@ -1,4 +1,6 @@
+export type OptionValue = string | number | null | boolean;
+
 export type Option = {
-  value: any;
+  value: OptionValue;
   label: string;
 };
