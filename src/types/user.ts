@@ -1,10 +1,13 @@
 import { EntityMeta } from "./entity";
 
+export type Role = "employee" | "employeer" | "admin";
+
 export type NewUser = {
   email: string;
   password: string;
   first_name: string;
   last_name: string;
+  role?: Role;
 };
 
 export type User = NewUser & EntityMeta;
