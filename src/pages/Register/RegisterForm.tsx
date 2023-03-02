@@ -15,7 +15,6 @@ import { useCreateUser } from "../../hooks/userHooks";
 const initialValues: NewUser = {
   email: '',
   password: '',
-  confirmPassword: '',
   first_name: '',
   last_name: '',
 };
@@ -107,7 +106,7 @@ const RegisterForm = ({ closeModal }: Props) => {
             <label htmlFor="employer">An Employer</label>
           </InputRow>
           <ButtonsContainer>
-            <Button greyVariant={true} onClick={closeModal} title="Cancel" />
+            <Button greyVariant onClick={closeModal} title="Cancel" />
             <Button title="Register" onClick={submitForm} />
           </ButtonsContainer>
           <CloseBtn onClick={closeModal}/>

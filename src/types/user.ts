@@ -3,7 +3,6 @@ import { EntityMeta } from "./entity";
 export type NewUser = {
   email: string;
   password: string;
-  confirmPassword?: string;
   first_name: string;
   last_name: string;
 };
