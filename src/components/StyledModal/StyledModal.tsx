@@ -1,9 +1,4 @@
-import {
-  borderRadius,
-  lightGrey,
-  mainBgColor,
-  mediumGrey,
-} from "../../const/styles";
+import { borderRadius, lightGrey, mainBgColor, mediumGrey } from "../../const/styles";
 
 import Modal from "react-modal";
 import { PropsWithChildren } from "react";
@@ -15,18 +10,9 @@ interface StyledModalProps extends PropsWithChildren {
   modalIsOpen: boolean;
 }
 
-const StyledModal = ({
-  modalIsOpen,
-  modalSize,
-  closeModal,
-  children,
-}: StyledModalProps) => {
+const StyledModal = ({ modalIsOpen, modalSize, closeModal, children }: StyledModalProps) => {
   return (
-    <Container
-      isOpen={modalIsOpen}
-      onRequestClose={closeModal}
-      modalSize={modalSize}
-    >
+    <Container isOpen={modalIsOpen} onRequestClose={closeModal} modalSize={modalSize}>
       {children}
     </Container>
   );
