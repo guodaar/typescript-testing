@@ -1,17 +1,17 @@
 import { borderRadius, darkGrey, mainBgColor } from '../../const/styles';
 
-import Button from "../../components/Button/Button";
-import Emoji from "../../components/Emoji/Emoji";
-import JobAdForm from "./JobAdForm";
-import JobApplicationForm from "./JobApplicationForm";
-import JobCard from "./JobCard";
-import LoginForm from "./LoginForm";
-import RegisterForm from "../Register/RegisterForm";
+import Button from '../../components/Button/Button';
+import Emoji from '../../components/Emoji/Emoji';
+import JobAdForm from './JobAdForm';
+import JobApplicationForm from './JobApplicationForm';
+import JobCard from './JobCard';
 import Loader from '../../components/Loader/Loader';
-import StyledModal from "../../components/StyledModal/StyledModal";
-import styled from "styled-components";
-import { useJobs } from "../../hooks/jobsHooks";
-import { useState } from "react";
+import LoginForm from './LoginForm';
+import RegisterForm from '../Register/RegisterForm';
+import StyledModal from '../../components/StyledModal/StyledModal';
+import styled from 'styled-components';
+import { useJobs } from '../../hooks/jobsHooks';
+import { useState } from 'react';
 
 const Jobs = () => {
   const { data: jobs, isLoading } = useJobs();
@@ -19,10 +19,10 @@ const Jobs = () => {
   const [applicationFormOpen, setApplicationFormOpen] = useState(false);
   const [registerOpen, setRegisterOpen] = useState(false);
   const [loginFormOpen, setLoginFormOpen] = useState(false);
-  
+
   const handleRegisterToggle = () => {
-    setRegisterOpen((prevOpen) => !prevOpen)
-  }
+    setRegisterOpen((prevOpen) => !prevOpen);
+  };
 
   const handleToggleAdForm = () => {
     setAdFormOpen((prevOpen) => !prevOpen);
@@ -35,10 +35,6 @@ const Jobs = () => {
   const handleToggleLoginForm = () => {
     setLoginFormOpen((prevOpen) => !prevOpen);
   };
-
-  if (isLoading) {
-    return <div>Jobs are loading...</div>;
-  }
 
   if (!isLoading && !jobs?.length) {
     return <div>There are no jobs added yet</div>;
@@ -58,20 +54,16 @@ const Jobs = () => {
       <JobsContainer>
         {jobs && jobs.map((job, index) => <JobCard key={index} job={job} onClick={handleToggleApplicationForm} />)}
       </JobsContainer>
-      <StyledModal modalSize="medium" modalIsOpen={adFormOpen} closeModal={handleToggleAdForm}>
+      <StyledModal modalSize="medium" modalIsOpen={adFormOpen} closeModal={handleToggleAdForm} />
       <StyledModal modalSize="medium" modalIsOpen={adFormOpen} closeModal={handleToggleAdForm}>
         <JobAdForm closeModal={handleToggleAdForm} />
       </StyledModal>
       <StyledModal modalSize="small" modalIsOpen={applicationFormOpen} closeModal={handleToggleApplicationForm}>
         <JobApplicationForm closeModal={handleToggleApplicationForm} />
       </StyledModal>
-      <StyledModal
-        modalSize="medium"
-        modalIsOpen={registerOpen}
-        closeModal={handleRegisterToggle}
-        >
+      <StyledModal modalSize="medium" modalIsOpen={registerOpen} closeModal={handleRegisterToggle}>
         <RegisterForm closeModal={handleRegisterToggle} />
-        </StyledModal>
+      </StyledModal>
       <StyledModal modalSize="small" modalIsOpen={loginFormOpen} closeModal={handleToggleLoginForm}>
         <LoginForm closeModal={handleToggleLoginForm} />
       </StyledModal>
