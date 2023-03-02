@@ -1,12 +1,8 @@
-import styled from "styled-components";
+import { borderRadius, lightGrey, mainBgColor, mediumGrey } from "../../const/styles";
+
 import Modal from "react-modal";
 import { PropsWithChildren } from "react";
-import {
-  borderRadius,
-  lightGrey,
-  mainBgColor,
-  mediumGrey,
-} from "../../const/styles";
+import styled from "styled-components";
 
 interface StyledModalProps extends PropsWithChildren {
   modalSize: string;
@@ -14,18 +10,9 @@ interface StyledModalProps extends PropsWithChildren {
   modalIsOpen: boolean;
 }
 
-const StyledModal = ({
-  modalIsOpen,
-  modalSize,
-  closeModal,
-  children,
-}: StyledModalProps) => {
+const StyledModal = ({ modalIsOpen, modalSize, closeModal, children }: StyledModalProps) => {
   return (
-    <Container
-      isOpen={modalIsOpen}
-      onRequestClose={closeModal}
-      modalSize={modalSize}
-    >
+    <Container isOpen={modalIsOpen} onRequestClose={closeModal} modalSize={modalSize}>
       {children}
     </Container>
   );
@@ -33,7 +20,8 @@ const StyledModal = ({
 
 export default StyledModal;
 
-const Container = styled(Modal)<{ modalSize: string }>`
+const Container = styled(Modal) <{ modalSize: string }>`
+  position: relative;
   min-height: 18rem;
   background-color: ${mainBgColor};
   color: ${mediumGrey};

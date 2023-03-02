@@ -42,7 +42,7 @@ const JobApplicationForm = ({ closeModal }: Props) => {
     });
     closeModal();
     // createJob(values)
-    //   .then((response) => {
+    //   .then(() => {
     //     closeModal();
     //   })
     //   .catch((error) => {
@@ -63,38 +63,22 @@ const JobApplicationForm = ({ closeModal }: Props) => {
           </Title>
           <InputRow>
             <InputRowItem>
-              <FormikInput
-                type="text"
-                name="first_name"
-                placeholder="First name"
-              />
+              <FormikInput type="text" name="first_name" placeholder="First name" />
             </InputRowItem>
             <InputRowItem>
-              <FormikInput
-                type="text"
-                name="last_name"
-                placeholder="Last name"
-              />
+              <FormikInput type="text" name="last_name" placeholder="Last name" />
             </InputRowItem>
           </InputRow>
           <InputRow>
             <InputRowItem>
-              <FormikInput
-                type="email"
-                name="email"
-                placeholder="Your email address"
-              />
+              <FormikInput type="email" name="email" placeholder="Your email address" />
             </InputRowItem>
             <InputRowItem>
-              <FormikInput
-                type="number"
-                name="phone_number"
-                placeholder="Your phone number"
-              />
+              <FormikInput type="number" name="phone_number" placeholder="Your phone number" />
             </InputRowItem>
           </InputRow>
           <ButtonsContainer>
-            <Button greyVariant={true} onClick={closeModal} title="close" />
+            <Button onClick={closeModal} title="close" greyVariant />
             <Button title="submit application" onClick={submitForm} />
           </ButtonsContainer>
         </StyledForm>
