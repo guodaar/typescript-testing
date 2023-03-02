@@ -1,4 +1,6 @@
+import { DateOption, PriceOption } from "../../types/select";
 import { borderRadius, darkGrey, mainBgColor } from "../../const/styles";
+import { dateOptions, priceOptions } from "../../const/selectOptions";
 import {
   driversLicenseOptions,
   jobTypeOptions,
@@ -12,9 +14,12 @@ import { Job } from "../../types/job";
 import JobAdForm from "./JobAdForm";
 import JobApplicationForm from "./JobApplicationForm";
 import JobCard from "./JobCard";
+import Loader from "../../components/Loader/Loader";
 import LoginForm from "./LoginForm";
 import RegisterForm from "../Register/RegisterForm";
+import Select from "react-select";
 import StyledModal from "../../components/StyledModal/StyledModal";
+import { sortSelect } from "../../utils/select";
 import styled from "styled-components";
 import { useJobs } from "../../hooks/jobsHooks";
 import { useState } from "react";
@@ -26,12 +31,20 @@ const Jobs = () => {
   const [selectedLicenseOption, setSelectedLicenseOption] = useState(
     driversLicenseOptions[0]
   );
+  const [selectedDateOption, setSelectedDateOption] = useState<DateOption>({
+    value: "",
+    label: "Sort by starting date",
+  });
+  const [selectedPriceOption, setSelectedPriceOption] = useState<PriceOption>({
+    value: "",
+    label: "Sort by salary",
+  });
   const [toggle, setToggle] = useState(false);
-  const { data: jobs, isLoading } = useJobs();
   const [adFormOpen, setAdFormOpen] = useState(false);
   const [applicationFormOpen, setApplicationFormOpen] = useState(false);
   const [registerOpen, setRegisterOpen] = useState(false);
   const [loginFormOpen, setLoginFormOpen] = useState(false);
+  const { data: jobs, isLoading } = useJobs();
 
   const handleRegisterToggle = () => {
     setRegisterOpen((prevOpen) => !prevOpen);
@@ -52,6 +65,20 @@ const Jobs = () => {
   const handleClearFilters = () => {
     setSelectedLicenseOption(driversLicenseOptions[0]);
     setSelectedTypeOption(jobTypeOptions[0]);
+  };
+
+  const handleDateSortChange = (selectedOption: DateOption | null) => {
+    setSelectedDateOption(
+      selectedOption || { value: "", label: "Sort by starting date" }
+    );
+    setSelectedPriceOption({ value: "", label: "Sort by salary" });
+  };
+
+  const handlePriceSortChange = (selectedOption: PriceOption | null) => {
+    setSelectedPriceOption(
+      selectedOption || { value: "", label: "Sort by salary" }
+    );
+    setSelectedDateOption({ value: "", label: "Sort by starting date" });
   };
 
   const handleToggleLoginForm = () => {
@@ -84,22 +111,43 @@ const Jobs = () => {
       job.has_drivers_license === selectedLicenseOption.value
   );
 
-  console.log(filteredByDriversLicense);
+  console.log(filteredByDriversLicense, filteredByJobType);
 
   // const filteredJobs: Job[] = filteredByJobType.length
   //   ? filteredByJobType
   //   : jobs;
+  let sortedJobs = sortSelect(jobs, selectedDateOption, selectedPriceOption);
 
   return (
     <Container>
       <Title>
         Vilnius Tech Jobs <Emoji symbol="🎉" />
       </Title>
+      <Loader isLoading={isLoading} />
       <TopContainer>
         <Button onClick={handleToggleFilters} title="filter jobs" greyVariant />
         <Button onClick={handleRegisterToggle} title="Register" greyVariant />
         <Button onClick={handleToggleLoginForm} title="Log In" greyVariant />
         <Button onClick={handleToggleAdForm} title="Post a job" greyVariant />
+        <Button
+          greyVariant={true}
+          onClick={handleToggleAdForm}
+          title="post a job"
+        />
+        <Select
+          options={dateOptions}
+          value={selectedDateOption}
+          onChange={handleDateSortChange}
+          placeholder="Sort by starting date"
+        />
+        <Select
+          options={priceOptions}
+          value={selectedPriceOption}
+          onChange={handlePriceSortChange}
+          placeholder="Sort by salary"
+        />
+        <Button onClick={handleToggleAdForm} title="post a job" greyVariant />
+        <Button onClick={handleToggleLoginForm} title="log In" greyVariant />
       </TopContainer>
       <FiltersBar toggle={toggle}>
         <FilterComponent
@@ -121,7 +169,15 @@ const Jobs = () => {
         />
       </FiltersBar>
       <JobsContainer>
-        {jobs.map((job, index) => (
+        {jobs &&
+          jobs.map((job, index) => (
+            <JobCard
+              key={index}
+              job={job}
+              onClick={handleToggleApplicationForm}
+            />
+          ))}
+        {sortedJobs.map((job, index) => (
           <JobCard
             key={index}
             job={job}
