@@ -1,19 +1,22 @@
 import * as Yup from "yup";
 
 import { Form, Formik } from "formik";
+import { LoginUser, Role } from "../../types/user";
 import { darkGrey, lightGrey } from "../../const/styles";
 
 import Button from "../../components/Button/Button";
 import FormikInput from "../../components/Formik/FormikInput";
-import { LoginUser } from "../../types/user";
+import { UserContext } from "../../contexts/UserContext";
 import { requiredField } from "../../const/validations";
 import styled from "styled-components";
 import toast from "react-hot-toast";
+import { useContext } from "react";
 import { useLoginUser } from "../../hooks/userHooks";
 
 const validationSchema: Yup.ObjectSchema<LoginUser> = Yup.object().shape({
   email: Yup.string().email("Invalid Email").required(requiredField),
   password: Yup.string().required(requiredField),
+  role: Yup.mixed<Role>().oneOf(["employee", "employeer", "admin"]).required(requiredField),
 });
 
 const initialValues: LoginUser = {
@@ -26,11 +29,13 @@ type Props = {
 };
 
 const LoginForm = ({ closeModal }: Props) => {
+  const { setUser } = useContext(UserContext);
   const { mutateAsync: loginUser } = useLoginUser();
 
   const handleSubmit = (values: LoginUser) => {
     loginUser(values)
-      .then(() => {
+      .then((response) => {
+        setUser(response);
         toast.success("Successfully logged in!");
       })
       .catch((error) => {

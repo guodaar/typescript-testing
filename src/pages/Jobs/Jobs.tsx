@@ -1,4 +1,5 @@
 import { borderRadius, darkGrey, mainBgColor } from "../../const/styles";
+import { useContext, useState } from "react";
 
 import Button from "../../components/Button/Button";
 import Emoji from "../../components/Emoji/Emoji";
@@ -8,20 +9,21 @@ import JobCard from "./JobCard";
 import LoginForm from "./LoginForm";
 import RegisterForm from "../Register/RegisterForm";
 import StyledModal from "../../components/StyledModal/StyledModal";
+import { UserContext } from "../../contexts/UserContext";
 import styled from "styled-components";
 import { useJobs } from "../../hooks/jobsHooks";
-import { useState } from "react";
 
 const Jobs = () => {
   const { data: jobs, isLoading } = useJobs();
+  const { user } = useContext(UserContext);
   const [adFormOpen, setAdFormOpen] = useState(false);
   const [applicationFormOpen, setApplicationFormOpen] = useState(false);
   const [registerOpen, setRegisterOpen] = useState(false);
   const [loginFormOpen, setLoginFormOpen] = useState(false);
-  
+
   const handleRegisterToggle = () => {
-    setRegisterOpen((prevOpen) => !prevOpen)
-  }
+    setRegisterOpen((prevOpen) => !prevOpen);
+  };
 
   const handleToggleAdForm = () => {
     setAdFormOpen((prevOpen) => !prevOpen);
@@ -49,9 +51,14 @@ const Jobs = () => {
         Vilnius Tech Jobs <Emoji symbol="🎉" />
       </Title>
       <TopContainer>
-        <Button onClick={handleRegisterToggle} title="Register" greyVariant />
-        <Button onClick={handleToggleLoginForm} title="Log In" greyVariant />
-        <Button onClick={handleToggleAdForm} title="Post a job" greyVariant />
+        {user ? (
+          <Button onClick={handleToggleAdForm} title="Post a job" greyVariant />
+        ) : (
+          <>
+            <Button onClick={handleRegisterToggle} title="Register" greyVariant />
+            <Button onClick={handleToggleLoginForm} title="Log In" greyVariant />
+          </>
+        )}
       </TopContainer>
       <JobsContainer>
         {jobs.map((job, index) => (
@@ -68,13 +75,9 @@ const Jobs = () => {
       >
         <JobApplicationForm closeModal={handleToggleApplicationForm} />
       </StyledModal>
-      <StyledModal
-        modalSize="medium"
-        modalIsOpen={registerOpen}
-        closeModal={handleRegisterToggle}
-        >
+      <StyledModal modalSize="medium" modalIsOpen={registerOpen} closeModal={handleRegisterToggle}>
         <RegisterForm closeModal={handleRegisterToggle} />
-        </StyledModal>
+      </StyledModal>
       <StyledModal modalSize="small" modalIsOpen={loginFormOpen} closeModal={handleToggleLoginForm}>
         <LoginForm closeModal={handleToggleLoginForm} />
       </StyledModal>
