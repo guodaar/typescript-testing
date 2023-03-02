@@ -30,12 +30,12 @@ const Jobs = () => {
 
   return (
     <Container>
-      <Loader isLoading={isLoading} />
       <Title>
         Vilnius Tech Jobs <Emoji symbol="🎉" />
       </Title>
+      <Loader isLoading={isLoading} />
       <TopContainer>
-        <Button greyVariant={true} onClick={handleToggleAdForm} title="post a job" />
+        <Button onClick={handleToggleAdForm} title="post a job" greyVariant />
       </TopContainer>
       <JobsContainer>
         {jobs && jobs.map((job, index) => <JobCard key={index} job={job} onClick={handleToggleApplicationForm} />)}
