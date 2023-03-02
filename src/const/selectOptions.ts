@@ -1,8 +1,8 @@
 import { DateOption, PriceOption } from "../types/select";
 
 export const dateOptions: DateOption[] = [
-  { value: "descending", label: "Newest first" },
-  { value: "ascending", label: "Oldest first" },
+  { value: "descending", label: "Newest date" },
+  { value: "ascending", label: "Oldest date" },
 ];
 
 export const priceOptions: PriceOption[] = [
