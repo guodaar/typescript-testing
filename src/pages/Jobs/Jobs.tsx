@@ -1,7 +1,14 @@
 import { borderRadius, darkGrey, mainBgColor } from "../../const/styles";
+import {
+  driversLicenseOptions,
+  jobTypeOptions,
+} from "../../const/filterOptions";
 
 import Button from "../../components/Button/Button";
 import Emoji from "../../components/Emoji/Emoji";
+import FilterComponent from "../../components/Filters/FilterComponent";
+import FiltersBar from "../../components/Filters/FiltersBar";
+import { Job } from "../../types/job";
 import JobAdForm from "./JobAdForm";
 import JobApplicationForm from "./JobApplicationForm";
 import JobCard from "./JobCard";
@@ -11,6 +18,13 @@ import { useJobs } from "../../hooks/jobsHooks";
 import { useState } from "react";
 
 const Jobs = () => {
+  const [selectedTypeOption, setSelectedTypeOption] = useState(
+    jobTypeOptions[0]
+  );
+  const [selectedLicenseOption, setSelectedLicenseOption] = useState(
+    driversLicenseOptions[0]
+  );
+  const [toggle, setToggle] = useState(false);
   const { data: jobs, isLoading } = useJobs();
   const [adFormOpen, setAdFormOpen] = useState(false);
   const [applicationFormOpen, setApplicationFormOpen] = useState(false);
@@ -23,6 +37,15 @@ const Jobs = () => {
     setApplicationFormOpen((prevOpen) => !prevOpen);
   };
 
+  const handleToggleFilters = () => {
+    setToggle(!toggle);
+  };
+
+  const handleClearFilters = () => {
+    setSelectedLicenseOption(driversLicenseOptions[0]);
+    setSelectedTypeOption(jobTypeOptions[0]);
+  };
+
   if (isLoading) {
     return <div>Jobs are loading...</div>;
   }
@@ -30,6 +53,30 @@ const Jobs = () => {
   if (!isLoading && !jobs?.length) {
     return <div>There are no jobs added yet</div>;
   }
+
+  const handleTypeChange = (option: typeof jobTypeOptions[number]) => {
+    setSelectedTypeOption(option);
+  };
+
+  const handleDriverChange = (option: typeof driversLicenseOptions[number]) => {
+    setSelectedLicenseOption(option);
+  };
+
+  const filteredByJobType: Job[] = jobs.filter(
+    (job) => job.type === selectedTypeOption.value
+  );
+
+  const filteredByDriversLicense: Job[] = jobs.filter(
+    (job) =>
+      selectedLicenseOption.value === null ||
+      job.has_drivers_license === selectedLicenseOption.value
+  );
+
+  console.log(filteredByDriversLicense);
+
+  // const filteredJobs: Job[] = filteredByJobType.length
+  //   ? filteredByJobType
+  //   : jobs;
 
   return (
     <Container>
@@ -39,12 +86,36 @@ const Jobs = () => {
       <TopContainer>
         <Button
           greyVariant={true}
+          onClick={handleToggleFilters}
+          title="filter jobs"
+        />
+        <Button
+          greyVariant={false}
           onClick={handleToggleAdForm}
           title="post a job"
         />
       </TopContainer>
+      <FiltersBar toggle={toggle}>
+        <FilterComponent
+          value={selectedTypeOption}
+          onChange={handleTypeChange}
+          options={jobTypeOptions}
+          controlText="Job type"
+        />
+        <FilterComponent
+          value={selectedLicenseOption}
+          onChange={handleDriverChange}
+          options={driversLicenseOptions}
+          controlText="Driver's license"
+        />
+        <Button
+          greyVariant={true}
+          onClick={handleClearFilters}
+          title="clear filters"
+        />
+      </FiltersBar>
       <JobsContainer>
-        {jobs.map((job, index) => (
+        {filteredByDriversLicense.map((job, index) => (
           <JobCard
             key={index}
             job={job}
@@ -86,6 +157,7 @@ const Container = styled.div`
 const TopContainer = styled.div`
   display: flex;
   justify-content: flex-start;
+  align-items: center;
 `;
 
 const JobsContainer = styled.div`
