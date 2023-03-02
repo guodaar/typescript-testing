@@ -18,7 +18,7 @@ import { useCreateJob } from "../../hooks/jobsHooks";
 const initialValues: NewJob = {
   title: "",
   price: "",
-  company_logo: "",
+  image_url: "",
   type: "fullTime",
   starting_from: "",
   has_drivers_license: false,
@@ -29,7 +29,7 @@ const initialValues: NewJob = {
 const validationSchema: Yup.ObjectSchema<NewJob> = Yup.object().shape({
   title: Yup.string().required(requiredField),
   price: Yup.number().required(requiredField),
-  company_logo: Yup.string().required(requiredField),
+  image_url: Yup.string().required(requiredField),
   description: Yup.string().required(requiredField),
   type: Yup.mixed<JobType>().oneOf(["freelance", "fullTime", "partTime"]).required(requiredField),
   starting_from: Yup.string().required(requiredField),
@@ -78,7 +78,7 @@ const JobAdForm = ({ closeModal }: Props) => {
               <FormikDatepicker name="starting_from" placeholder="Enter start date" />
             </InputRowItem>
           </InputRow>
-          <FormikInput type="text" name="company_logo" placeholder="Company Logo URL" />
+          <FormikInput type="text" name="image_url" placeholder="Company Logo URL" />
           <FormikSelect
             name="type"
             options={[
