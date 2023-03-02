@@ -1,26 +1,16 @@
-import { borderRadius, darkGrey, mainBgColor } from "../../const/styles";
 import { DateOption, PriceOption } from "../../types/select";
 import { borderRadius, darkGrey, mainBgColor } from "../../const/styles";
 import { dateOptions, priceOptions } from "../../const/selectOptions";
 
 import Button from "../../components/Button/Button";
 import Emoji from "../../components/Emoji/Emoji";
+import { Job } from "../../types/job";
 import JobAdForm from "./JobAdForm";
 import JobApplicationForm from "./JobApplicationForm";
 import JobCard from "./JobCard";
 import Loader from "../../components/Loader/Loader";
 import LoginForm from "./LoginForm";
 import RegisterForm from "../Register/RegisterForm";
-import StyledModal from "../../components/StyledModal/StyledModal";
-import styled from "styled-components";
-import { useJobs } from "../../hooks/jobsHooks";
-import { useState } from "react";
-import Button from "../../components/Button/Button";
-import Emoji from "../../components/Emoji/Emoji";
-import JobAdForm from "./JobAdForm";
-import JobApplicationForm from "./JobApplicationForm";
-import JobCard from "./JobCard";
-import LoginForm from "./LoginForm";
 import Select from "react-select";
 import StyledModal from "../../components/StyledModal/StyledModal";
 import { sortSelect } from "../../utils/select";
@@ -78,7 +68,12 @@ const Jobs = () => {
     return <div>There are no jobs added yet</div>;
   }
 
-  let sortedJobs = sortSelect(jobs, selectedDateOption, selectedPriceOption);
+  let sortedJobs: Job[];
+  if (jobs) {
+    sortedJobs = sortSelect(jobs, selectedDateOption, selectedPriceOption);
+  } else {
+    sortedJobs = [];
+  }
 
   return (
     <Container>
