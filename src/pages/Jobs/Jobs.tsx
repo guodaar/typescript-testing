@@ -43,8 +43,8 @@ const Jobs = () => {
         Vilnius Tech Jobs <Emoji symbol="🎉" />
       </Title>
       <TopContainer>
-        <Button greyVariant={true} onClick={handleToggleAdForm} title="post a job" />
-        <Button greyVariant={true} onClick={handleToggleLoginForm} title="log In" />
+        <Button onClick={handleToggleAdForm} title="post a job" greyVariant />
+        <Button onClick={handleToggleLoginForm} title="log In" greyVariant />
       </TopContainer>
       <JobsContainer>
         {jobs.map((job, index) => (
