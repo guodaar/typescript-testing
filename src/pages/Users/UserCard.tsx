@@ -1,15 +1,26 @@
-import styled from "styled-components";
-import { User } from "../../types/user";
 import { getFullName, hidePassword } from "../../utils/string";
+
+import { AiOutlineDelete } from "react-icons/ai";
+import { User } from "../../types/user";
+import styled from "styled-components";
+import { useDeleteUser } from "../../hooks/userHooks";
+
 interface UserCardProps {
   user: User;
 }
 const UserCard = ({ user }: UserCardProps) => {
+  const { mutateAsync: deleteUser } = useDeleteUser();
+
+  const handleDeleteUser = () => {
+    deleteUser(user.id);
+  };
+
   return (
     <Container>
       <Email>{user.email}</Email>
       <p>{getFullName(user.first_name, user.last_name)}</p>
       <p>{hidePassword(user.password)}</p>
+      <AiOutlineDelete onClick={() => handleDeleteUser()} />
     </Container>
   );
 };
