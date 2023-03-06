@@ -22,6 +22,7 @@ const Jobs = () => {
   const { data: jobs, isLoading } = useJobs();
   const [adFormOpen, setAdFormOpen] = useState(false);
   const [applicationFormOpen, setApplicationFormOpen] = useState(false);
+
   const [registerOpen, setRegisterOpen] = useState(false);
   const [loginFormOpen, setLoginFormOpen] = useState(false);
 
@@ -126,18 +127,8 @@ const Jobs = () => {
         modalSize="medium"
         modalIsOpen={adFormOpen}
         closeModal={handleToggleAdForm}
-      />
-      <StyledModal
-        modalSize="medium"
-        modalIsOpen={adFormOpen}
-        closeModal={handleToggleAdForm}
-      />
-      <StyledModal
-        modalSize="medium"
-        modalIsOpen={adFormOpen}
-        closeModal={handleToggleAdForm}
       >
-        <JobAdForm closeModal={handleToggleAdForm} />
+        <JobAdForm closeModal={handleToggleAdForm}/>
       </StyledModal>
       <StyledModal
         modalSize="small"
