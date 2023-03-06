@@ -1,5 +1,4 @@
 import { borderRadius, darkGrey, mainBgColor } from "../../const/styles";
-import { useContext, useState } from "react";
 
 import Button from "../../components/Button/Button";
 import Emoji from "../../components/Emoji/Emoji";
@@ -9,9 +8,9 @@ import JobCard from "./JobCard";
 import LoginForm from "./LoginForm";
 import RegisterForm from "../Register/RegisterForm";
 import StyledModal from "../../components/StyledModal/StyledModal";
-import { UserContext } from "../../contexts/UserContext";
 import styled from "styled-components";
 import { useJobs } from "../../hooks/jobsHooks";
+import { useState } from "react";
 
 const Jobs = () => {
   const { data: jobs, isLoading } = useJobs();
@@ -37,10 +36,6 @@ const Jobs = () => {
     setLoginFormOpen((prevOpen) => !prevOpen);
   };
 
-  if (isLoading) {
-    return <div>Jobs are loading...</div>;
-  }
-
   if (!isLoading && !jobs?.length) {
     return <div>There are no jobs added yet</div>;
   }
@@ -50,6 +45,7 @@ const Jobs = () => {
       <Title>
         Vilnius Tech Jobs <Emoji symbol="🎉" />
       </Title>
+      <Loader isLoading={isLoading} />
       <TopContainer>
         {user ? (
           <Button onClick={handleToggleAdForm} title="Post a job" greyVariant />
@@ -61,10 +57,12 @@ const Jobs = () => {
         )}
       </TopContainer>
       <JobsContainer>
-        {jobs.map((job, index) => (
-          <JobCard key={index} job={job} onClick={handleToggleApplicationForm} />
-        ))}
+        {jobs &&
+          jobs.map((job, index) => (
+            <JobCard key={index} job={job} onClick={handleToggleApplicationForm} />
+          ))}
       </JobsContainer>
+      <StyledModal modalSize="medium" modalIsOpen={adFormOpen} closeModal={handleToggleAdForm} />
       <StyledModal modalSize="medium" modalIsOpen={adFormOpen} closeModal={handleToggleAdForm}>
         <JobAdForm closeModal={handleToggleAdForm} />
       </StyledModal>
