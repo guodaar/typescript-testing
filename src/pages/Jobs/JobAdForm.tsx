@@ -1,8 +1,7 @@
-import * as Yup from "yup";
-
 import { Form, Formik } from "formik";
+import styled from "styled-components";
+import * as Yup from "yup";
 import { JobType, NewJob } from "../../types/job";
-
 import Button from "../../components/Button/Button";
 import Emoji from "../../components/Emoji/Emoji";
 import FormikDatepicker from "../../components/Formik/FormikDatepicker";
@@ -11,9 +10,8 @@ import FormikSelect from "../../components/Formik/FormikSelect";
 import FormikTextArea from "../../components/Formik/FormikTextArea";
 import { darkGrey } from "../../const/styles";
 import { requiredField } from "../../const/validations";
-import styled from "styled-components";
-import { toast } from "react-hot-toast";
 import { useCreateJob } from "../../hooks/jobsHooks";
+import { toast } from "react-hot-toast";
 
 const initialValues: NewJob = {
   title: "",
@@ -41,7 +39,7 @@ const validationSchema: Yup.ObjectSchema<NewJob> = Yup.object().shape({
 
 type Props = {
   closeModal: () => void;
-};
+}
 
 const JobAdForm = ({ closeModal }: Props) => {
   const { mutateAsync: createJob } = useCreateJob();
