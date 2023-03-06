@@ -32,6 +32,7 @@ const Jobs = () => {
     value: "",
     label: "Starting date",
   });
+
   const [selectedPriceOption, setSelectedPriceOption] = useState<PriceOption>({
     value: "",
     label: "Salary",
