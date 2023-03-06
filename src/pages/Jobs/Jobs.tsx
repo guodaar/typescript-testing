@@ -21,7 +21,7 @@ import styled from "styled-components";
 import { useJobs } from "../../hooks/jobsHooks";
 
 const Jobs = () => {
-  const { user } = useContext(UserContext);
+  const { isLoggedIn } = useContext(UserContext);
   const [toggle, setToggle] = useState(false);
   const [adFormOpen, setAdFormOpen] = useState(false);
   const [applicationFormOpen, setApplicationFormOpen] = useState(false);
@@ -113,7 +113,7 @@ const Jobs = () => {
       <Loader isLoading={isLoading} />
       <TopContainer>
         <Button onClick={handleToggleFilters} title="filter jobs" greyVariant />
-        {user ? (
+        {isLoggedIn ? (
           <Button onClick={handleToggleAdForm} title="Post a job" greyVariant={false} />
         ) : (
           <>
