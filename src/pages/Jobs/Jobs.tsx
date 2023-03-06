@@ -1,4 +1,5 @@
 import { borderRadius, darkGrey, mainBgColor } from "../../const/styles";
+import { useContext, useState } from "react";
 
 import Button from "../../components/Button/Button";
 import Emoji from "../../components/Emoji/Emoji";
@@ -8,9 +9,9 @@ import JobCard from "./JobCard";
 import LoginForm from "./LoginForm";
 import RegisterForm from "../Register/RegisterForm";
 import StyledModal from "../../components/StyledModal/StyledModal";
+import { UserContext } from "../../contexts/UserContext";
 import styled from "styled-components";
 import { useJobs } from "../../hooks/jobsHooks";
-import { useState } from "react";
 
 const Jobs = () => {
   const { data: jobs, isLoading } = useJobs();
