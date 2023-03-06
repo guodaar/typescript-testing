@@ -20,7 +20,7 @@ const mockUsers: User[] = [
     updatedAt: "2023-03-02T20:30:06.000000Z",
   },
   {
-    id: 1,
+    id: 3,
     email: "tomas@gmail.com",
     password: "tomas",
     first_name: "Tomas",
@@ -47,6 +47,15 @@ export const createUser = async (newUser: NewUser): Promise<User> => {
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       });
+    }, 1000);
+  });
+};
+
+export const deleteUser = async (id: number): Promise<User> => {
+  const deletedUser = mockUsers.filter((user) => user.id === id)[0];
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(deletedUser);
     }, 1000);
   });
 };
