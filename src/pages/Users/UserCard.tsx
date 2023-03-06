@@ -1,6 +1,9 @@
-import styled from "styled-components";
-import { User } from "../../types/user";
 import { getFullName, hidePassword } from "../../utils/string";
+
+import { User } from "../../types/user";
+import { screenSize } from "../../const/mediaQueries";
+import styled from "styled-components";
+
 interface UserCardProps {
   user: User;
 }
@@ -22,6 +25,10 @@ const Container = styled.div`
   margin-bottom: 16px;
   border-radius: 4px;
   gap: 16px;
+
+  @media (max-width: ${screenSize.medium}) {
+    flex-direction: column;
+  }
 `;
 const Email = styled.p`
   color: #4267b2;

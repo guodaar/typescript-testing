@@ -7,6 +7,7 @@ import Button from "../../components/Button/Button";
 import FormikInput from "../../components/Formik/FormikInput";
 import { LoginUser } from "../../types/user";
 import { requiredField } from "../../const/validations";
+import { screenSize } from "../../const/mediaQueries";
 import styled from "styled-components";
 import toast from "react-hot-toast";
 import { useLoginUser } from "../../hooks/userHooks";
@@ -54,7 +55,11 @@ const LoginForm = ({ closeModal }: Props) => {
           </InputRow>
           <InputRow>
             <InputRowItem>
-              <FormikInput type="password" name="password" placeholder="Password" />
+              <FormikInput
+                type="password"
+                name="password"
+                placeholder="Password"
+              />
             </InputRowItem>
           </InputRow>
           <ButtonsContainer>
@@ -72,6 +77,10 @@ export default LoginForm;
 const ButtonsContainer = styled.div`
   display: flex;
   justify-content: flex-end;
+
+  @media (max-width: ${screenSize.medium}) {
+    flex-direction: column;
+  }
 `;
 
 const Title = styled.h3`
