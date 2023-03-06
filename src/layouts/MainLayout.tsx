@@ -9,7 +9,7 @@ interface MainLayoutProps {
 const MainLayout = ({ children }: MainLayoutProps) => {
   return (
     <>
-      <Topbar children={undefined} />
+      <Topbar/>
       <Wrapper>{children}</Wrapper>
     </>
   );
