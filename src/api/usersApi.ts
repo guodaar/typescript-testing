@@ -20,7 +20,7 @@ const mockUsers: User[] = [
     updatedAt: "2023-03-02T20:30:06.000000Z",
   },
   {
-    id: 1,
+    id: 3,
     email: "tomas@gmail.com",
     password: "tomas",
     first_name: "Tomas",
