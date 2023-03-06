@@ -1,12 +1,13 @@
-import { Field, ErrorMessage } from "formik";
-import { InputHTMLAttributes } from "react";
-import styled from "styled-components";
+import { ErrorMessage, Field } from "formik";
 import {
   darkGrey,
   lightGrey,
   mainBgColor,
   smallBorderRadius,
 } from "../../const/styles";
+
+import { InputHTMLAttributes } from "react";
+import styled from "styled-components";
 
 type Props = {
   name: string;

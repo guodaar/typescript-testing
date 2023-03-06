@@ -6,6 +6,7 @@ export type JobType = "freelance" | "partTime" | "fullTime";
 export type NewJob = {
   title: string;
   price: number | "";
+  image_url: string;
   type: JobType;
   starting_from: string;
   has_drivers_license: boolean;
