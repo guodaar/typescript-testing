@@ -1,14 +1,24 @@
-import { Routes as RoutesWrapper, Route } from "react-router-dom";
-import { routes } from "./const";
+import { Route, Routes as RoutesWrapper } from "react-router-dom";
+
+import { mainLayoutRoutes } from "./const";
 
 const Routes = () => {
-  return (
-    <RoutesWrapper>
-      {routes.map(({ path, Component }) => (
-        <Route key={path} path={path} element={<Component />} />
-      ))}
-    </RoutesWrapper>
-  );
+  const { routes, Layout } = mainLayoutRoutes;
+    return (
+      <RoutesWrapper>
+        {routes.map(({ path, Component }) => (
+          <Route
+            key={path}
+            path={path}
+            element={
+              <Layout>
+                <Component />
+              </Layout>
+            }
+          />
+        ))}
+      </RoutesWrapper>
+    );
 };
 
 export default Routes;
