@@ -20,7 +20,7 @@ const UserCard = ({ user }: UserCardProps) => {
       <Email>{user.email}</Email>
       <p>{getFullName(user.first_name, user.last_name)}</p>
       <p>{hidePassword(user.password)}</p>
-      <AiOutlineDelete onClick={() => handleDeleteUser()} />
+      <AiOutlineDelete onClick={handleDeleteUser} />
     </Container>
   );
 };
