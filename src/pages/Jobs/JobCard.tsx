@@ -22,7 +22,7 @@ const JobCard = ({ job, onClick }: JobCardProps) => {
   return (
     <Container>
       <LeftWrapper>
-        <img src={job.image_url} alt="company LOGO" />
+        <img src={job.image_url} alt="company logo" />
       </LeftWrapper>
       <MiddleWrapper>
         <Title>

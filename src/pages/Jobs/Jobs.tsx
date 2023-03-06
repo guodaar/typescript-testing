@@ -115,11 +115,16 @@ const Jobs = () => {
 
   const filteredOrAllJobs: Job[] = filteredJobs.length ? filteredJobs : jobs;
 
-  let sortedJobs = sortSelect(
-    filteredOrAllJobs,
-    selectedDateOption,
-    selectedPriceOption
-  );
+  let sortedJobs: Job[];
+  if (jobs) {
+    sortedJobs = sortSelect(
+      filteredOrAllJobs,
+      selectedDateOption,
+      selectedPriceOption
+    );
+  } else {
+    sortedJobs = [];
+  }
 
   return (
     <Container>
@@ -169,14 +174,6 @@ const Jobs = () => {
         />
       </FiltersBar>
       <JobsContainer>
-        {/* {jobs &&
-          jobs.map((job, index) => (
-            <JobCard
-              key={index}
-              job={job}
-              onClick={handleToggleApplicationForm}
-            />
-          ))} */}
         {sortedJobs.map((job, index) => (
           <JobCard
             key={index}
