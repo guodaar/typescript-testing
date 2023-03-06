@@ -108,6 +108,7 @@ const Jobs = () => {
       <Title>
         Vilnius Tech Jobs <Emoji symbol="🎉" />
       </Title>
+
       <Loader isLoading={isLoading} />
       <TopContainer>
         <Button onClick={handleToggleFilters} title="filter jobs" greyVariant />
