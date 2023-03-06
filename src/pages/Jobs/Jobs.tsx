@@ -10,7 +10,6 @@ import Button from "../../components/Button/Button";
 import Emoji from "../../components/Emoji/Emoji";
 import FilterComponent from "../../components/Filters/FilterComponent";
 import FiltersBar from "../../components/Filters/FiltersBar";
-import { Job } from "../../types/job";
 import JobAdForm from "./JobAdForm";
 import JobApplicationForm from "./JobApplicationForm";
 import JobCard from "./JobCard";
@@ -18,13 +17,18 @@ import Loader from "../../components/Loader/Loader";
 import LoginForm from "./LoginForm";
 import RegisterForm from "../Register/RegisterForm";
 import StyledModal from "../../components/StyledModal/StyledModal";
-import { allFilteredJobs } from "../../utils/filters";
 import { sortSelect } from "../../utils/select";
 import styled from "styled-components";
 import { useJobs } from "../../hooks/jobsHooks";
 import { useState } from "react";
 
 const Jobs = () => {
+  const [toggle, setToggle] = useState(false);
+  const [adFormOpen, setAdFormOpen] = useState(false);
+  const [applicationFormOpen, setApplicationFormOpen] = useState(false);
+  const [registerOpen, setRegisterOpen] = useState(false);
+  const [loginFormOpen, setLoginFormOpen] = useState(false);
+
   const [selectedTypeOption, setSelectedTypeOption] = useState(
     jobTypeOptions[0]
   );
@@ -39,28 +43,16 @@ const Jobs = () => {
     value: "",
     label: "Salary",
   });
-  const [toggle, setToggle] = useState(false);
-  const [adFormOpen, setAdFormOpen] = useState(false);
-  const [applicationFormOpen, setApplicationFormOpen] = useState(false);
 
-  const [registerOpen, setRegisterOpen] = useState(false);
-  const [loginFormOpen, setLoginFormOpen] = useState(false);
-  const { data: jobs, isLoading } = useJobs();
+  const { data, isLoading } = useJobs();
+  const jobs = data || [];
 
-  const handleRegisterToggle = () => {
-    setRegisterOpen((prevOpen) => !prevOpen);
+  const handleTypeChange = (option: typeof jobTypeOptions[number]) => {
+    setSelectedTypeOption(option);
   };
 
-  const handleToggleAdForm = () => {
-    setAdFormOpen((prevOpen) => !prevOpen);
-  };
-
-  const handleToggleApplicationForm = () => {
-    setApplicationFormOpen((prevOpen) => !prevOpen);
-  };
-
-  const handleToggleFilters = () => {
-    setToggle(!toggle);
+  const handleDriverChange = (option: typeof driversLicenseOptions[number]) => {
+    setSelectedLicenseOption(option);
   };
 
   const handleClearFilters = () => {
@@ -88,44 +80,37 @@ const Jobs = () => {
     setSelectedDateOption({ value: "", label: "Starting date" });
   };
 
+  const handleRegisterToggle = () => {
+    setRegisterOpen((prevOpen) => !prevOpen);
+  };
+
+  const handleToggleAdForm = () => {
+    setAdFormOpen((prevOpen) => !prevOpen);
+  };
+
+  const handleToggleApplicationForm = () => {
+    setApplicationFormOpen((prevOpen) => !prevOpen);
+  };
+
+  const handleToggleFilters = () => {
+    setToggle(!toggle);
+  };
+
   const handleToggleLoginForm = () => {
     setLoginFormOpen((prevOpen) => !prevOpen);
   };
-
-  if (isLoading) {
-    return <div>Jobs are loading...</div>;
-  }
 
   if (!isLoading && !jobs?.length) {
     return <div>There are no jobs added yet</div>;
   }
 
-  const handleTypeChange = (option: typeof jobTypeOptions[number]) => {
-    setSelectedTypeOption(option);
-  };
-
-  const handleDriverChange = (option: typeof driversLicenseOptions[number]) => {
-    setSelectedLicenseOption(option);
-  };
-
-  const filteredJobs = allFilteredJobs(
+  const sortedJobs = sortSelect(
     jobs,
+    selectedDateOption,
+    selectedPriceOption,
     selectedTypeOption,
     selectedLicenseOption
   );
-
-  const filteredOrAllJobs: Job[] = filteredJobs.length ? filteredJobs : jobs;
-
-  let sortedJobs: Job[];
-  if (jobs) {
-    sortedJobs = sortSelect(
-      filteredOrAllJobs,
-      selectedDateOption,
-      selectedPriceOption
-    );
-  } else {
-    sortedJobs = [];
-  }
 
   return (
     <Container>
@@ -188,7 +173,7 @@ const Jobs = () => {
         modalIsOpen={adFormOpen}
         closeModal={handleToggleAdForm}
       >
-        <JobAdForm closeModal={handleToggleAdForm}/>
+        <JobAdForm closeModal={handleToggleAdForm} />
       </StyledModal>
       <StyledModal
         modalSize="small"
