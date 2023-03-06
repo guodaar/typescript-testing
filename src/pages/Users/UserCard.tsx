@@ -24,7 +24,7 @@ const Container = styled.div`
   gap: 16px;
 
   :hover {
-    opacity: 0.5;
+    opacity: 0.75;
   }
 `;
 const Email = styled.p`
