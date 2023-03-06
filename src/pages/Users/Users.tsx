@@ -1,7 +1,7 @@
-import Search from "../../components/Search/Search";
+import SearchBar from "../../components/SearchBar/SearchBar";
 
 const Users = () => {
-  return <Search />
+  return <SearchBar />
 }
 
 export default Users;

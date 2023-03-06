@@ -4,7 +4,7 @@ import { mainBgColor } from "../../const/styles";
 import { useUsers } from "../../hooks/userHooks";
 import UserCard from "../../pages/Users/UserCard";
 
-const Search = () => {
+const SearchBar = () => {
     const { data } = useUsers();
     const users = data || [];
     const [searchText, setSearchText] = useState("");
@@ -26,10 +26,20 @@ const Search = () => {
   )
 }
 
-export default Search;
+export default SearchBar;
 
 const Container = styled.div`
   max-width: 1100px;
   margin: 40px auto;
   background-color: ${mainBgColor};
+
+  input {
+    padding: 16px;
+    width: 100%;
+    border: none;
+  };
+
+  input:hover {
+    opacity: 0.5;
+  };
 `;
