@@ -22,6 +22,10 @@ const Container = styled.div`
   margin-bottom: 16px;
   border-radius: 4px;
   gap: 16px;
+
+  :hover {
+    opacity: 0.5;
+  }
 `;
 const Email = styled.p`
   color: #4267b2;

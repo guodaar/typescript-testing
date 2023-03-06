@@ -2,7 +2,7 @@
 
 body {
   margin: 0;
-  height: 100%;
+  height: 100vh;
   box-sizing: border-box;
   background-image: url("../src/assets/magicpattern-am-yg8wLLIo-unsplash.jpg");
   background-size: contain;

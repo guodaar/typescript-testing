@@ -14,13 +14,13 @@ const SearchBar = () => {
   return (
     <Container>
         <input 
-            value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
-            placeholder="Search..."
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+          placeholder="Search..."
         />
 
         {filteredBySearch.map((user) => (
-            <UserCard key={user.id} user={user} />
+          <UserCard key={user.id} user={user} />
         ))}
     </Container>
   )
@@ -40,6 +40,7 @@ const Container = styled.div`
   };
 
   input:hover {
-    opacity: 0.5;
+    opacity: 0.85;
   };
 `;
+
