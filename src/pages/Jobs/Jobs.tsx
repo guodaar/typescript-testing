@@ -32,7 +32,6 @@ const Jobs = () => {
     value: "",
     label: "Starting date",
   });
-
   const [selectedPriceOption, setSelectedPriceOption] = useState<PriceOption>({
     value: "",
     label: "Salary",
@@ -109,7 +108,6 @@ const Jobs = () => {
       <Title>
         Vilnius Tech Jobs <Emoji symbol="🎉" />
       </Title>
-
       <Loader isLoading={isLoading} />
       <TopContainer>
         <Button onClick={handleToggleFilters} title="filter jobs" greyVariant />
