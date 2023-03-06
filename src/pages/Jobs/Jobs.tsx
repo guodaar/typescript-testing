@@ -2,6 +2,7 @@ import { DateOption, PriceOption } from "../../types/select";
 import { borderRadius, darkGrey, mainBgColor } from "../../const/styles";
 import { dateOptions, priceOptions } from "../../const/selectOptions";
 import { driversLicenseOptions, jobTypeOptions } from "../../const/filterOptions";
+import { useContext, useState } from "react";
 
 import Button from "../../components/Button/Button";
 import Emoji from "../../components/Emoji/Emoji";
@@ -14,12 +15,13 @@ import Loader from "../../components/Loader/Loader";
 import LoginForm from "./LoginForm";
 import RegisterForm from "../Register/RegisterForm";
 import StyledModal from "../../components/StyledModal/StyledModal";
+import { UserContext } from "../../contexts/UserContext";
 import { sortSelect } from "../../utils/select";
 import styled from "styled-components";
 import { useJobs } from "../../hooks/jobsHooks";
-import { useState } from "react";
 
 const Jobs = () => {
+  const { user } = useContext(UserContext);
   const [toggle, setToggle] = useState(false);
   const [adFormOpen, setAdFormOpen] = useState(false);
   const [applicationFormOpen, setApplicationFormOpen] = useState(false);
@@ -111,9 +113,14 @@ const Jobs = () => {
       <Loader isLoading={isLoading} />
       <TopContainer>
         <Button onClick={handleToggleFilters} title="filter jobs" greyVariant />
-        <Button onClick={handleRegisterToggle} title="Register" greyVariant />
-        <Button onClick={handleToggleLoginForm} title="Log In" greyVariant />
-        <Button onClick={handleToggleAdForm} title="Post a job" greyVariant={false} />
+        {user ? (
+          <Button onClick={handleToggleAdForm} title="Post a job" greyVariant={false} />
+        ) : (
+          <>
+            <Button onClick={handleRegisterToggle} title="Register" greyVariant />
+            <Button onClick={handleToggleLoginForm} title="Log In" greyVariant />
+          </>
+        )}
       </TopContainer>
       <FiltersBar toggle={toggle}>
         <FilterComponent

@@ -7,7 +7,7 @@ export type NewUser = {
   password: string;
   first_name: string;
   last_name: string;
-  role?: Role;
+  // role?: Role;
 };
 
 export type User = NewUser & EntityMeta;
