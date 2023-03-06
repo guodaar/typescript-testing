@@ -247,8 +247,3 @@ const Title = styled.h2`
   font-weight: 500;
   text-align: center;
 `;
-
-const ButtonsContainer = styled.div`
-  grid-row: 3;
-  grid-column: 2;
-`;

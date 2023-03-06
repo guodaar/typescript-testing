@@ -2,7 +2,7 @@ import { LoginUser, NewUser, User } from "../types/user";
 
 import axios from "axios";
 
-const USERS_API_URL = "	https://testapi.io/api/guodaarr/resource/usersServer";
+const USERS_API_URL = "https://testapi.io/api/guodaarr/resource/usersServer";
 
 export const fetchUsers = async (): Promise<User[]> => {
   const response = await axios.get(USERS_API_URL);
