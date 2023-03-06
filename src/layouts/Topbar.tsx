@@ -8,12 +8,7 @@ import StyledModal from "../components/StyledModal/StyledModal";
 import styled from "styled-components";
 import { useState } from "react";
 
-interface TopbarProps {
-  children: React.ReactNode;
-};
-
-
-const Topbar = ({ children }: TopbarProps) => {
+const Topbar = () => {
   const [loginFormOpen, setLoginFormOpen] = useState(false);
   const [registerOpen, setRegisterOpen] = useState(false);
   
@@ -32,7 +27,6 @@ const Topbar = ({ children }: TopbarProps) => {
       </LeftSide>
       <RightSide>
         <MenuContainer>
-          {children}
           <StyledLink to={JOBS_PATH}>Jobs</StyledLink>
           <StyledLink to={USERS_PATH}>Users</StyledLink>
         </MenuContainer>
