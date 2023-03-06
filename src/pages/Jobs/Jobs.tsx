@@ -1,22 +1,25 @@
+import { DateOption, PriceOption } from "../../types/select";
 import { borderRadius, darkGrey, mainBgColor } from "../../const/styles";
-import { useContext, useState } from "react";
+import { dateOptions, priceOptions } from "../../const/selectOptions";
 
 import Button from "../../components/Button/Button";
 import Emoji from "../../components/Emoji/Emoji";
+import { Job } from "../../types/job";
 import JobAdForm from "./JobAdForm";
 import JobApplicationForm from "./JobApplicationForm";
 import JobCard from "./JobCard";
 import Loader from "../../components/Loader/Loader";
 import LoginForm from "./LoginForm";
 import RegisterForm from "../Register/RegisterForm";
+import Select from "react-select";
 import StyledModal from "../../components/StyledModal/StyledModal";
-import { UserContext } from "../../contexts/UserContext";
+import { sortSelect } from "../../utils/select";
 import styled from "styled-components";
 import { useJobs } from "../../hooks/jobsHooks";
+import { useState } from "react";
 
 const Jobs = () => {
   const { data: jobs, isLoading } = useJobs();
-  const { user } = useContext(UserContext);
   const [adFormOpen, setAdFormOpen] = useState(false);
   const [applicationFormOpen, setApplicationFormOpen] = useState(false);
   const [registerOpen, setRegisterOpen] = useState(false);
@@ -25,6 +28,15 @@ const Jobs = () => {
   const handleRegisterToggle = () => {
     setRegisterOpen((prevOpen) => !prevOpen);
   };
+  const [selectedDateOption, setSelectedDateOption] = useState<DateOption>({
+    value: "",
+    label: "Sort by starting date",
+  });
+
+  const [selectedPriceOption, setSelectedPriceOption] = useState<PriceOption>({
+    value: "",
+    label: "Sort by salary",
+  });
 
   const handleToggleAdForm = () => {
     setAdFormOpen((prevOpen) => !prevOpen);
@@ -32,6 +44,16 @@ const Jobs = () => {
 
   const handleToggleApplicationForm = () => {
     setApplicationFormOpen((prevOpen) => !prevOpen);
+  };
+
+  const handleDateSortChange = (selectedOption: DateOption | null) => {
+    setSelectedDateOption(selectedOption || { value: "", label: "Sort by starting date" });
+    setSelectedPriceOption({ value: "", label: "Sort by salary" });
+  };
+
+  const handlePriceSortChange = (selectedOption: PriceOption | null) => {
+    setSelectedPriceOption(selectedOption || { value: "", label: "Sort by salary" });
+    setSelectedDateOption({ value: "", label: "Sort by starting date" });
   };
 
   const handleToggleLoginForm = () => {
@@ -42,6 +64,13 @@ const Jobs = () => {
     return <div>There are no jobs added yet</div>;
   }
 
+  let sortedJobs: Job[];
+  if (jobs) {
+    sortedJobs = sortSelect(jobs, selectedDateOption, selectedPriceOption);
+  } else {
+    sortedJobs = [];
+  }
+
   return (
     <Container>
       <Title>
@@ -49,21 +78,35 @@ const Jobs = () => {
       </Title>
       <Loader isLoading={isLoading} />
       <TopContainer>
-        {user ? (
-          <Button onClick={handleToggleAdForm} title="Post a job" greyVariant />
-        ) : (
-          <>
-            <Button onClick={handleRegisterToggle} title="Register" greyVariant />
-            <Button onClick={handleToggleLoginForm} title="Log In" greyVariant />
-          </>
-        )}
+        <Button onClick={handleRegisterToggle} title="Register" greyVariant />
+        <Button onClick={handleToggleLoginForm} title="Log In" greyVariant />
+        <Button onClick={handleToggleAdForm} title="Post a job" greyVariant />
+        <Button greyVariant={true} onClick={handleToggleAdForm} title="post a job" />
+        <Select
+          options={dateOptions}
+          value={selectedDateOption}
+          onChange={handleDateSortChange}
+          placeholder="Sort by starting date"
+        />
+        <Select
+          options={priceOptions}
+          value={selectedPriceOption}
+          onChange={handlePriceSortChange}
+          placeholder="Sort by salary"
+        />
+        <Button onClick={handleToggleAdForm} title="post a job" greyVariant />
+        <Button onClick={handleToggleLoginForm} title="log In" greyVariant />
       </TopContainer>
       <JobsContainer>
         {jobs &&
           jobs.map((job, index) => (
             <JobCard key={index} job={job} onClick={handleToggleApplicationForm} />
           ))}
+        {sortedJobs.map((job, index) => (
+          <JobCard key={index} job={job} onClick={handleToggleApplicationForm} />
+        ))}
       </JobsContainer>
+      <StyledModal modalSize="medium" modalIsOpen={adFormOpen} closeModal={handleToggleAdForm} />
       <StyledModal modalSize="medium" modalIsOpen={adFormOpen} closeModal={handleToggleAdForm} />
       <StyledModal modalSize="medium" modalIsOpen={adFormOpen} closeModal={handleToggleAdForm}>
         <JobAdForm closeModal={handleToggleAdForm} />
