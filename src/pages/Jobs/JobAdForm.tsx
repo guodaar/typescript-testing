@@ -1,8 +1,7 @@
-import * as Yup from "yup";
-
 import { Form, Formik } from "formik";
+import styled from "styled-components";
+import * as Yup from "yup";
 import { JobType, NewJob } from "../../types/job";
-
 import Button from "../../components/Button/Button";
 import Emoji from "../../components/Emoji/Emoji";
 import FormikDatepicker from "../../components/Formik/FormikDatepicker";
@@ -11,14 +10,13 @@ import FormikSelect from "../../components/Formik/FormikSelect";
 import FormikTextArea from "../../components/Formik/FormikTextArea";
 import { darkGrey } from "../../const/styles";
 import { requiredField } from "../../const/validations";
-import styled from "styled-components";
-import { toast } from "react-hot-toast";
 import { useCreateJob } from "../../hooks/jobsHooks";
+import { toast } from "react-hot-toast";
 
 const initialValues: NewJob = {
   title: "",
   price: "",
-  company_logo: "",
+  image_url: "",
   type: "fullTime",
   starting_from: "",
   has_drivers_license: false,
@@ -29,9 +27,11 @@ const initialValues: NewJob = {
 const validationSchema: Yup.ObjectSchema<NewJob> = Yup.object().shape({
   title: Yup.string().required(requiredField),
   price: Yup.number().required(requiredField),
-  company_logo: Yup.string().required(requiredField),
+  image_url: Yup.string().required(requiredField),
   description: Yup.string().required(requiredField),
-  type: Yup.mixed<JobType>().oneOf(["freelance", "fullTime", "partTime"]).required(requiredField),
+  type: Yup.mixed<JobType>()
+    .oneOf(["freelance", "fullTime", "partTime"])
+    .required(requiredField),
   starting_from: Yup.string().required(requiredField),
   has_drivers_license: Yup.boolean().required(requiredField),
   user_id: Yup.number().required(),
@@ -39,7 +39,7 @@ const validationSchema: Yup.ObjectSchema<NewJob> = Yup.object().shape({
 
 type Props = {
   closeModal: () => void;
-};
+}
 
 const JobAdForm = ({ closeModal }: Props) => {
   const { mutateAsync: createJob } = useCreateJob();
@@ -71,13 +71,24 @@ const JobAdForm = ({ closeModal }: Props) => {
           <FormikInput type="text" name="title" placeholder="Job title" />
           <InputRow>
             <InputRowItem>
-              <FormikInput type="number" name="price" placeholder="Pay offered" />
+              <FormikInput
+                type="number"
+                name="price"
+                placeholder="Pay offered"
+              />
             </InputRowItem>
             <InputRowItem>
-              <FormikDatepicker name="starting_from" placeholder="Enter start date" />
+              <FormikDatepicker
+                name="starting_from"
+                placeholder="Enter start date"
+              />
             </InputRowItem>
           </InputRow>
-          <FormikInput type="text" name="company_logo" placeholder="Company Logo URL" />
+          <FormikInput
+            type="text"
+            name="image_url"
+            placeholder="Company Logo URL"
+          />
           <FormikSelect
             name="type"
             options={[
@@ -86,9 +97,17 @@ const JobAdForm = ({ closeModal }: Props) => {
               { value: "freelance", label: "Freelance" },
             ]}
           />
-          <FormikTextArea type="text" name="description" placeholder="Job description" />
+          <FormikTextArea
+            type="text"
+            name="description"
+            placeholder="Job description"
+          />
           <RadioContainer>
-            <FormikInput type="checkbox" name="has_drivers_license" id="has_drivers_license" />
+            <FormikInput
+              type="checkbox"
+              name="has_drivers_license"
+              id="has_drivers_license"
+            />
             <label htmlFor="has_drivers_license">Driving license needed</label>
           </RadioContainer>
           <ButtonsContainer>

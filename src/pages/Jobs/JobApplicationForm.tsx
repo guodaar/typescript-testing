@@ -1,7 +1,5 @@
 import * as Yup from "yup";
-
 import { Form, Formik } from "formik";
-
 import { ApplyUser } from "../../types/user";
 import Button from "../../components/Button/Button";
 import Emoji from "../../components/Emoji/Emoji";
