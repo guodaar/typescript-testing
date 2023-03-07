@@ -8,7 +8,7 @@ export const USERS_PATH = "/users";
 export const mainLayoutRoutes = {
   Layout: MainLayout,
   routes: [
-    { path: JOBS_PATH, Component: Jobs },
-    { path: USERS_PATH, Component: Users },
+    { path: JOBS_PATH, Component: Jobs, title: "Jobs" },
+    { path: USERS_PATH, Component: Users, title: "Users"},
   ],
 };
