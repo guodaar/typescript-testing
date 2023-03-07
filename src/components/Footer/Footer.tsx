@@ -1,18 +1,23 @@
-import { borderRadius, mainBgColor } from "../../const/styles";
-
 import Emoji from "../Emoji/Emoji";
-import styled from "styled-components"
+import { mainBgColor } from "../../const/styles";
+import styled from "styled-components";
 
-type Props = {}
+type Props = {};
 
 const Footer = (props: Props) => {
   return (
     <Wrapper>
       <Container>
-        <h3>Vilnius Tech Jobs <Emoji symbol="🎉" /></h3>
-        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias dicta, eligendi adipisci accusamus minus cum esse atque cumque tenetur minima impedit libero quas! Iste perspiciatis rem minus cum, suscipit laborum!</p>
+        <h3>
+          Vilnius Tech Jobs <Emoji symbol="🎉" />
+        </h3>
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias dicta, eligendi
+          adipisci accusamus minus cum esse atque cumque tenetur minima impedit libero quas! Iste
+          perspiciatis rem minus cum, suscipit laborum!
+        </p>
       </Container>
-     
+
       <Container>
         <p>created 2023</p>
         <p>All wrights reserved</p>
@@ -24,13 +29,11 @@ const Footer = (props: Props) => {
         <p>+370 644 32332</p>
         <p>vilniustj@techjobs.com</p>
       </Container>
-     
-      
     </Wrapper>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;
 
 const Wrapper = styled.div`
   display: flex;
@@ -39,7 +42,7 @@ const Wrapper = styled.div`
   width: 100%;
   background-color: ${mainBgColor};
   justify-content: space-evenly;
-`
+`;
 
 const Container = styled.div`
   display: flex;
@@ -52,7 +55,7 @@ const Container = styled.div`
     font-size: 0.8rem;
   }
 
-  p{
+  p {
     font-size: 0.5rem;
   }
-`
+`;
