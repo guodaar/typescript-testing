@@ -2,11 +2,9 @@ import { getFullName, hidePassword } from "../../utils/string";
 
 import { AiOutlineDelete } from "react-icons/ai";
 import { User } from "../../types/user";
+import { screenSize } from "../../const/mediaQueries";
 import styled from "styled-components";
 import { useDeleteUser } from "../../hooks/userHooks";
-
-import { User } from "../../types/user";
-import { screenSize } from "../../const/mediaQueries";
 
 interface UserCardProps {
   user: User;
