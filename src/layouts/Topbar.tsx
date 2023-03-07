@@ -11,6 +11,7 @@ import { useState } from "react";
 const Topbar = () => {
   const [loginFormOpen, setLoginFormOpen] = useState(false);
   const [registerOpen, setRegisterOpen] = useState(false);
+
   
   const handleToggleLoginForm = () => {
     setLoginFormOpen((prevOpen) => !prevOpen);
@@ -19,11 +20,13 @@ const Topbar = () => {
   const handleToggleRegisterForm = () => {
     setRegisterOpen((prevOpen) => !prevOpen);
   };
-  
+
   return (
     <Wrapper>
       <LeftSide>
-        <Logo>Tech Jobs.</Logo>
+        <Logo as={Link} to={JOBS_PATH}>
+          Tech Jobs.
+        </Logo>
       </LeftSide>
       <RightSide>
         <MenuContainer>
@@ -32,7 +35,11 @@ const Topbar = () => {
         </MenuContainer>
         <UserArea>
           <Button onClick={handleToggleLoginForm} title="log In" greyVariant />
-          <Button onClick={handleToggleRegisterForm} title="Register" greyVariant />
+          <Button
+            onClick={handleToggleRegisterForm}
+            title="Register"
+            greyVariant
+          />
         </UserArea>
       </RightSide>
       <StyledModal
@@ -59,7 +66,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
-  background-color: #fdffffE6;
+  background-color: #fdffffe6;
   justify-content: space-between;
   align-items: center;
   padding-top: 16px;
@@ -86,6 +93,7 @@ const StyledLink = styled(Link)`
   text-transform: none;
   text-transform: uppercase;
   padding: 8px 8px;
+  border-bottom: 2px solid transparent;
   font-weight: 600;
 
   &:hover {
