@@ -6,9 +6,11 @@ import { darkGrey, lightGrey } from "../../const/styles";
 import Button from "../../components/Button/Button";
 import FormikInput from "../../components/Formik/FormikInput";
 import { LoginUser } from "../../types/user";
+import { UserContext } from "../../contexts/UserContext";
 import { requiredField } from "../../const/validations";
 import styled from "styled-components";
 import toast from "react-hot-toast";
+import { useContext } from "react";
 import { useLoginUser } from "../../hooks/userHooks";
 
 const validationSchema: Yup.ObjectSchema<LoginUser> = Yup.object().shape({
@@ -27,11 +29,15 @@ type Props = {
 
 const LoginForm = ({ closeModal }: Props) => {
   const { mutateAsync: loginUser } = useLoginUser();
+  const { setUser } = useContext(UserContext);
 
   const handleSubmit = (values: LoginUser) => {
     loginUser(values)
-      .then(() => {
+      .then((response) => {
+        console.log(response);
+        setUser(response);
         toast.success("Successfully logged in!");
+        closeModal();
       })
       .catch((error) => {
         toast.error("Failed to login:");
