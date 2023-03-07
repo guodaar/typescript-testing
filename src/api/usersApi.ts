@@ -61,12 +61,14 @@ export const deleteUser = async (id: number): Promise<User> => {
 };
 
 export const loginUser = async (loggingUser: LoginUser): Promise<User> => {
-  const users = await fetchUsers();
+
+
+
   return new Promise((resolve, reject) => {
     const { email, password } = loggingUser;
     const userChecker = (u: User) =>
       u.email === email && u.password === password;
-    const existingUser = users.find(userChecker);
+    const existingUser = mockUsers.find(userChecker);
 
     existingUser ? resolve(existingUser) : reject("Invalid credentials");
   });
