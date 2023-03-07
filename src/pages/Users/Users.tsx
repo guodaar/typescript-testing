@@ -1,8 +1,9 @@
-import { useState } from "react";
-import styled from "styled-components";
-import { mainBgColor } from "../../const/styles";
-import { useUsers } from "../../hooks/userHooks";
+import { borderRadius, darkGrey, mainBgColor } from "../../const/styles";
+
 import UserCard from "./UserCard";
+import styled from "styled-components";
+import { useState } from "react";
+import { useUsers } from "../../hooks/userHooks";
 
 const Users = () => {
   const { data } = useUsers();
@@ -35,8 +36,12 @@ const Users = () => {
 export default Users;
 
 const Container = styled.div`
-  max-width: 1100px;
-  margin: 40px auto;
-  background-color: ${mainBgColor};
-  padding: 16px;
+ background-color: ${mainBgColor};
+  margin: 50px 15vw;
+  padding: 32px;
+  border-radius: ${borderRadius};
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  color: ${darkGrey};
 `;
