@@ -1,7 +1,10 @@
 import { DateOption, PriceOption } from "../../types/select";
 import { borderRadius, darkGrey, mainBgColor } from "../../const/styles";
 import { dateOptions, priceOptions } from "../../const/selectOptions";
-import { driversLicenseOptions, jobTypeOptions } from "../../const/filterOptions";
+import {
+  driversLicenseOptions,
+  jobTypeOptions,
+} from "../../const/filterOptions";
 import { useContext, useState } from "react";
 
 import Button from "../../components/Button/Button";
@@ -16,6 +19,7 @@ import LoginForm from "./LoginForm";
 import RegisterForm from "../Register/RegisterForm";
 import StyledModal from "../../components/StyledModal/StyledModal";
 import { UserContext } from "../../contexts/UserContext";
+import { screenSize } from "../../const/mediaQueries";
 import { sortSelect } from "../../utils/select";
 import styled from "styled-components";
 import { useJobs } from "../../hooks/jobsHooks";
@@ -28,8 +32,12 @@ const Jobs = () => {
   const [registerOpen, setRegisterOpen] = useState(false);
   const [loginFormOpen, setLoginFormOpen] = useState(false);
 
-  const [selectedTypeOption, setSelectedTypeOption] = useState(jobTypeOptions[0]);
-  const [selectedLicenseOption, setSelectedLicenseOption] = useState(driversLicenseOptions[0]);
+  const [selectedTypeOption, setSelectedTypeOption] = useState(
+    jobTypeOptions[0]
+  );
+  const [selectedLicenseOption, setSelectedLicenseOption] = useState(
+    driversLicenseOptions[0]
+  );
   const [selectedDateOption, setSelectedDateOption] = useState<DateOption>({
     value: "",
     label: "Starting date",
@@ -64,7 +72,9 @@ const Jobs = () => {
   };
 
   const handleDateSortChange = (selectedOption: DateOption | null) => {
-    setSelectedDateOption(selectedOption || { value: "", label: "Starting date" });
+    setSelectedDateOption(
+      selectedOption || { value: "", label: "Starting date" }
+    );
     setSelectedPriceOption({ value: "", label: "Salary" });
   };
 
@@ -112,15 +122,14 @@ const Jobs = () => {
       </Title>
       <Loader isLoading={isLoading} />
       <TopContainer>
+        <Button onClick={handleRegisterToggle} title="Register" greyVariant />
+        <Button onClick={handleToggleLoginForm} title="Log In" greyVariant />
+        <Button
+          onClick={handleToggleAdForm}
+          title="Post a job"
+          greyVariant={false}
+        />
         <Button onClick={handleToggleFilters} title="filter jobs" greyVariant />
-        {isLoggedIn ? (
-          <Button onClick={handleToggleAdForm} title="Post a job" greyVariant={false} />
-        ) : (
-          <>
-            <Button onClick={handleRegisterToggle} title="Register" greyVariant />
-            <Button onClick={handleToggleLoginForm} title="Log In" greyVariant />
-          </>
-        )}
       </TopContainer>
       <FiltersBar toggle={toggle}>
         <FilterComponent
@@ -147,14 +156,26 @@ const Jobs = () => {
           onChange={handlePriceSortChange}
           controlText="Sort by"
         />
-        <Button onClick={handleClearFilters} title="clear filters" greyVariant />
+        <Button
+          onClick={handleClearFilters}
+          title="clear filters"
+          greyVariant
+        />
       </FiltersBar>
       <JobsContainer>
         {sortedJobs.map((job, index) => (
-          <JobCard key={index} job={job} onClick={handleToggleApplicationForm} />
+          <JobCard
+            key={index}
+            job={job}
+            onClick={handleToggleApplicationForm}
+          />
         ))}
       </JobsContainer>
-      <StyledModal modalSize="medium" modalIsOpen={adFormOpen} closeModal={handleToggleAdForm}>
+      <StyledModal
+        modalSize="medium"
+        modalIsOpen={adFormOpen}
+        closeModal={handleToggleAdForm}
+      >
         <JobAdForm closeModal={handleToggleAdForm} />
       </StyledModal>
       <StyledModal
@@ -164,10 +185,18 @@ const Jobs = () => {
       >
         <JobApplicationForm closeModal={handleToggleApplicationForm} />
       </StyledModal>
-      <StyledModal modalSize="medium" modalIsOpen={registerOpen} closeModal={handleRegisterToggle}>
+      <StyledModal
+        modalSize="medium"
+        modalIsOpen={registerOpen}
+        closeModal={handleRegisterToggle}
+      >
         <RegisterForm closeModal={handleRegisterToggle} />
       </StyledModal>
-      <StyledModal modalSize="small" modalIsOpen={loginFormOpen} closeModal={handleToggleLoginForm}>
+      <StyledModal
+        modalSize="small"
+        modalIsOpen={loginFormOpen}
+        closeModal={handleToggleLoginForm}
+      >
         <LoginForm closeModal={handleToggleLoginForm} />
       </StyledModal>
     </Container>
@@ -191,6 +220,14 @@ const TopContainer = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
+
+  @media (max-width: ${screenSize.medium}) {
+    flex-direction: column;
+
+    Button {
+      width: 100%;
+    }
+  }
 `;
 
 const JobsContainer = styled.div`

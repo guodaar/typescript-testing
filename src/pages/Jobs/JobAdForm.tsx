@@ -1,7 +1,8 @@
-import { Form, Formik } from "formik";
-import styled from "styled-components";
 import * as Yup from "yup";
+
+import { Form, Formik } from "formik";
 import { JobType, NewJob } from "../../types/job";
+
 import Button from "../../components/Button/Button";
 import Emoji from "../../components/Emoji/Emoji";
 import FormikDatepicker from "../../components/Formik/FormikDatepicker";
@@ -10,8 +11,10 @@ import FormikSelect from "../../components/Formik/FormikSelect";
 import FormikTextArea from "../../components/Formik/FormikTextArea";
 import { darkGrey } from "../../const/styles";
 import { requiredField } from "../../const/validations";
-import { useCreateJob } from "../../hooks/jobsHooks";
+import { screenSize } from "../../const/mediaQueries";
+import styled from "styled-components";
 import { toast } from "react-hot-toast";
+import { useCreateJob } from "../../hooks/jobsHooks";
 
 const initialValues: NewJob = {
   title: "",
@@ -39,7 +42,7 @@ const validationSchema: Yup.ObjectSchema<NewJob> = Yup.object().shape({
 
 type Props = {
   closeModal: () => void;
-}
+};
 
 const JobAdForm = ({ closeModal }: Props) => {
   const { mutateAsync: createJob } = useCreateJob();
@@ -64,57 +67,61 @@ const JobAdForm = ({ closeModal }: Props) => {
       validationSchema={validationSchema}
     >
       {({ submitForm }) => (
-        <StyledForm>
-          <Title>
-            Create a job ad <Emoji symbol="✍" />
-          </Title>
-          <FormikInput type="text" name="title" placeholder="Job title" />
-          <InputRow>
-            <InputRowItem>
-              <FormikInput
-                type="number"
-                name="price"
-                placeholder="Pay offered"
-              />
-            </InputRowItem>
-            <InputRowItem>
-              <FormikDatepicker
-                name="starting_from"
-                placeholder="Enter start date"
-              />
-            </InputRowItem>
-          </InputRow>
-          <FormikInput
-            type="text"
-            name="image_url"
-            placeholder="Company Logo URL"
-          />
-          <FormikSelect
-            name="type"
-            options={[
-              { value: "fullTime", label: "Full Time" },
-              { value: "partTime", label: "Part Time" },
-              { value: "freelance", label: "Freelance" },
-            ]}
-          />
-          <FormikTextArea
-            type="text"
-            name="description"
-            placeholder="Job description"
-          />
-          <RadioContainer>
+        <StyledFormContainer>
+          <StyledForm>
+            <Title>
+              Create a job ad <Emoji symbol="✍" />
+            </Title>
+            <FormikInput type="text" name="title" placeholder="Job title" />
+            <InputRow>
+              <InputRowItem>
+                <FormikInput
+                  type="number"
+                  name="price"
+                  placeholder="Pay offered"
+                />
+              </InputRowItem>
+              <InputRowItem>
+                <FormikDatepicker
+                  name="starting_from"
+                  placeholder="Enter start date"
+                />
+              </InputRowItem>
+            </InputRow>
             <FormikInput
-              type="checkbox"
-              name="has_drivers_license"
-              id="has_drivers_license"
+              type="text"
+              name="image_url"
+              placeholder="Company Logo URL"
             />
-            <label htmlFor="has_drivers_license">Driving license needed</label>
-          </RadioContainer>
-          <ButtonsContainer>
-            <Button onClick={closeModal} title="close" greyVariant />
-            <Button title="save" onClick={submitForm} />
-          </ButtonsContainer>
-        </StyledForm>
+            <FormikSelect
+              name="type"
+              options={[
+                { value: "fullTime", label: "Full Time" },
+                { value: "partTime", label: "Part Time" },
+                { value: "freelance", label: "Freelance" },
+              ]}
+            />
+            <FormikTextArea
+              type="text"
+              name="description"
+              placeholder="Job description"
+            />
+            <RadioContainer>
+              <FormikInput
+                type="checkbox"
+                name="has_drivers_license"
+                id="has_drivers_license"
+              />
+              <label htmlFor="has_drivers_license">
+                Driving license needed
+              </label>
+            </RadioContainer>
+            <ButtonsContainer>
+              <Button onClick={closeModal} title="close" greyVariant />
+              <Button title="save" onClick={submitForm} />
+            </ButtonsContainer>
+          </StyledForm>
+        </StyledFormContainer>
       )}
     </Formik>
   );
@@ -122,9 +129,18 @@ const JobAdForm = ({ closeModal }: Props) => {
 
 export default JobAdForm;
 
+const StyledFormContainer = styled.div`
+  max-height: 500px;
+  overflow-y: auto;
+`;
+
 const ButtonsContainer = styled.div`
   display: flex;
   justify-content: flex-end;
+
+  @media (max-width: ${screenSize.medium}) {
+    flex-direction: column;
+  }
 `;
 
 const Title = styled.h3`
@@ -146,6 +162,10 @@ const StyledForm = styled(Form)`
 const InputRow = styled.div`
   display: flex;
   gap: 8px;
+
+  @media (max-width: ${screenSize.medium}) {
+    flex-direction: column;
+  }
 `;
 
 const InputRowItem = styled.div`

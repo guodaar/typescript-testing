@@ -8,6 +8,7 @@ import { AiOutlineCloseSquare } from "react-icons/ai";
 import Button from "../../components/Button/Button";
 import FormikInput from "../../components/Formik/FormikInput";
 import { requiredField } from "../../const/validations";
+import { screenSize } from "../../const/mediaQueries";
 import styled from "styled-components";
 import { toast } from "react-hot-toast";
 import { useCreateUser } from "../../hooks/userHooks";
@@ -27,7 +28,9 @@ const validationSchema: Yup.ObjectSchema<NewUser> = Yup.object().shape({
     .oneOf([Yup.ref("password")], "Your passwords do not match."),
   first_name: Yup.string().required(requiredField),
   last_name: Yup.string().required(requiredField),
-  role: Yup.mixed<Role>().oneOf(["employee", "employeer", "admin"]).required(requiredField),
+  role: Yup.mixed<Role>()
+    .oneOf(["employee", "employeer", "admin"])
+    .required(requiredField),
 });
 
 type Props = {
@@ -55,47 +58,74 @@ const RegisterForm = ({ closeModal }: Props) => {
       validationSchema={validationSchema}
     >
       {({ submitForm }) => (
-        <StyledForm>
-          <Title>
-            <p>Register to apply or post a job </p>
-          </Title>
-          <InputRow>
-            <InputRowItem>
-              <FormikInput type="text" name="first_name" placeholder="First name" />
-            </InputRowItem>
-            <InputRowItem>
-              <FormikInput type="text" name="last_name" placeholder="Last name" />
-            </InputRowItem>
-          </InputRow>
-          <InputRow>
-            <InputRowItem>
-              <FormikInput type="email" name="email" placeholder="Your email address" />
-            </InputRowItem>
-          </InputRow>
-          <InputRow>
-            <InputRowItem>
-              <FormikInput type="password" name="password" placeholder="Password" />
-            </InputRowItem>
-            <InputRowItem>
-              <FormikInput type="password" name="confirmPassword" placeholder="Repeat password" />
-            </InputRowItem>
-          </InputRow>
-          <InputRow>
-            <FormikInput type="checkbox" name="employer" id="employer" />
-            <label htmlFor="employer">An Employer</label>
-          </InputRow>
-          <ButtonsContainer>
-            <Button greyVariant onClick={closeModal} title="Cancel" />
-            <Button title="Register" onClick={submitForm} />
-          </ButtonsContainer>
-          <CloseBtn onClick={closeModal} />
-        </StyledForm>
+        <StyledFormContainer>
+          <StyledForm>
+            <Title>
+              <p>Register to apply or post a job </p>
+            </Title>
+            <InputRow>
+              <InputRowItem>
+                <FormikInput
+                  type="text"
+                  name="first_name"
+                  placeholder="First name"
+                />
+              </InputRowItem>
+              <InputRowItem>
+                <FormikInput
+                  type="text"
+                  name="last_name"
+                  placeholder="Last name"
+                />
+              </InputRowItem>
+            </InputRow>
+            <InputRow>
+              <InputRowItem>
+                <FormikInput
+                  type="email"
+                  name="email"
+                  placeholder="Your email address"
+                />
+              </InputRowItem>
+            </InputRow>
+            <InputRow>
+              <InputRowItem>
+                <FormikInput
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                />
+              </InputRowItem>
+              <InputRowItem>
+                <FormikInput
+                  type="password"
+                  name="confirmPassword"
+                  placeholder="Repeat password"
+                />
+              </InputRowItem>
+            </InputRow>
+            <InputCheckBoxRow>
+              <FormikInput type="checkbox" name="employer" id="employer" />
+              <label htmlFor="employer">An Employer</label>
+            </InputCheckBoxRow>
+            <ButtonsContainer>
+              <Button greyVariant onClick={closeModal} title="Cancel" />
+              <Button title="Register" onClick={submitForm} />
+            </ButtonsContainer>
+            <CloseBtn onClick={closeModal} />
+          </StyledForm>
+        </StyledFormContainer>
       )}
     </Formik>
   );
 };
 
 export default RegisterForm;
+
+const StyledFormContainer = styled.div`
+  max-height: 500px;
+  overflow-y: auto;
+`;
 
 const CloseBtn = styled(AiOutlineCloseSquare)`
   position: absolute;
@@ -108,6 +138,10 @@ const CloseBtn = styled(AiOutlineCloseSquare)`
 const ButtonsContainer = styled.div`
   display: flex;
   justify-content: flex-end;
+
+  @media (max-width: ${screenSize.medium}) {
+    flex-direction: column;
+  }
 `;
 
 const Title = styled.h3`
@@ -131,6 +165,15 @@ const StyledForm = styled(Form)`
 `;
 
 const InputRow = styled.div`
+  display: flex;
+  gap: 8px;
+
+  @media (max-width: ${screenSize.medium}) {
+    flex-direction: column;
+  }
+`;
+
+const InputCheckBoxRow = styled.div`
   display: flex;
   gap: 8px;
 `;
