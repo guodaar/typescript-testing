@@ -1,27 +1,22 @@
-import { useState } from "react";
 import styled from "styled-components";
-import { mainBgColor } from "../../const/styles";
-import { useUsers } from "../../hooks/userHooks";
-import UserCard from "../../pages/Users/UserCard";
+import Emoji from "../Emoji/Emoji";
 
-const SearchBar = () => {
-    const { data } = useUsers();
-    const users = data || [];
-    const [searchText, setSearchText] = useState("");
-  
-    const filteredBySearch = users.filter((user) => user.email.toLowerCase().includes(searchText) || user.first_name.toLowerCase().includes(searchText))
+interface SearchBarProps {
+    value: string;
+    setValue: (value: string) => void;
+};
 
+const SearchBar = ({value, setValue}: SearchBarProps) => {
   return (
     <Container>
-        <input 
-          value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}
-          placeholder="Search..."
-        />
-
-        {filteredBySearch.map((user) => (
-          <UserCard key={user.id} user={user} />
-        ))}
+        <InputContainer>
+            <input 
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            placeholder="Search..."
+            />
+        </InputContainer>
+        <Emoji symbol="🔎" />
     </Container>
   )
 }
@@ -29,18 +24,26 @@ const SearchBar = () => {
 export default SearchBar;
 
 const Container = styled.div`
-  max-width: 1100px;
-  margin: 40px auto;
-  background-color: ${mainBgColor};
-
-  input {
-    padding: 16px;
-    width: 100%;
-    border: none;
-  };
-
-  input:hover {
-    opacity: 0.85;
-  };
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid white;
+    box-shadow: 5px 5px 5px gray;
+    width: 300px;
 `;
 
+const InputContainer = styled.div`
+    width: 90%;
+
+    input {
+        padding: 16px;
+        width: 100%;
+        border: none;
+        font-weight: 700;
+    };
+
+    input:hover {
+        opacity: 0.75;
+      };
+`;
