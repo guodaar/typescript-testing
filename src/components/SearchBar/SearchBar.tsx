@@ -29,6 +29,7 @@ const Container = styled.div`
     align-items: center;
     justify-content: space-between;
     border: 1px solid white;
+    border-radius: 20px;
     box-shadow: 5px 5px 5px gray;
     width: 300px;
 `;
@@ -40,6 +41,7 @@ const InputContainer = styled.div`
         padding: 16px;
         width: 100%;
         border: none;
+        border-radius: 20px;
         font-weight: 700;
     };
 
