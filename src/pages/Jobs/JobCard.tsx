@@ -11,6 +11,7 @@ import Button from "../../components/Button/Button";
 import { Job } from "../../types/job";
 import { addHyphen } from "../../utils/string";
 import { formatDate } from "../../utils/date";
+import { screenSize } from "../../const/mediaQueries";
 import styled from "styled-components";
 
 interface JobCardProps {
@@ -56,13 +57,19 @@ const Container = styled.div`
   margin-bottom: 16px;
   border-radius: 4px;
   gap: 16px;
+
+  @media (max-width: ${screenSize.medium}) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const LeftWrapper = styled.div`
   display: flex;
 
   img {
-    width: 80px;
+    width: 100px;
+    height: 100px;
     border-radius: ${borderRadius};
     object-fit: cover;
   }
@@ -107,12 +114,22 @@ const Details = styled.div`
   span {
     color: ${lighterBlue};
   }
+
+  @media (max-width: ${screenSize.medium}) {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 const Description = styled.p`
   font-size: 0.9rem;
   color: ${mediumGrey};
   margin-top: 6px;
+
+  @media (max-width: ${screenSize.medium}) {
+    text-align: center;
+  }
 `;
 
 const Price = styled.p`
