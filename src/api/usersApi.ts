@@ -51,6 +51,15 @@ export const createUser = async (newUser: NewUser): Promise<User> => {
   });
 };
 
+export const deleteUser = async (id: number): Promise<User> => {
+  const deletedUser = mockUsers.filter((user) => user.id === id)[0];
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(deletedUser);
+    }, 1000);
+  });
+};
+
 export const loginUser = async (loggingUser: LoginUser): Promise<User> => {
   const users = await fetchUsers();
   return new Promise((resolve, reject) => {

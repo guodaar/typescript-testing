@@ -1,5 +1,6 @@
+import { createUser, deleteUser, fetchUsers, loginUser } from "../api/usersApi";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { createUser, loginUser, fetchUsers } from "../api/usersApi";
+
 const USERS = "USERS";
 
 export const useUsers = () => {
@@ -8,6 +9,10 @@ export const useUsers = () => {
 
 export const useCreateUser = () => {
   return useMutation(createUser);
+};
+
+export const useDeleteUser = () => {
+  return useMutation(deleteUser);
 };
 
 export const useLoginUser = () => {
