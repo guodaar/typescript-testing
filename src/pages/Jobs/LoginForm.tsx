@@ -34,7 +34,7 @@ const LoginForm = ({ closeModal }: Props) => {
         toast.success("Successfully logged in!");
       })
       .catch((error) => {
-        console.log("Failed to login:", error);
+        toast.error("Failed to login:");
       });
   };
 
