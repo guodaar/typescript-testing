@@ -16,7 +16,9 @@ const UserContext = createContext<{
 
 const UserProvider = ({ children }: PropsWithChildren) => {
   const [user, setUser] = useLocalStorage("user", null);
+
   const isLoggedIn = !!user;
+
   const handleLogOut = () => {
     setUser(null);
   };
