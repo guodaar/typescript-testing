@@ -15,8 +15,6 @@ import JobAdForm from "./JobAdForm";
 import JobApplicationForm from "./JobApplicationForm";
 import JobCard from "./JobCard";
 import Loader from "../../components/Loader/Loader";
-import LoginForm from "./LoginForm";
-import RegisterForm from "../Register/RegisterForm";
 import StyledModal from "../../components/StyledModal/StyledModal";
 import { UserContext } from "../../contexts/UserContext";
 import { screenSize } from "../../const/mediaQueries";
@@ -29,8 +27,6 @@ const Jobs = () => {
   const [toggle, setToggle] = useState(false);
   const [adFormOpen, setAdFormOpen] = useState(false);
   const [applicationFormOpen, setApplicationFormOpen] = useState(false);
-  const [registerOpen, setRegisterOpen] = useState(false);
-  const [loginFormOpen, setLoginFormOpen] = useState(false);
 
   const [selectedTypeOption, setSelectedTypeOption] = useState(
     jobTypeOptions[0]
@@ -83,9 +79,9 @@ const Jobs = () => {
     setSelectedDateOption({ value: "", label: "Starting date" });
   };
 
-  const handleRegisterToggle = () => {
-    setRegisterOpen((prevOpen) => !prevOpen);
-  };
+  // const handleRegisterToggle = () => {
+  //   setRegisterOpen((prevOpen) => !prevOpen);
+  // };
 
   const handleToggleAdForm = () => {
     setAdFormOpen((prevOpen) => !prevOpen);
@@ -99,9 +95,9 @@ const Jobs = () => {
     setToggle(!toggle);
   };
 
-  const handleToggleLoginForm = () => {
-    setLoginFormOpen((prevOpen) => !prevOpen);
-  };
+  // const handleToggleLoginForm = () => {
+  //   setLoginFormOpen((prevOpen) => !prevOpen);
+  // };
 
   if (!isLoading && !jobs?.length) {
     return <div>There are no jobs added yet</div>;
@@ -122,8 +118,8 @@ const Jobs = () => {
       </Title>
       <Loader isLoading={isLoading} />
       <TopContainer>
-        <Button onClick={handleRegisterToggle} title="Register" greyVariant />
-        <Button onClick={handleToggleLoginForm} title="Log In" greyVariant />
+        {/* <Button onClick={handleRegisterToggle} title="Register" greyVariant />
+        <Button onClick={handleToggleLoginForm} title="Log In" greyVariant /> */}
         <Button
           onClick={handleToggleAdForm}
           title="Post a job"
@@ -188,24 +184,6 @@ const Jobs = () => {
         symbol="👇"
       >
         <JobApplicationForm closeModal={handleToggleApplicationForm} />
-      </StyledModal>
-      <StyledModal
-        modalSize="medium"
-        modalIsOpen={registerOpen}
-        closeModal={handleRegisterToggle}
-        title="Enter your details to register"
-        symbol="👇"
-      >
-        <RegisterForm closeModal={handleRegisterToggle} />
-      </StyledModal>
-      <StyledModal
-        modalSize="small"
-        modalIsOpen={loginFormOpen}
-        closeModal={handleToggleLoginForm}
-        title="Login"
-        symbol="👋"
-      >
-        <LoginForm closeModal={handleToggleLoginForm} />
       </StyledModal>
     </Container>
   );

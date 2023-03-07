@@ -12,7 +12,6 @@ const Topbar = () => {
   const [loginFormOpen, setLoginFormOpen] = useState(false);
   const [registerOpen, setRegisterOpen] = useState(false);
 
-  
   const handleToggleLoginForm = () => {
     setLoginFormOpen((prevOpen) => !prevOpen);
   };
@@ -46,6 +45,8 @@ const Topbar = () => {
         modalSize="small"
         modalIsOpen={loginFormOpen}
         closeModal={handleToggleLoginForm}
+        title="Login"
+        symbol="👋"
       >
         <LoginForm closeModal={handleToggleLoginForm} />
       </StyledModal>
@@ -53,6 +54,8 @@ const Topbar = () => {
         modalSize="medium"
         modalIsOpen={registerOpen}
         closeModal={handleToggleRegisterForm}
+        title="Enter your details to register"
+        symbol="👇"
       >
         <RegisterForm closeModal={handleToggleRegisterForm} />
       </StyledModal>

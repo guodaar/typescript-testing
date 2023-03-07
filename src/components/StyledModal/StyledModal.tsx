@@ -60,17 +60,17 @@ const Container = styled(Modal)<{ modalSize: string }>`
   ${({ modalSize }) => {
     if (modalSize === "large") {
       return `
-      margin: 5vh 10vw;
+      margin: 10vh 10vw;
       padding: 24px 10vw;
       `;
     } else if (modalSize === "medium") {
       return `
-      margin: 5vh 20vw;
+      margin: 10vh 20vw;
       padding: 24px 10vw;
       `;
     } else if (modalSize === "small") {
       return `
-      margin: 5vh 25vw;
+      margin: 10vh 25vw;
       padding: 24px 5vw;
     `;
     }
