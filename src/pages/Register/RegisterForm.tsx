@@ -2,10 +2,8 @@ import * as Yup from "yup";
 
 import { Form, Formik } from "formik";
 import { NewUser, Role } from "../../types/user";
-import { darkGrey, lightGrey } from "../../const/styles";
 
-import { AiOutlineCloseSquare } from "react-icons/ai";
-import Button from "../../components/Button/Button";
+import FormikButtons from "../../components/Formik/FormikButtons";
 import FormikInput from "../../components/Formik/FormikInput";
 import { requiredField } from "../../const/validations";
 import { screenSize } from "../../const/mediaQueries";
@@ -41,6 +39,10 @@ const RegisterForm = ({ closeModal }: Props) => {
   const { mutateAsync: createUser } = useCreateUser();
 
   const handleSubmit = (values: NewUser) => {
+    toast("Registration successfull!", {
+      icon: "🥳",
+    });
+    closeModal();
     createUser(values)
       .then(() => {
         closeModal();
@@ -57,12 +59,9 @@ const RegisterForm = ({ closeModal }: Props) => {
       onSubmit={handleSubmit}
       validationSchema={validationSchema}
     >
-      {({ submitForm }) => (
+      {({ isSubmitting }) => (
         <StyledFormContainer>
           <StyledForm>
-            <Title>
-              <p>Register to apply or post a job </p>
-            </Title>
             <InputRow>
               <InputRowItem>
                 <FormikInput
@@ -108,11 +107,11 @@ const RegisterForm = ({ closeModal }: Props) => {
               <FormikInput type="checkbox" name="employer" id="employer" />
               <label htmlFor="employer">An Employer</label>
             </InputCheckBoxRow>
-            <ButtonsContainer>
-              <Button greyVariant onClick={closeModal} title="Cancel" />
-              <Button title="Register" onClick={submitForm} />
-            </ButtonsContainer>
-            <CloseBtn onClick={closeModal} />
+            <FormikButtons
+              closeModal={closeModal}
+              disabled={isSubmitting}
+              submitTitle="Register"
+            />
           </StyledForm>
         </StyledFormContainer>
       )}
@@ -125,35 +124,6 @@ export default RegisterForm;
 const StyledFormContainer = styled.div`
   max-height: 500px;
   overflow-y: auto;
-`;
-
-const CloseBtn = styled(AiOutlineCloseSquare)`
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  cursor: pointer;
-  font-size: 1.2rem;
-`;
-
-const ButtonsContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-
-  @media (max-width: ${screenSize.medium}) {
-    flex-direction: column;
-  }
-`;
-
-const Title = styled.h3`
-  font-size: 1.6rem;
-  font-weight: 500;
-  text-align: center;
-  margin-bottom: 32px;
-  color: ${darkGrey};
-  border-bottom: 1px solid ${lightGrey};
-  p {
-    padding-bottom: 5px;
-  }
 `;
 
 const StyledForm = styled(Form)`

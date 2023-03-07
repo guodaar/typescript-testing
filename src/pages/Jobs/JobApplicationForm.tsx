@@ -3,10 +3,8 @@ import * as Yup from "yup";
 import { Form, Formik } from "formik";
 
 import { ApplyUser } from "../../types/user";
-import Button from "../../components/Button/Button";
-import Emoji from "../../components/Emoji/Emoji";
+import FormikButtons from "../../components/Formik/FormikButtons";
 import FormikInput from "../../components/Formik/FormikInput";
-import { darkGrey } from "../../const/styles";
 import { requiredField } from "../../const/validations";
 import { screenSize } from "../../const/mediaQueries";
 import styled from "styled-components";
@@ -57,12 +55,9 @@ const JobApplicationForm = ({ closeModal }: Props) => {
       onSubmit={handleSubmit}
       validationSchema={validationSchema}
     >
-      {({ submitForm }) => (
+      {({ isSubmitting }) => (
         <StyledFormContainer>
           <StyledForm>
-            <Title>
-              Enter your details to apply <Emoji symbol="👇" />
-            </Title>
             <InputRow>
               <InputRowItem>
                 <FormikInput
@@ -95,10 +90,11 @@ const JobApplicationForm = ({ closeModal }: Props) => {
                 />
               </InputRowItem>
             </InputRow>
-            <ButtonsContainer>
-              <Button onClick={closeModal} title="close" greyVariant />
-              <Button title="submit application" onClick={submitForm} />
-            </ButtonsContainer>
+            <FormikButtons
+              closeModal={closeModal}
+              disabled={isSubmitting}
+              submitTitle="submit application"
+            />
           </StyledForm>
         </StyledFormContainer>
       )}
@@ -111,23 +107,6 @@ export default JobApplicationForm;
 const StyledFormContainer = styled.div`
   max-height: 500px;
   overflow-y: auto;
-`;
-
-const ButtonsContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-
-  @media (max-width: ${screenSize.medium}) {
-    flex-direction: column;
-  }
-`;
-
-const Title = styled.h3`
-  font-size: 1.6rem;
-  font-weight: 500;
-  text-align: center;
-  margin-bottom: 32px;
-  color: ${darkGrey};
 `;
 
 const StyledForm = styled(Form)`

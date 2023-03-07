@@ -175,6 +175,8 @@ const Jobs = () => {
         modalSize="medium"
         modalIsOpen={adFormOpen}
         closeModal={handleToggleAdForm}
+        title="Create a job ad"
+        symbol="✍"
       >
         <JobAdForm closeModal={handleToggleAdForm} />
       </StyledModal>
@@ -182,6 +184,8 @@ const Jobs = () => {
         modalSize="small"
         modalIsOpen={applicationFormOpen}
         closeModal={handleToggleApplicationForm}
+        title="Enter your details to apply"
+        symbol="👇"
       >
         <JobApplicationForm closeModal={handleToggleApplicationForm} />
       </StyledModal>
@@ -189,6 +193,8 @@ const Jobs = () => {
         modalSize="medium"
         modalIsOpen={registerOpen}
         closeModal={handleRegisterToggle}
+        title="Enter your details to register"
+        symbol="👇"
       >
         <RegisterForm closeModal={handleRegisterToggle} />
       </StyledModal>
@@ -196,6 +202,8 @@ const Jobs = () => {
         modalSize="small"
         modalIsOpen={loginFormOpen}
         closeModal={handleToggleLoginForm}
+        title="Login"
+        symbol="👋"
       >
         <LoginForm closeModal={handleToggleLoginForm} />
       </StyledModal>

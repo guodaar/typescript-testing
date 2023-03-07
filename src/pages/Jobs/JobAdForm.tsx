@@ -3,13 +3,11 @@ import * as Yup from "yup";
 import { Form, Formik } from "formik";
 import { JobType, NewJob } from "../../types/job";
 
-import Button from "../../components/Button/Button";
-import Emoji from "../../components/Emoji/Emoji";
+import FormikButtons from "../../components/Formik/FormikButtons";
 import FormikDatepicker from "../../components/Formik/FormikDatepicker";
 import FormikInput from "../../components/Formik/FormikInput";
 import FormikSelect from "../../components/Formik/FormikSelect";
 import FormikTextArea from "../../components/Formik/FormikTextArea";
-import { darkGrey } from "../../const/styles";
 import { requiredField } from "../../const/validations";
 import { screenSize } from "../../const/mediaQueries";
 import styled from "styled-components";
@@ -66,12 +64,9 @@ const JobAdForm = ({ closeModal }: Props) => {
       onSubmit={handleSubmit}
       validationSchema={validationSchema}
     >
-      {({ submitForm }) => (
+      {({ isSubmitting }) => (
         <StyledFormContainer>
           <StyledForm>
-            <Title>
-              Create a job ad <Emoji symbol="✍" />
-            </Title>
             <FormikInput type="text" name="title" placeholder="Job title" />
             <InputRow>
               <InputRowItem>
@@ -116,10 +111,11 @@ const JobAdForm = ({ closeModal }: Props) => {
                 Driving license needed
               </label>
             </RadioContainer>
-            <ButtonsContainer>
-              <Button onClick={closeModal} title="close" greyVariant />
-              <Button title="save" onClick={submitForm} />
-            </ButtonsContainer>
+            <FormikButtons
+              closeModal={closeModal}
+              disabled={isSubmitting}
+              submitTitle="Save"
+            />
           </StyledForm>
         </StyledFormContainer>
       )}
@@ -132,23 +128,6 @@ export default JobAdForm;
 const StyledFormContainer = styled.div`
   max-height: 500px;
   overflow-y: auto;
-`;
-
-const ButtonsContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-
-  @media (max-width: ${screenSize.medium}) {
-    flex-direction: column;
-  }
-`;
-
-const Title = styled.h3`
-  font-size: 1.6rem;
-  font-weight: 500;
-  text-align: center;
-  margin-bottom: 18px;
-  color: ${darkGrey};
 `;
 
 const StyledForm = styled(Form)`
