@@ -11,11 +11,7 @@ import { useState } from "react";
 const Topbar = () => {
   const [loginFormOpen, setLoginFormOpen] = useState(false);
   const [registerOpen, setRegisterOpen] = useState(false);
-  const [formOpen, setFormOpen] = useState(false);
 
-  const handleToggleForm = () => {
-    setFormOpen((prevOpen) => !prevOpen);
-  };
   
   const handleToggleLoginForm = () => {
     setLoginFormOpen((prevOpen) => !prevOpen);
@@ -24,11 +20,13 @@ const Topbar = () => {
   const handleToggleRegisterForm = () => {
     setRegisterOpen((prevOpen) => !prevOpen);
   };
-  
+
   return (
     <Wrapper>
       <LeftSide>
-        <Logo>Tech Jobs.</Logo>
+        <Logo as={Link} to={JOBS_PATH}>
+          Tech Jobs.
+        </Logo>
       </LeftSide>
       <RightSide>
         <MenuContainer>
@@ -37,7 +35,11 @@ const Topbar = () => {
         </MenuContainer>
         <UserArea>
           <Button onClick={handleToggleLoginForm} title="log In" greyVariant />
-          <Button onClick={handleToggleRegisterForm} title="Register" greyVariant />
+          <Button
+            onClick={handleToggleRegisterForm}
+            title="Register"
+            greyVariant
+          />
         </UserArea>
       </RightSide>
       <StyledModal
@@ -64,7 +66,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
-  background-color: transparent;
+  background-color: #fdffffe6;
   justify-content: space-between;
   align-items: center;
   padding-top: 16px;
@@ -86,21 +88,24 @@ const UserArea = styled.div`
 `;
 
 const StyledLink = styled(Link)`
-  color: white;
+  color: #261ea7;
   font-size: 1.1rem;
   text-transform: none;
   text-transform: uppercase;
   padding: 8px 8px;
+  border-bottom: 2px solid transparent;
+  font-weight: 600;
 
   &:hover {
-    border-bottom: 2px solid white;
+    border-bottom: 2px solid #261ea7;
+    color: #261ea7;
   }
 `;
 
 const Logo = styled.p`
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   font-weight: 700;
-  color: white;
+  color: #261ea7;
   text-transform: uppercase;
 `;
 
