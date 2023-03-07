@@ -19,7 +19,7 @@ const Footer = (props: Props) => {
       <StyledLink to={"/privacy"}>Privacy policy</StyledLink>
         <p>© 2023 TECH JOBS</p>
         <p>All rights reserved.</p>
-        <StyledLink to={"https://github.com/guodaar/typescript-testing.git"}> <FaGithub /></StyledLink>
+        <StyledLink to="https://github.com/guodaar/typescript-testing.git"> <FaGithub /></StyledLink>
        
       </Container>
 
