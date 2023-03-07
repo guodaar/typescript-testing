@@ -1,3 +1,4 @@
+import Footer from "../components/Footer/Footer";
 import { ReactNode } from "react";
 import Topbar from "./Topbar";
 import styled from "styled-components";
@@ -11,6 +12,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
     <>
       <Topbar/>
       <Wrapper>{children}</Wrapper>
+      <Footer/>
     </>
   );
 };
