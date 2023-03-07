@@ -5,6 +5,7 @@ import { driversLicenseOptions, jobTypeOptions } from "../../const/filterOptions
 import { useContext, useState } from "react";
 
 import Button from "../../components/Button/Button";
+import CookiesModal from "../../components/CookiesModal/CookiesModal";
 import Emoji from "../../components/Emoji/Emoji";
 import FilterComponent from "../../components/Filters/FilterComponent";
 import FiltersBar from "../../components/Filters/FiltersBar";
@@ -170,6 +171,7 @@ const Jobs = () => {
       <StyledModal modalSize="small" modalIsOpen={loginFormOpen} closeModal={handleToggleLoginForm}>
         <LoginForm closeModal={handleToggleLoginForm} />
       </StyledModal>
+      <CookiesModal />
     </Container>
   );
 };
