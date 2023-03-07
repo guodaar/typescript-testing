@@ -20,5 +20,6 @@ const MainLayout = ({ children }: MainLayoutProps) => {
 export default MainLayout;
 
 const Wrapper = styled.div`
+  min-height: 81vh;
   padding: 20px 40px;
 `;
