@@ -5,6 +5,7 @@ import {
   driversLicenseOptions,
   jobTypeOptions,
 } from "../../const/filterOptions";
+import { useContext, useState } from "react";
 
 import Button from "../../components/Button/Button";
 import Emoji from "../../components/Emoji/Emoji";
@@ -17,13 +18,14 @@ import Loader from "../../components/Loader/Loader";
 import LoginForm from "./LoginForm";
 import RegisterForm from "../Register/RegisterForm";
 import StyledModal from "../../components/StyledModal/StyledModal";
+import { UserContext } from "../../contexts/UserContext";
 import { screenSize } from "../../const/mediaQueries";
 import { sortSelect } from "../../utils/select";
 import styled from "styled-components";
 import { useJobs } from "../../hooks/jobsHooks";
-import { useState } from "react";
 
 const Jobs = () => {
+  const { isLoggedIn } = useContext(UserContext);
   const [toggle, setToggle] = useState(false);
   const [adFormOpen, setAdFormOpen] = useState(false);
   const [applicationFormOpen, setApplicationFormOpen] = useState(false);

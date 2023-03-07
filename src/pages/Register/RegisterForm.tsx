@@ -1,12 +1,12 @@
 import * as Yup from "yup";
 
 import { Form, Formik } from "formik";
+import { NewUser, Role } from "../../types/user";
 import { darkGrey, lightGrey } from "../../const/styles";
 
 import { AiOutlineCloseSquare } from "react-icons/ai";
 import Button from "../../components/Button/Button";
 import FormikInput from "../../components/Formik/FormikInput";
-import { NewUser } from "../../types/user";
 import { requiredField } from "../../const/validations";
 import { screenSize } from "../../const/mediaQueries";
 import styled from "styled-components";
@@ -28,6 +28,9 @@ const validationSchema: Yup.ObjectSchema<NewUser> = Yup.object().shape({
     .oneOf([Yup.ref("password")], "Your passwords do not match."),
   first_name: Yup.string().required(requiredField),
   last_name: Yup.string().required(requiredField),
+  role: Yup.mixed<Role>()
+    .oneOf(["employee", "employeer", "admin"])
+    .required(requiredField),
 });
 
 type Props = {
@@ -39,11 +42,11 @@ const RegisterForm = ({ closeModal }: Props) => {
 
   const handleSubmit = (values: NewUser) => {
     createUser(values)
-      .then((response) => {
+      .then(() => {
         closeModal();
         toast.success("Register successfully");
       })
-      .catch((error) => {
+      .catch(() => {
         console.error("Failed to post the ad");
       });
   };
