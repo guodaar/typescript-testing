@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import Topbar from "./Topbar";
+import { screenSize } from "../const/mediaQueries";
 import styled from "styled-components";
 
 interface MainLayoutProps {
@@ -9,7 +10,7 @@ interface MainLayoutProps {
 const MainLayout = ({ children }: MainLayoutProps) => {
   return (
     <>
-      <Topbar/>
+      <Topbar />
       <Wrapper>{children}</Wrapper>
     </>
   );
@@ -19,4 +20,8 @@ export default MainLayout;
 
 const Wrapper = styled.div`
   padding: 20px 40px;
+
+  @media (max-width: ${screenSize.medium}) {
+    padding: 0;
+  }
 `;
