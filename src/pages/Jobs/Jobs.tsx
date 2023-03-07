@@ -1,11 +1,19 @@
-import { DateOption, PriceOption } from "../../types/select";
-import { borderRadius, darkGrey, mainBgColor } from "../../const/styles";
-import { dateOptions, priceOptions } from "../../const/selectOptions";
 import {
-  driversLicenseOptions,
-  jobTypeOptions,
-} from "../../const/filterOptions";
-import { useContext, useState } from "react";
+  DateOption,
+  DriversLicenseOption,
+  JobOption,
+  PriceOption,
+} from "./types";
+import { borderRadius, darkGrey, mainBgColor } from "../../const/styles";
+import {
+  dateOptions,
+  emptyDateOption,
+  emptyDriversLicenseOption,
+  emptyJobTypeOption,
+  emptyPriceOption,
+  priceOptions,
+} from "./const";
+import { driversLicenseOptions, jobTypeOptions } from "./const";
 
 import Button from "../../components/Button/Button";
 import Emoji from "../../components/Emoji/Emoji";
@@ -15,76 +23,50 @@ import JobAdForm from "./JobAdForm";
 import JobApplicationForm from "./JobApplicationForm";
 import JobCard from "./JobCard";
 import Loader from "../../components/Loader/Loader";
-import LoginForm from "./LoginForm";
-import RegisterForm from "../Register/RegisterForm";
 import StyledModal from "../../components/StyledModal/StyledModal";
-import { UserContext } from "../../contexts/UserContext";
 import { screenSize } from "../../const/mediaQueries";
-import { sortSelect } from "../../utils/select";
+import { sortSelect } from "./utils";
 import styled from "styled-components";
 import { useJobs } from "../../hooks/jobsHooks";
+import { useState } from "react";
 
 const Jobs = () => {
-  const { isLoggedIn } = useContext(UserContext);
   const [toggle, setToggle] = useState(false);
   const [adFormOpen, setAdFormOpen] = useState(false);
   const [applicationFormOpen, setApplicationFormOpen] = useState(false);
-  const [registerOpen, setRegisterOpen] = useState(false);
-  const [loginFormOpen, setLoginFormOpen] = useState(false);
-
-  const [selectedTypeOption, setSelectedTypeOption] = useState(
-    jobTypeOptions[0]
-  );
+  const [selectedTypeOption, setSelectedTypeOption] =
+    useState(emptyJobTypeOption);
   const [selectedLicenseOption, setSelectedLicenseOption] = useState(
-    driversLicenseOptions[0]
+    emptyDriversLicenseOption
   );
-  const [selectedDateOption, setSelectedDateOption] = useState<DateOption>({
-    value: "",
-    label: "Starting date",
-  });
-  const [selectedPriceOption, setSelectedPriceOption] = useState<PriceOption>({
-    value: "",
-    label: "Salary",
-  });
+  const [selectedDateOption, setSelectedDateOption] = useState(emptyDateOption);
+  const [selectedPriceOption, setSelectedPriceOption] =
+    useState(emptyPriceOption);
 
   const { data, isLoading } = useJobs();
   const jobs = data || [];
 
-  const handleTypeChange = (option: typeof jobTypeOptions[number]) => {
+  const handleTypeChange = (option: JobOption) => {
     setSelectedTypeOption(option);
   };
 
-  const handleDriverChange = (option: typeof driversLicenseOptions[number]) => {
+  const handleDriverChange = (option: DriversLicenseOption) => {
     setSelectedLicenseOption(option);
   };
 
+  const handleDateSortChange = (selectedOption: DateOption) => {
+    setSelectedDateOption(selectedOption);
+  };
+
+  const handlePriceSortChange = (selectedOption: PriceOption) => {
+    setSelectedPriceOption(selectedOption);
+  };
+
   const handleClearFilters = () => {
-    setSelectedLicenseOption(driversLicenseOptions[0]);
-    setSelectedTypeOption(jobTypeOptions[0]);
-    setSelectedDateOption({
-      value: "",
-      label: "Starting date",
-    });
-    setSelectedPriceOption({
-      value: "",
-      label: "Salary",
-    });
-  };
-
-  const handleDateSortChange = (selectedOption: DateOption | null) => {
-    setSelectedDateOption(
-      selectedOption || { value: "", label: "Starting date" }
-    );
-    setSelectedPriceOption({ value: "", label: "Salary" });
-  };
-
-  const handlePriceSortChange = (selectedOption: PriceOption | null) => {
-    setSelectedPriceOption(selectedOption || { value: "", label: "Salary" });
-    setSelectedDateOption({ value: "", label: "Starting date" });
-  };
-
-  const handleRegisterToggle = () => {
-    setRegisterOpen((prevOpen) => !prevOpen);
+    setSelectedLicenseOption(emptyDriversLicenseOption);
+    setSelectedTypeOption(emptyJobTypeOption);
+    setSelectedDateOption(emptyDateOption);
+    setSelectedPriceOption(emptyPriceOption);
   };
 
   const handleToggleAdForm = () => {
@@ -97,10 +79,6 @@ const Jobs = () => {
 
   const handleToggleFilters = () => {
     setToggle(!toggle);
-  };
-
-  const handleToggleLoginForm = () => {
-    setLoginFormOpen((prevOpen) => !prevOpen);
   };
 
   if (!isLoading && !jobs?.length) {
@@ -122,14 +100,12 @@ const Jobs = () => {
       </Title>
       <Loader isLoading={isLoading} />
       <TopContainer>
-        <Button onClick={handleRegisterToggle} title="Register" greyVariant />
-        <Button onClick={handleToggleLoginForm} title="Log In" greyVariant />
+        <Button onClick={handleToggleFilters} title="filter jobs" greyVariant />
         <Button
           onClick={handleToggleAdForm}
           title="Post a job"
           greyVariant={false}
         />
-        <Button onClick={handleToggleFilters} title="filter jobs" greyVariant />
       </TopContainer>
       <FiltersBar toggle={toggle}>
         <FilterComponent
@@ -185,20 +161,6 @@ const Jobs = () => {
       >
         <JobApplicationForm closeModal={handleToggleApplicationForm} />
       </StyledModal>
-      <StyledModal
-        modalSize="medium"
-        modalIsOpen={registerOpen}
-        closeModal={handleRegisterToggle}
-      >
-        <RegisterForm closeModal={handleRegisterToggle} />
-      </StyledModal>
-      <StyledModal
-        modalSize="small"
-        modalIsOpen={loginFormOpen}
-        closeModal={handleToggleLoginForm}
-      >
-        <LoginForm closeModal={handleToggleLoginForm} />
-      </StyledModal>
     </Container>
   );
 };
@@ -212,19 +174,23 @@ const Container = styled.div`
   border-radius: ${borderRadius};
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 16px;
   color: ${darkGrey};
+
+  @media (max-width: ${screenSize.medium}) {
+    margin: 20px;
+  }
 `;
 
 const TopContainer = styled.div`
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
 
   @media (max-width: ${screenSize.medium}) {
     flex-direction: column;
 
-    Button {
+    button {
       width: 100%;
     }
   }
