@@ -16,7 +16,9 @@ const SearchBar = ({value, setValue}: SearchBarProps) => {
             placeholder="Search..."
             />
         </InputContainer>
-        <Emoji symbol="🔎" />
+        <EmojiContainer>
+            <Emoji symbol="🔎" />
+        </EmojiContainer>
     </Container>
   )
 }
@@ -30,22 +32,29 @@ const Container = styled.div`
     justify-content: space-between;
     border: 1px solid white;
     border-radius: 20px;
-    box-shadow: 5px 5px 5px gray;
+    box-shadow: 3px 3px 15px lightgray;
     width: 300px;
+    height: 50px;
 `;
 
 const InputContainer = styled.div`
-    width: 90%;
+    width: 245px;
 
     input {
-        padding: 16px;
+        padding-left: 16px;
         width: 100%;
+        height: 50px;
         border: none;
         border-radius: 20px;
         font-weight: 700;
+        outline: none;
     };
 
     input:hover {
         opacity: 0.75;
       };
+`;
+
+const EmojiContainer = styled.div`
+    padding-right: 16px;
 `;
