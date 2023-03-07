@@ -11,12 +11,17 @@ import { useState } from "react";
 const Topbar = () => {
   const [loginFormOpen, setLoginFormOpen] = useState(false);
   const [registerOpen, setRegisterOpen] = useState(false);
+  const [formOpen, setFormOpen] = useState(false);
+
+  const handleToggleForm = () => {
+    setFormOpen((prevOpen) => !prevOpen);
+  };
   
   const handleToggleLoginForm = () => {
     setLoginFormOpen((prevOpen) => !prevOpen);
   };
 
-  const handleRegisterToggle = () => {
+  const handleToggleRegisterForm = () => {
     setRegisterOpen((prevOpen) => !prevOpen);
   };
   
@@ -32,7 +37,7 @@ const Topbar = () => {
         </MenuContainer>
         <UserArea>
           <Button onClick={handleToggleLoginForm} title="log In" greyVariant />
-          <Button onClick={handleRegisterToggle} title="Register" greyVariant />
+          <Button onClick={handleToggleRegisterForm} title="Register" greyVariant />
         </UserArea>
       </RightSide>
       <StyledModal
@@ -45,9 +50,9 @@ const Topbar = () => {
       <StyledModal
         modalSize="medium"
         modalIsOpen={registerOpen}
-        closeModal={handleRegisterToggle}
+        closeModal={handleToggleRegisterForm}
       >
-        <RegisterForm closeModal={handleRegisterToggle} />
+        <RegisterForm closeModal={handleToggleRegisterForm} />
       </StyledModal>
     </Wrapper>
   );
