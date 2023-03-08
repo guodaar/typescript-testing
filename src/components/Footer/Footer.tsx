@@ -10,19 +10,14 @@ const Footer = () => {
         <h3>
           Vilnius Tech Jobs <Emoji symbol="🎉" />
         </h3>
-        <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias dicta, eligendi
-          adipisci accusamus minus cum esse atque cumque tenetur minima impedit libero quas! Iste
-          perspiciatis rem minus cum, suscipit laborum!
-        </p>
-        <h3>Vilnius Tech Jobs</h3>
         <StyledP>
-          JobSite is a platform that connects job seekers with employers. We make it easy for you to
-          find your dream job or find the perfect candidate for your organization.
+          JobSite is a platform that connects job seekers with employers. We
+          make it easy for you to find your dream job or find the perfect
+          candidate for your organization.
         </StyledP>
       </Container>
       <Container>
-        <StyledLink to={"/privacy"}>Privacy policy</StyledLink>
+        <StyledLink to="/privacy">Privacy policy</StyledLink>
         <p>© 2023 TECH JOBS</p>
         <p>All rights reserved.</p>
         <StyledLink to="https://github.com/guodaar/typescript-testing.git">
@@ -55,9 +50,9 @@ const StyledLink = styled(NavLink)`
   text-decoration: none;
   font-size: 0.7rem;
   margin-bottom: 5px;
+
   &:hover {
     color: blue;
-    transform: scale(1.1);
   }
 `;
 

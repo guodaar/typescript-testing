@@ -181,6 +181,7 @@ const Container = styled.div`
   flex-direction: column;
   gap: 16px;
   color: ${darkGrey};
+
   @media (max-width: ${screenSize.medium}) {
     margin: 20px;
   }
@@ -190,6 +191,7 @@ const TopContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   @media (max-width: ${screenSize.medium}) {
     flex-direction: column;
     button {
