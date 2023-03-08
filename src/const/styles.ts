@@ -9,3 +9,4 @@ export const darkGrey: string = "rgb(57, 57, 59)";
 
 export const borderRadius: string = "5px";
 export const smallBorderRadius: string = "3px";
+export const hoverTransition: string = "0.2s ease-in-out";

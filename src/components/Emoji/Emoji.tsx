@@ -1,5 +1,5 @@
 type Props = {
-  symbol: string;
+  symbol?: string;
 };
 
 const Emoji = ({ symbol }: Props) => {
