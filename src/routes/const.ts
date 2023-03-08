@@ -12,6 +12,6 @@ export const mainLayoutRoutes = {
   routes: [
     { path: JOBS_PATH, Component: Jobs, title: "Jobs" },
     { path: USERS_PATH, Component: Users, title: "Users" },
-    { path: PRIVACY_PATH, Component: Privacy },
+    { path: PRIVACY_PATH, Component: Privacy, title: "Privacy" },
   ],
 };
