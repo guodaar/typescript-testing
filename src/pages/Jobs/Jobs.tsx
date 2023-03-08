@@ -24,6 +24,7 @@ import JobApplicationForm from "./JobApplicationForm";
 import JobCard from "./JobCard";
 import Loader from "../../components/Loader/Loader";
 import StyledModal from "../../components/StyledModal/StyledModal";
+import {motion} from 'framer-motion'
 import { screenSize } from "../../const/mediaQueries";
 import { sortSelect } from "./utils";
 import styled from "styled-components";
@@ -94,6 +95,12 @@ const Jobs = () => {
   );
 
   return (
+  <motion.div
+    animate={{opacity: 1}}
+    initial={{opacity: 0}}
+    exit={{opacity: 0}}
+    transition={{duration: 0.5}}
+    >
     <Container>
       <Title>
         Vilnius Tech Jobs <Emoji symbol="🎉" />
@@ -161,7 +168,8 @@ const Jobs = () => {
       >
         <JobApplicationForm closeModal={handleToggleApplicationForm} />
       </StyledModal>
-    </Container>
+      </Container>
+    </motion.div>
   );
 };
 
@@ -176,7 +184,6 @@ const Container = styled.div`
   flex-direction: column;
   gap: 16px;
   color: ${darkGrey};
-
   @media (max-width: ${screenSize.medium}) {
     margin: 20px;
   }
@@ -186,10 +193,8 @@ const TopContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   @media (max-width: ${screenSize.medium}) {
     flex-direction: column;
-
     button {
       width: 100%;
     }
