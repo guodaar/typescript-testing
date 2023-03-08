@@ -3,11 +3,11 @@ import * as Yup from "yup";
 import { Form, Formik } from "formik";
 import { JobType, NewJob } from "../../types/job";
 
-import FormikButtons from "../../components/Formik/FormikButtons";
 import FormikDatepicker from "../../components/Formik/FormikDatepicker";
 import FormikInput from "../../components/Formik/FormikInput";
 import FormikSelect from "../../components/Formik/FormikSelect";
 import FormikTextArea from "../../components/Formik/FormikTextArea";
+import ModalButtons from "../../components/ModalButtons/ModalButtons";
 import { requiredField } from "../../const/validations";
 import { screenSize } from "../../const/mediaQueries";
 import styled from "styled-components";
@@ -111,7 +111,7 @@ const JobAdForm = ({ closeModal }: Props) => {
                 Driving license needed
               </label>
             </RadioContainer>
-            <FormikButtons
+            <ModalButtons
               closeModal={closeModal}
               disabled={isSubmitting}
               submitTitle="Save"

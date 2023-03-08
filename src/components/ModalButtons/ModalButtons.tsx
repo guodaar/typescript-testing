@@ -8,7 +8,7 @@ type Props = {
   disabled: boolean;
 };
 
-const FormikButtons = ({ closeModal, disabled, submitTitle }: Props) => {
+const ModalButtons = ({ closeModal, disabled, submitTitle }: Props) => {
   return (
     <ButtonsContainer>
       <Button greyVariant onClick={closeModal} title="Cancel" />
@@ -17,7 +17,7 @@ const FormikButtons = ({ closeModal, disabled, submitTitle }: Props) => {
   );
 };
 
-export default FormikButtons;
+export default ModalButtons;
 
 const ButtonsContainer = styled.div`
   display: flex;

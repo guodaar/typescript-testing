@@ -2,9 +2,9 @@ import * as Yup from "yup";
 
 import { Form, Formik } from "formik";
 
-import FormikButtons from "../../components/Formik/FormikButtons";
 import FormikInput from "../../components/Formik/FormikInput";
 import { LoginUser } from "../../types/user";
+import ModalButtons from "../../components/ModalButtons/ModalButtons";
 import { UserContext } from "../../contexts/UserContext";
 import { requiredField } from "../../const/validations";
 import styled from "styled-components";
@@ -65,7 +65,7 @@ const LoginForm = ({ closeModal }: Props) => {
               />
             </InputRowItem>
           </InputRow>
-          <FormikButtons
+          <ModalButtons
             closeModal={closeModal}
             disabled={isSubmitting}
             submitTitle="Login"

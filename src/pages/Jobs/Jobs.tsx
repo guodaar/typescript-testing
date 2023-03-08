@@ -156,6 +156,7 @@ const Jobs = () => {
       >
         <JobAdForm closeModal={handleToggleAdForm} />
       </StyledModal>
+
       <StyledModal
         modalSize="small"
         modalIsOpen={applicationFormOpen}

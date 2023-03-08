@@ -3,8 +3,8 @@ import * as Yup from "yup";
 import { Form, Formik } from "formik";
 
 import { ApplyUser } from "../../types/user";
-import FormikButtons from "../../components/Formik/FormikButtons";
 import FormikInput from "../../components/Formik/FormikInput";
+import ModalButtons from "../../components/ModalButtons/ModalButtons";
 import { requiredField } from "../../const/validations";
 import { screenSize } from "../../const/mediaQueries";
 import styled from "styled-components";
@@ -90,7 +90,7 @@ const JobApplicationForm = ({ closeModal }: Props) => {
                 />
               </InputRowItem>
             </InputRow>
-            <FormikButtons
+            <ModalButtons
               closeModal={closeModal}
               disabled={isSubmitting}
               submitTitle="submit application"

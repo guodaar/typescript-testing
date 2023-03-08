@@ -3,8 +3,8 @@ import * as Yup from "yup";
 import { Form, Formik } from "formik";
 import { NewUser, Role } from "../../types/user";
 
-import FormikButtons from "../../components/Formik/FormikButtons";
 import FormikInput from "../../components/Formik/FormikInput";
+import ModalButtons from "../../components/ModalButtons/ModalButtons";
 import { requiredField } from "../../const/validations";
 import { screenSize } from "../../const/mediaQueries";
 import styled from "styled-components";
@@ -107,7 +107,7 @@ const RegisterForm = ({ closeModal }: Props) => {
               <FormikInput type="checkbox" name="employer" id="employer" />
               <label htmlFor="employer">An Employer</label>
             </InputCheckBoxRow>
-            <FormikButtons
+            <ModalButtons
               closeModal={closeModal}
               disabled={isSubmitting}
               submitTitle="Register"
