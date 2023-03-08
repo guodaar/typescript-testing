@@ -1,3 +1,4 @@
+import Emoji from "../Emoji/Emoji";
 import { FaGithub } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
@@ -6,11 +7,18 @@ const Footer = () => {
   return (
     <Wrapper>
       <Container>
+        <h3>
+          Vilnius Tech Jobs <Emoji symbol="🎉" />
+        </h3>
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias dicta, eligendi
+          adipisci accusamus minus cum esse atque cumque tenetur minima impedit libero quas! Iste
+          perspiciatis rem minus cum, suscipit laborum!
+        </p>
         <h3>Vilnius Tech Jobs</h3>
         <StyledP>
-          JobSite is a platform that connects job seekers with employers. We
-          make it easy for you to find your dream job or find the perfect
-          candidate for your organization.
+          JobSite is a platform that connects job seekers with employers. We make it easy for you to
+          find your dream job or find the perfect candidate for your organization.
         </StyledP>
       </Container>
       <Container>
