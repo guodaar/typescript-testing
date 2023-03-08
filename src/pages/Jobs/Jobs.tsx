@@ -1,4 +1,9 @@
-import { DateOption, DriversLicenseOption, JobOption, PriceOption } from "./types";
+import {
+  DateOption,
+  DriversLicenseOption,
+  JobOption,
+  PriceOption,
+} from "./types";
 import { borderRadius, darkGrey, mainBgColor } from "../../const/styles";
 import {
   dateOptions,
@@ -29,10 +34,14 @@ const Jobs = () => {
   const [toggle, setToggle] = useState(false);
   const [adFormOpen, setAdFormOpen] = useState(false);
   const [applicationFormOpen, setApplicationFormOpen] = useState(false);
-  const [selectedTypeOption, setSelectedTypeOption] = useState(emptyJobTypeOption);
-  const [selectedLicenseOption, setSelectedLicenseOption] = useState(emptyDriversLicenseOption);
+  const [selectedTypeOption, setSelectedTypeOption] =
+    useState(emptyJobTypeOption);
+  const [selectedLicenseOption, setSelectedLicenseOption] = useState(
+    emptyDriversLicenseOption
+  );
   const [selectedDateOption, setSelectedDateOption] = useState(emptyDateOption);
-  const [selectedPriceOption, setSelectedPriceOption] = useState(emptyPriceOption);
+  const [selectedPriceOption, setSelectedPriceOption] =
+    useState(emptyPriceOption);
 
   const { data, isLoading } = useJobs();
   const jobs = data || [];
@@ -92,7 +101,11 @@ const Jobs = () => {
       <Loader isLoading={isLoading} />
       <TopContainer>
         <Button onClick={handleToggleFilters} title="filter jobs" greyVariant />
-        <Button onClick={handleToggleAdForm} title="Post a job" greyVariant={false} />
+        <Button
+          onClick={handleToggleAdForm}
+          title="Post a job"
+          greyVariant={false}
+        />
       </TopContainer>
       <FiltersBar toggle={toggle}>
         <FilterComponent
@@ -119,14 +132,26 @@ const Jobs = () => {
           onChange={handlePriceSortChange}
           controlText="Sort by"
         />
-        <Button onClick={handleClearFilters} title="clear filters" greyVariant />
+        <Button
+          onClick={handleClearFilters}
+          title="clear filters"
+          greyVariant
+        />
       </FiltersBar>
       <JobsContainer>
         {sortedJobs.map((job, index) => (
-          <JobCard key={index} job={job} onClick={handleToggleApplicationForm} />
+          <JobCard
+            key={index}
+            job={job}
+            onClick={handleToggleApplicationForm}
+          />
         ))}
       </JobsContainer>
-      <StyledModal modalSize="medium" modalIsOpen={adFormOpen} closeModal={handleToggleAdForm}>
+      <StyledModal
+        modalSize="medium"
+        modalIsOpen={adFormOpen}
+        closeModal={handleToggleAdForm}
+      >
         <JobAdForm closeModal={handleToggleAdForm} />
       </StyledModal>
       <StyledModal
@@ -151,6 +176,7 @@ const Container = styled.div`
   flex-direction: column;
   gap: 16px;
   color: ${darkGrey};
+
   @media (max-width: ${screenSize.medium}) {
     margin: 20px;
   }
@@ -160,6 +186,7 @@ const TopContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   @media (max-width: ${screenSize.medium}) {
     flex-direction: column;
     button {
