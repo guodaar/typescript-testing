@@ -37,7 +37,10 @@ const Container = styled.div`
 
   @media (max-width: ${screenSize.medium}) {
     flex-direction: column;
-  }
+  };
+
+  :hover {
+    opacity: 0.75;
 `;
 const Email = styled.p`
   color: #4267b2;
