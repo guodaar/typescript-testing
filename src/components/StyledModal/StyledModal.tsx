@@ -14,10 +14,10 @@ import styled from "styled-components";
 
 interface StyledModalProps extends PropsWithChildren {
   modalSize: string;
-  title: string;
-  symbol: string;
-  closeModal: () => void;
+  closeModal?: () => void;
   modalIsOpen: boolean;
+  title?: string;
+  symbol?: string;
 }
 
 const StyledModal = ({
@@ -35,9 +35,11 @@ const StyledModal = ({
       modalSize={modalSize}
     >
       <StyledCloseBtn onClick={closeModal} />
-      <Title>
-        {title} <Emoji symbol={symbol} />
-      </Title>
+      {title ? (
+        <Title>
+          {title} <Emoji symbol={symbol} />
+        </Title>
+      ) : null}
       {children}
     </Container>
   );
