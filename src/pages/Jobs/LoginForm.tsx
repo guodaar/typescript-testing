@@ -6,6 +6,7 @@ import FormikInput from "../../components/Formik/FormikInput";
 import { LoginUser } from "../../types/user";
 import ModalButtons from "../../components/ModalButtons/ModalButtons";
 import { UserContext } from "../../contexts/UserContext";
+import { motion } from "framer-motion";
 import { requiredField } from "../../const/validations";
 import styled from "styled-components";
 import toast from "react-hot-toast";
@@ -44,6 +45,12 @@ const LoginForm = ({ closeModal }: Props) => {
   };
 
   return (
+    <motion.div
+    animate={{opacity: 1}}
+    initial={{opacity: 0}}
+    exit={{opacity: 0}}
+    transition={{duration: 0.5}}
+    >
     <Formik
       initialValues={initialValues}
       onSubmit={handleSubmit}
@@ -72,7 +79,8 @@ const LoginForm = ({ closeModal }: Props) => {
           />
         </StyledForm>
       )}
-    </Formik>
+      </Formik>
+      </motion.div>
   );
 };
 

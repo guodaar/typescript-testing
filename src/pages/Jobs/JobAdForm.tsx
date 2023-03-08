@@ -8,6 +8,7 @@ import FormikInput from "../../components/Formik/FormikInput";
 import FormikSelect from "../../components/Formik/FormikSelect";
 import FormikTextArea from "../../components/Formik/FormikTextArea";
 import ModalButtons from "../../components/ModalButtons/ModalButtons";
+import { motion } from "framer-motion";
 import { requiredField } from "../../const/validations";
 import { screenSize } from "../../const/mediaQueries";
 import styled from "styled-components";
@@ -59,67 +60,74 @@ const JobAdForm = ({ closeModal }: Props) => {
   };
 
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={handleSubmit}
-      validationSchema={validationSchema}
+    <motion.div
+      animate={{ opacity: 1 }}
+      initial={{ opacity: 0 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
     >
-      {({ isSubmitting }) => (
-        <StyledFormContainer>
-          <StyledForm>
-            <FormikInput type="text" name="title" placeholder="Job title" />
-            <InputRow>
-              <InputRowItem>
-                <FormikInput
-                  type="number"
-                  name="price"
-                  placeholder="Pay offered"
-                />
-              </InputRowItem>
-              <InputRowItem>
-                <FormikDatepicker
-                  name="starting_from"
-                  placeholder="Enter start date"
-                />
-              </InputRowItem>
-            </InputRow>
-            <FormikInput
-              type="text"
-              name="image_url"
-              placeholder="Company Logo URL"
-            />
-            <FormikSelect
-              name="type"
-              options={[
-                { value: "fullTime", label: "Full Time" },
-                { value: "partTime", label: "Part Time" },
-                { value: "freelance", label: "Freelance" },
-              ]}
-            />
-            <FormikTextArea
-              type="text"
-              name="description"
-              placeholder="Job description"
-            />
-            <RadioContainer>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={handleSubmit}
+        validationSchema={validationSchema}
+      >
+        {({ isSubmitting }) => (
+          <StyledFormContainer>
+            <StyledForm>
+              <FormikInput type="text" name="title" placeholder="Job title" />
+              <InputRow>
+                <InputRowItem>
+                  <FormikInput
+                    type="number"
+                    name="price"
+                    placeholder="Pay offered"
+                  />
+                </InputRowItem>
+                <InputRowItem>
+                  <FormikDatepicker
+                    name="starting_from"
+                    placeholder="Enter start date"
+                  />
+                </InputRowItem>
+              </InputRow>
               <FormikInput
-                type="checkbox"
-                name="has_drivers_license"
-                id="has_drivers_license"
+                type="text"
+                name="image_url"
+                placeholder="Company Logo URL"
               />
-              <label htmlFor="has_drivers_license">
-                Driving license needed
-              </label>
-            </RadioContainer>
-            <ModalButtons
-              closeModal={closeModal}
-              disabled={isSubmitting}
-              submitTitle="Save"
-            />
-          </StyledForm>
-        </StyledFormContainer>
-      )}
-    </Formik>
+              <FormikSelect
+                name="type"
+                options={[
+                  { value: "fullTime", label: "Full Time" },
+                  { value: "partTime", label: "Part Time" },
+                  { value: "freelance", label: "Freelance" },
+                ]}
+              />
+              <FormikTextArea
+                type="text"
+                name="description"
+                placeholder="Job description"
+              />
+              <RadioContainer>
+                <FormikInput
+                  type="checkbox"
+                  name="has_drivers_license"
+                  id="has_drivers_license"
+                />
+                <label htmlFor="has_drivers_license">
+                  Driving license needed
+                </label>
+              </RadioContainer>
+              <ModalButtons
+                closeModal={closeModal}
+                disabled={isSubmitting}
+                submitTitle="Save"
+              />
+            </StyledForm>
+          </StyledFormContainer>
+        )}
+      </Formik>
+    </motion.div>
   );
 };
 

@@ -5,6 +5,7 @@ import { Form, Formik } from "formik";
 import { ApplyUser } from "../../types/user";
 import FormikInput from "../../components/Formik/FormikInput";
 import ModalButtons from "../../components/ModalButtons/ModalButtons";
+import { motion } from "framer-motion";
 import { requiredField } from "../../const/validations";
 import { screenSize } from "../../const/mediaQueries";
 import styled from "styled-components";
@@ -50,55 +51,62 @@ const JobApplicationForm = ({ closeModal }: Props) => {
   };
 
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={handleSubmit}
-      validationSchema={validationSchema}
+    <motion.div
+      animate={{ opacity: 1 }}
+      initial={{ opacity: 0 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
     >
-      {({ isSubmitting }) => (
-        <StyledFormContainer>
-          <StyledForm>
-            <InputRow>
-              <InputRowItem>
-                <FormikInput
-                  type="text"
-                  name="first_name"
-                  placeholder="First name"
-                />
-              </InputRowItem>
-              <InputRowItem>
-                <FormikInput
-                  type="text"
-                  name="last_name"
-                  placeholder="Last name"
-                />
-              </InputRowItem>
-            </InputRow>
-            <InputRow>
-              <InputRowItem>
-                <FormikInput
-                  type="email"
-                  name="email"
-                  placeholder="Your email address"
-                />
-              </InputRowItem>
-              <InputRowItem>
-                <FormikInput
-                  type="number"
-                  name="phone_number"
-                  placeholder="Your phone number"
-                />
-              </InputRowItem>
-            </InputRow>
-            <ModalButtons
-              closeModal={closeModal}
-              disabled={isSubmitting}
-              submitTitle="submit application"
-            />
-          </StyledForm>
-        </StyledFormContainer>
-      )}
-    </Formik>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={handleSubmit}
+        validationSchema={validationSchema}
+      >
+        {({ isSubmitting }) => (
+          <StyledFormContainer>
+            <StyledForm>
+              <InputRow>
+                <InputRowItem>
+                  <FormikInput
+                    type="text"
+                    name="first_name"
+                    placeholder="First name"
+                  />
+                </InputRowItem>
+                <InputRowItem>
+                  <FormikInput
+                    type="text"
+                    name="last_name"
+                    placeholder="Last name"
+                  />
+                </InputRowItem>
+              </InputRow>
+              <InputRow>
+                <InputRowItem>
+                  <FormikInput
+                    type="email"
+                    name="email"
+                    placeholder="Your email address"
+                  />
+                </InputRowItem>
+                <InputRowItem>
+                  <FormikInput
+                    type="number"
+                    name="phone_number"
+                    placeholder="Your phone number"
+                  />
+                </InputRowItem>
+              </InputRow>
+              <ModalButtons
+                closeModal={closeModal}
+                disabled={isSubmitting}
+                submitTitle="submit application"
+              />
+            </StyledForm>
+          </StyledFormContainer>
+        )}
+      </Formik>
+    </motion.div>
   );
 };
 

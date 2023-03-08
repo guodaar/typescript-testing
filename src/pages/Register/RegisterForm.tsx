@@ -5,6 +5,7 @@ import { NewUser, Role } from "../../types/user";
 
 import FormikInput from "../../components/Formik/FormikInput";
 import ModalButtons from "../../components/ModalButtons/ModalButtons";
+import { motion } from "framer-motion";
 import { requiredField } from "../../const/validations";
 import { screenSize } from "../../const/mediaQueries";
 import styled from "styled-components";
@@ -54,68 +55,75 @@ const RegisterForm = ({ closeModal }: Props) => {
   };
 
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={handleSubmit}
-      validationSchema={validationSchema}
+    <motion.div
+      animate={{ opacity: 1 }}
+      initial={{ opacity: 0 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
     >
-      {({ isSubmitting }) => (
-        <StyledFormContainer>
-          <StyledForm>
-            <InputRow>
-              <InputRowItem>
-                <FormikInput
-                  type="text"
-                  name="first_name"
-                  placeholder="First name"
-                />
-              </InputRowItem>
-              <InputRowItem>
-                <FormikInput
-                  type="text"
-                  name="last_name"
-                  placeholder="Last name"
-                />
-              </InputRowItem>
-            </InputRow>
-            <InputRow>
-              <InputRowItem>
-                <FormikInput
-                  type="email"
-                  name="email"
-                  placeholder="Your email address"
-                />
-              </InputRowItem>
-            </InputRow>
-            <InputRow>
-              <InputRowItem>
-                <FormikInput
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                />
-              </InputRowItem>
-              <InputRowItem>
-                <FormikInput
-                  type="password"
-                  name="confirmPassword"
-                  placeholder="Repeat password"
-                />
-              </InputRowItem>
-            </InputRow>
-            <InputCheckBoxRow>
-              <FormikInput type="checkbox" name="employer" id="employer" />
-              <label htmlFor="employer">An Employer</label>
-            </InputCheckBoxRow>
-            <ModalButtons
-              closeModal={closeModal}
-              disabled={isSubmitting}
-              submitTitle="Register"
-            />
-          </StyledForm>
-        </StyledFormContainer>
-      )}
-    </Formik>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={handleSubmit}
+        validationSchema={validationSchema}
+      >
+        {({ isSubmitting }) => (
+          <StyledFormContainer>
+            <StyledForm>
+              <InputRow>
+                <InputRowItem>
+                  <FormikInput
+                    type="text"
+                    name="first_name"
+                    placeholder="First name"
+                  />
+                </InputRowItem>
+                <InputRowItem>
+                  <FormikInput
+                    type="text"
+                    name="last_name"
+                    placeholder="Last name"
+                  />
+                </InputRowItem>
+              </InputRow>
+              <InputRow>
+                <InputRowItem>
+                  <FormikInput
+                    type="email"
+                    name="email"
+                    placeholder="Your email address"
+                  />
+                </InputRowItem>
+              </InputRow>
+              <InputRow>
+                <InputRowItem>
+                  <FormikInput
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                  />
+                </InputRowItem>
+                <InputRowItem>
+                  <FormikInput
+                    type="password"
+                    name="confirmPassword"
+                    placeholder="Repeat password"
+                  />
+                </InputRowItem>
+              </InputRow>
+              <InputCheckBoxRow>
+                <FormikInput type="checkbox" name="employer" id="employer" />
+                <label htmlFor="employer">An Employer</label>
+              </InputCheckBoxRow>
+              <ModalButtons
+                closeModal={closeModal}
+                disabled={isSubmitting}
+                submitTitle="Register"
+              />
+            </StyledForm>
+          </StyledFormContainer>
+        )}
+      </Formik>
+    </motion.div>
   );
 };
 
