@@ -7,30 +7,28 @@ import { useLocalStorage } from "../../hooks/localStorage";
 import { useState } from "react";
 
 const CookiesModal = () => {
-  const cookiesCheck = () => {
-    const json = localStorage.getItem("cookies");
-    const checkResult = Boolean(json);
-    return checkResult === true ? false : true;
-  };
-
-  const [open, setIsOpen] = useState(cookiesCheck);
   const [showMore, setShowMore] = useState(false);
   const [checkedStorage, setCheckedStorage] = useState(true);
   const [checkedPersonalise, setCheckedPersonalise] = useState(true);
-  const [, setCookiesAcepted] = useLocalStorage("cookies", false);
+  const [cookiesAcepted, setCookiesAcepted] = useLocalStorage("cookies", false);
+  const [open, setIsOpen] = useState(!cookiesAcepted);
 
   const handleToggleModal = () => {
     setIsOpen((prevOpen) => !prevOpen);
   };
+
   const handleShowMore = () => {
     setShowMore(true);
   };
+
   const handleSwitchStorage = () => {
     setCheckedStorage((prevSwitch) => !prevSwitch);
   };
+
   const handleSwitchPersonalise = () => {
     setCheckedPersonalise((prevSwitch) => !prevSwitch);
   };
+
   const handleAcceptCookies = () => {
     setCookiesAcepted(true);
     handleToggleModal();
