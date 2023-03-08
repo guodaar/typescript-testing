@@ -21,7 +21,7 @@ Modal.setAppElement("#root");
 
 root.render(
   <React.StrictMode>
-    <HashRouter basename="/typescript-testing">
+    <HashRouter>
       <QueryClientProvider client={queryClient}>
         <UserProvider>
           <App />
