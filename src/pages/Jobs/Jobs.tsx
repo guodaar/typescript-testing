@@ -134,13 +134,22 @@ const Jobs = () => {
             <JobCard key={index} job={job} onClick={handleToggleApplicationForm} />
           ))}
         </JobsContainer>
-        <StyledModal modalSize="medium" modalIsOpen={adFormOpen} closeModal={handleToggleAdForm}>
+        <StyledModal
+          modalSize="medium"
+          modalIsOpen={adFormOpen}
+          closeModal={handleToggleAdForm}
+          title="Create a job ad"
+          symbol="✍"
+        >
           <JobAdForm closeModal={handleToggleAdForm} />
         </StyledModal>
+
         <StyledModal
           modalSize="small"
           modalIsOpen={applicationFormOpen}
           closeModal={handleToggleApplicationForm}
+          title="Enter your details to apply"
+          symbol="👇"
         >
           <JobApplicationForm closeModal={handleToggleApplicationForm} />
         </StyledModal>
