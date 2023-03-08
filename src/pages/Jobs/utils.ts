@@ -1,7 +1,7 @@
-import { DateOption, PriceOption } from "../types/select";
+import { DateOption, PriceOption } from "./types";
 
-import { Job } from "../types/job";
-import { Option } from "../types/filter";
+import { Job } from "../../types/job";
+import { Option } from "../../types/filter";
 
 export const sortSelect = (
   jobs: Job[],
