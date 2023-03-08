@@ -40,28 +40,28 @@ const CookiesModal = () => {
         {showMore ? (
           <ShowMoreTextContainer>
             <h3>What are Cookies?</h3>
-            <Text>
+            <p>
               Cookies are small text files that are stored on a user's device (such as a computer or
               mobile device) when they visit a website. Cookies contain information about the user's
               browsing behavior and preferences, such as the pages they have visited, the items they
               have added to their shopping cart, or their login credentials for a particular
               website.
-            </Text>
+            </p>
             <h3>We value your privacy</h3>
-            <Text>
+            <p>
               You can set your consent preferences and determine how you want your data to be used
               based on the purposes below. You may set preferences for us independently from those
               of third-party partners. Each purpose has a description so that you know how we and
               partners use your data.
-            </Text>
+            </p>
 
             <CookieSelectVarint>
               <div>
                 <h4>Infromation storage and acess</h4>
-                <Text>
+                <p>
                   The storage of information, or access to infromation that is already stored, on
                   your device such as advertising indentifiers, cookies, and similar technologies
-                </Text>
+                </p>
               </div>
               <Switch
                 onChange={handleSwitchStorage}
@@ -75,13 +75,13 @@ const CookiesModal = () => {
             <CookieSelectVarint>
               <div>
                 <h4>Personalisation</h4>
-                <Text>
+                <p>
                   The collection and processing of the information about your use of this service to
                   subsequently personalise advertising and/or content for you in other contexts,
                   such as on other websites or apps, over time. Typically, the content of the site
                   or app is used to make inferences about your interests, which inform future
                   selection of advertising and/or content.
-                </Text>
+                </p>
               </div>
               <Switch
                 onChange={handleSwitchPersonalise}
@@ -95,15 +95,15 @@ const CookiesModal = () => {
           </ShowMoreTextContainer>
         ) : (
           <TextContainer>
-            <Text>
+            <p>
               We use cookies to enhance your browsing experience and provide you with personalized
               content. By continuing to use our website, you consent to our use of cookies.
-            </Text>
-            <Text>
+            </p>
+            <p>
               You can manage your cookie preferences by clicking on the "Cookie Settings" link at
               the bottom of any page on our website. For more information about cookies and how we
               use them, please see our Privacy Policy.
-            </Text>
+            </p>
           </TextContainer>
         )}
         <ButtonContainer>
@@ -122,7 +122,6 @@ const CookieNotificationContainer = styled.div`
   gap: 16px;
   padding-top: 50px;
 `;
-const Text = styled.p``;
 
 const TextContainer = styled.div`
   display: flex;
