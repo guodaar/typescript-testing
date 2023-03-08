@@ -1,15 +1,13 @@
 import * as Yup from "yup";
 
 import { Form, Formik } from "formik";
-import { darkGrey, lightGrey } from "../../const/styles";
 
-import Button from "../../components/Button/Button";
 import FormikInput from "../../components/Formik/FormikInput";
 import { LoginUser } from "../../types/user";
+import ModalButtons from "../../components/ModalButtons/ModalButtons";
 import { UserContext } from "../../contexts/UserContext";
 import { motion } from "framer-motion";
 import { requiredField } from "../../const/validations";
-import { screenSize } from "../../const/mediaQueries";
 import styled from "styled-components";
 import toast from "react-hot-toast";
 import { useContext } from "react";
@@ -60,7 +58,6 @@ const LoginForm = ({ closeModal }: Props) => {
     >
       {({ isSubmitting }) => (
         <StyledForm>
-          <Title>Login</Title>
           <InputRow>
             <InputRowItem>
               <FormikInput type="email" name="email" placeholder="Email" />
@@ -75,10 +72,11 @@ const LoginForm = ({ closeModal }: Props) => {
               />
             </InputRowItem>
           </InputRow>
-          <ButtonsContainer>
-            <Button onClick={closeModal} title="close" greyVariant />
-            <Button type="submit" disabled={isSubmitting} title="Login" />
-          </ButtonsContainer>
+          <ModalButtons
+            closeModal={closeModal}
+            disabled={isSubmitting}
+            submitTitle="Login"
+          />
         </StyledForm>
       )}
       </Formik>
@@ -87,27 +85,6 @@ const LoginForm = ({ closeModal }: Props) => {
 };
 
 export default LoginForm;
-
-const ButtonsContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-
-  @media (max-width: ${screenSize.medium}) {
-    flex-direction: column;
-  }
-`;
-
-const Title = styled.h3`
-  font-size: 1.6rem;
-  font-weight: 500;
-  text-align: center;
-  color: ${darkGrey};
-  border-bottom: 1px solid ${lightGrey};
-  width: fit-content;
-  padding-bottom: 5px;
-  margin: 0px auto;
-  margin-bottom: 32px;
-`;
 
 const StyledForm = styled(Form)`
   display: flex;
