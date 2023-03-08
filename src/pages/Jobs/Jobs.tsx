@@ -1,9 +1,4 @@
-import {
-  DateOption,
-  DriversLicenseOption,
-  JobOption,
-  PriceOption,
-} from "./types";
+import { DateOption, DriversLicenseOption, JobOption, PriceOption } from "./types";
 import { borderRadius, darkGrey, mainBgColor } from "../../const/styles";
 import {
   dateOptions,
@@ -16,6 +11,7 @@ import {
 import { driversLicenseOptions, jobTypeOptions } from "./consts";
 
 import Button from "../../components/Button/Button";
+import CookiesModal from "../../components/CookiesModal/CookiesModal";
 import Emoji from "../../components/Emoji/Emoji";
 import FilterComponent from "../../components/Filters/FilterComponent";
 import FiltersBar from "../../components/Filters/FiltersBar";
@@ -24,7 +20,7 @@ import JobApplicationForm from "./JobApplicationForm";
 import JobCard from "./JobCard";
 import Loader from "../../components/Loader/Loader";
 import StyledModal from "../../components/StyledModal/StyledModal";
-import {motion} from 'framer-motion'
+import { motion } from "framer-motion";
 import { screenSize } from "../../const/mediaQueries";
 import { sortSelect } from "./utils";
 import styled from "styled-components";
@@ -35,14 +31,10 @@ const Jobs = () => {
   const [toggle, setToggle] = useState(false);
   const [adFormOpen, setAdFormOpen] = useState(false);
   const [applicationFormOpen, setApplicationFormOpen] = useState(false);
-  const [selectedTypeOption, setSelectedTypeOption] =
-    useState(emptyJobTypeOption);
-  const [selectedLicenseOption, setSelectedLicenseOption] = useState(
-    emptyDriversLicenseOption
-  );
+  const [selectedTypeOption, setSelectedTypeOption] = useState(emptyJobTypeOption);
+  const [selectedLicenseOption, setSelectedLicenseOption] = useState(emptyDriversLicenseOption);
   const [selectedDateOption, setSelectedDateOption] = useState(emptyDateOption);
-  const [selectedPriceOption, setSelectedPriceOption] =
-    useState(emptyPriceOption);
+  const [selectedPriceOption, setSelectedPriceOption] = useState(emptyPriceOption);
 
   const { data, isLoading } = useJobs();
   const jobs = data || [];
@@ -95,84 +87,73 @@ const Jobs = () => {
   );
 
   return (
-  <motion.div
-    animate={{opacity: 1}}
-    initial={{opacity: 0}}
-    exit={{opacity: 0}}
-    transition={{duration: 0.5}}
+    <motion.div
+      animate={{ opacity: 1 }}
+      initial={{ opacity: 0 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
     >
-    <Container>
-      <Title>
-        Vilnius Tech Jobs <Emoji symbol="🎉" />
-      </Title>
-      <Loader isLoading={isLoading} />
-      <TopContainer>
-        <Button onClick={handleToggleFilters} title="filter jobs" greyVariant />
-        <Button
-          onClick={handleToggleAdForm}
-          title="Post a job"
-          greyVariant={false}
-        />
-      </TopContainer>
-      <FiltersBar toggle={toggle}>
-        <FilterComponent
-          value={selectedTypeOption}
-          onChange={handleTypeChange}
-          options={jobTypeOptions}
-          controlText="Job type"
-        />
-        <FilterComponent
-          value={selectedLicenseOption}
-          onChange={handleDriverChange}
-          options={driversLicenseOptions}
-          controlText="Driver's license"
-        />
-        <FilterComponent
-          options={dateOptions}
-          value={selectedDateOption}
-          onChange={handleDateSortChange}
-          controlText="Sort by"
-        />
-        <FilterComponent
-          options={priceOptions}
-          value={selectedPriceOption}
-          onChange={handlePriceSortChange}
-          controlText="Sort by"
-        />
-        <Button
-          onClick={handleClearFilters}
-          title="clear filters"
-          greyVariant
-        />
-      </FiltersBar>
-      <JobsContainer>
-        {sortedJobs.map((job, index) => (
-          <JobCard
-            key={index}
-            job={job}
-            onClick={handleToggleApplicationForm}
+      <Container>
+        <Title>
+          Vilnius Tech Jobs <Emoji symbol="🎉" />
+        </Title>
+        <Loader isLoading={isLoading} />
+        <TopContainer>
+          <Button onClick={handleToggleFilters} title="filter jobs" greyVariant />
+          <Button onClick={handleToggleAdForm} title="Post a job" greyVariant={false} />
+        </TopContainer>
+        <FiltersBar toggle={toggle}>
+          <FilterComponent
+            value={selectedTypeOption}
+            onChange={handleTypeChange}
+            options={jobTypeOptions}
+            controlText="Job type"
           />
-        ))}
-      </JobsContainer>
-      <StyledModal
-        modalSize="medium"
-        modalIsOpen={adFormOpen}
-        closeModal={handleToggleAdForm}
-        title="Create a job ad"
-        symbol="✍"
-      >
-        <JobAdForm closeModal={handleToggleAdForm} />
-      </StyledModal>
+          <FilterComponent
+            value={selectedLicenseOption}
+            onChange={handleDriverChange}
+            options={driversLicenseOptions}
+            controlText="Driver's license"
+          />
+          <FilterComponent
+            options={dateOptions}
+            value={selectedDateOption}
+            onChange={handleDateSortChange}
+            controlText="Sort by"
+          />
+          <FilterComponent
+            options={priceOptions}
+            value={selectedPriceOption}
+            onChange={handlePriceSortChange}
+            controlText="Sort by"
+          />
+          <Button onClick={handleClearFilters} title="clear filters" greyVariant />
+        </FiltersBar>
+        <JobsContainer>
+          {sortedJobs.map((job, index) => (
+            <JobCard key={index} job={job} onClick={handleToggleApplicationForm} />
+          ))}
+        </JobsContainer>
+        <StyledModal
+          modalSize="medium"
+          modalIsOpen={adFormOpen}
+          closeModal={handleToggleAdForm}
+          title="Create a job ad"
+          symbol="✍"
+        >
+          <JobAdForm closeModal={handleToggleAdForm} />
+        </StyledModal>
 
-      <StyledModal
-        modalSize="small"
-        modalIsOpen={applicationFormOpen}
-        closeModal={handleToggleApplicationForm}
-        title="Enter your details to apply"
-        symbol="👇"
-      >
-        <JobApplicationForm closeModal={handleToggleApplicationForm} />
-      </StyledModal>
+        <StyledModal
+          modalSize="small"
+          modalIsOpen={applicationFormOpen}
+          closeModal={handleToggleApplicationForm}
+          title="Enter your details to apply"
+          symbol="👇"
+        >
+          <JobApplicationForm closeModal={handleToggleApplicationForm} />
+        </StyledModal>
+        <CookiesModal />
       </Container>
     </motion.div>
   );

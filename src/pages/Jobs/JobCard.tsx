@@ -6,8 +6,10 @@ import {
   mediumGrey,
   smallBorderRadius,
 } from "../../const/styles";
+import { generatePath, useNavigate } from "react-router-dom";
 
 import Button from "../../components/Button/Button";
+import { JOB_AD_PATH } from "../../routes/const";
 import { Job } from "../../types/job";
 import { addHyphen } from "../../utils/string";
 import { formatDate } from "../../utils/date";
@@ -20,19 +22,23 @@ interface JobCardProps {
 }
 
 const JobCard = ({ job, onClick }: JobCardProps) => {
+  const navigate = useNavigate();
+  const navigateToJobAd = (id: string) => {
+    const path = generatePath(JOB_AD_PATH, { id });
+    navigate(path);
+  };
   return (
     <Container>
       <LeftWrapper>
         <img src={job.image_url} alt="company logo" />
       </LeftWrapper>
       <MiddleWrapper>
-        <Title>
+        <Title onClick={() => navigateToJobAd(job.id.toString())}>
           {job.title} <span>{addHyphen(job.type)}</span>
         </Title>
         <Details>
           <p>
-            Driver's license required:{" "}
-            <span>{job.has_drivers_license ? "yes" : "no"}</span>
+            Driver's license required: <span>{job.has_drivers_license ? "yes" : "no"}</span>
           </p>
           <p>
             Starting from: <span>{formatDate(job.starting_from)}</span>
@@ -95,6 +101,10 @@ const Title = styled.h3`
   display: flex;
   align-items: center;
   gap: 12px;
+
+  :hover {
+    cursor: pointer;
+  }
 
   span {
     font-size: 0.8rem;
