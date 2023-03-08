@@ -21,7 +21,6 @@ const Footer = () => {
           find your dream job or find the perfect candidate for your organization.
         </StyledP>
       </Container>
-
       <Container>
         <StyledLink to={"/privacy"}>Privacy policy</StyledLink>
         <p>© 2023 TECH JOBS</p>
@@ -30,7 +29,6 @@ const Footer = () => {
           <FaGithub />
         </StyledLink>
       </Container>
-
       <Container>
         <h3>Contacts</h3>
         <p>Gedimino g. 12, Vilnius, Lithuania</p>

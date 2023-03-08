@@ -12,7 +12,6 @@ const Topbar = () => {
   const [loginFormOpen, setLoginFormOpen] = useState(false);
   const [registerOpen, setRegisterOpen] = useState(false);
 
-  
   const handleToggleLoginForm = () => {
     setLoginFormOpen((prevOpen) => !prevOpen);
   };
