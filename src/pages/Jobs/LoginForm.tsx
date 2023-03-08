@@ -6,9 +6,13 @@ import { darkGrey, lightGrey } from "../../const/styles";
 import Button from "../../components/Button/Button";
 import FormikInput from "../../components/Formik/FormikInput";
 import { LoginUser } from "../../types/user";
+import { UserContext } from "../../contexts/UserContext";
+import { motion } from "framer-motion";
 import { requiredField } from "../../const/validations";
+import { screenSize } from "../../const/mediaQueries";
 import styled from "styled-components";
 import toast from "react-hot-toast";
+import { useContext } from "react";
 import { useLoginUser } from "../../hooks/userHooks";
 
 const validationSchema: Yup.ObjectSchema<LoginUser> = Yup.object().shape({
@@ -27,18 +31,28 @@ type Props = {
 
 const LoginForm = ({ closeModal }: Props) => {
   const { mutateAsync: loginUser } = useLoginUser();
+  const { setUser } = useContext(UserContext);
 
   const handleSubmit = (values: LoginUser) => {
     loginUser(values)
-      .then(() => {
+      .then((response) => {
+        console.log(response);
+        setUser(response);
         toast.success("Successfully logged in!");
+        closeModal();
       })
       .catch((error) => {
-        console.log("Failed to login:", error);
+        toast.error("Failed to login:");
       });
   };
 
   return (
+    <motion.div
+    animate={{opacity: 1}}
+    initial={{opacity: 0}}
+    exit={{opacity: 0}}
+    transition={{duration: 0.5}}
+    >
     <Formik
       initialValues={initialValues}
       onSubmit={handleSubmit}
@@ -54,7 +68,11 @@ const LoginForm = ({ closeModal }: Props) => {
           </InputRow>
           <InputRow>
             <InputRowItem>
-              <FormikInput type="password" name="password" placeholder="Password" />
+              <FormikInput
+                type="password"
+                name="password"
+                placeholder="Password"
+              />
             </InputRowItem>
           </InputRow>
           <ButtonsContainer>
@@ -63,7 +81,8 @@ const LoginForm = ({ closeModal }: Props) => {
           </ButtonsContainer>
         </StyledForm>
       )}
-    </Formik>
+      </Formik>
+      </motion.div>
   );
 };
 
@@ -72,6 +91,10 @@ export default LoginForm;
 const ButtonsContainer = styled.div`
   display: flex;
   justify-content: flex-end;
+
+  @media (max-width: ${screenSize.medium}) {
+    flex-direction: column;
+  }
 `;
 
 const Title = styled.h3`

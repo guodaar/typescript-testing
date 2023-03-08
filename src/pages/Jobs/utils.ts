@@ -1,28 +1,42 @@
-import { DateOption, PriceOption } from "../types/select";
+import { DateOption, PriceOption } from "./types";
 
-import { Job } from "../types/job";
+import { Job } from "../../types/job";
+import { Option } from "../../types/filter";
 
 export const sortSelect = (
   jobs: Job[],
   selectedDateOption: DateOption,
-  selectedPriceOption: PriceOption
+  selectedPriceOption: PriceOption,
+  selectedType: Option,
+  selectedLicenseOption: Option
 ) => {
   let sortedJobs = [...jobs];
 
-  if (selectedDateOption) {
+  if (selectedDateOption.value) {
     if (selectedDateOption.value === "descending") {
       sortedJobs = sortSelectByDateDesc(sortedJobs);
-    } else if (selectedDateOption.value === "ascending") {
+    }
+    if (selectedDateOption.value === "ascending") {
       sortedJobs = sortSelectByDateAsc(sortedJobs);
     }
   }
 
-  if (selectedPriceOption) {
+  if (selectedPriceOption.value) {
     if (selectedPriceOption.value === "highest") {
       sortedJobs = sortSelectByPriceDesc(sortedJobs);
-    } else if (selectedPriceOption.value === "lowest") {
+    }
+    if (selectedPriceOption.value === "lowest") {
       sortedJobs = sortSelectByPriceAsc(sortedJobs);
     }
+  }
+  if (selectedType.value) {
+    sortedJobs = sortedJobs.filter((job) => job.type === selectedType.value);
+  }
+
+  if (selectedLicenseOption.value !== "") {
+    sortedJobs = sortedJobs.filter(
+      (job) => job.has_drivers_license === selectedLicenseOption.value
+    );
   }
 
   return sortedJobs;

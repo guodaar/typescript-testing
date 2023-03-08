@@ -6,7 +6,7 @@ import styled from "styled-components";
 
 interface StyledModalProps extends PropsWithChildren {
   modalSize: string;
-  closeModal: () => void;
+  closeModal?: () => void;
   modalIsOpen: boolean;
 }
 
@@ -20,7 +20,7 @@ const StyledModal = ({ modalIsOpen, modalSize, closeModal, children }: StyledMod
 
 export default StyledModal;
 
-const Container = styled(Modal) <{ modalSize: string }>`
+const Container = styled(Modal)<{ modalSize: string }>`
   position: relative;
   min-height: 18rem;
   background-color: ${mainBgColor};
@@ -31,6 +31,7 @@ const Container = styled(Modal) <{ modalSize: string }>`
   background-color: white;
   border-radius: ${borderRadius};
   border: 1px solid ${lightGrey};
+  outline: none;
 
   ${({ modalSize }) => {
     if (modalSize === "large") {
