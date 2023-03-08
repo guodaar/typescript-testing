@@ -7,6 +7,7 @@ import { darkGrey, lightGrey } from "../../const/styles";
 import { AiOutlineCloseSquare } from "react-icons/ai";
 import Button from "../../components/Button/Button";
 import FormikInput from "../../components/Formik/FormikInput";
+import { motion } from "framer-motion";
 import { requiredField } from "../../const/validations";
 import { screenSize } from "../../const/mediaQueries";
 import styled from "styled-components";
@@ -52,6 +53,12 @@ const RegisterForm = ({ closeModal }: Props) => {
   };
 
   return (
+    <motion.div
+    animate={{opacity: 1}}
+    initial={{opacity: 0}}
+    exit={{opacity: 0}}
+    transition={{duration: 0.5}}
+    >
     <Formik
       initialValues={initialValues}
       onSubmit={handleSubmit}
@@ -116,7 +123,8 @@ const RegisterForm = ({ closeModal }: Props) => {
           </StyledForm>
         </StyledFormContainer>
       )}
-    </Formik>
+      </Formik>
+      </motion.div>
   );
 };
 

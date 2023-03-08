@@ -10,6 +10,7 @@ import FormikInput from "../../components/Formik/FormikInput";
 import FormikSelect from "../../components/Formik/FormikSelect";
 import FormikTextArea from "../../components/Formik/FormikTextArea";
 import { darkGrey } from "../../const/styles";
+import { motion } from "framer-motion";
 import { requiredField } from "../../const/validations";
 import { screenSize } from "../../const/mediaQueries";
 import styled from "styled-components";
@@ -61,6 +62,12 @@ const JobAdForm = ({ closeModal }: Props) => {
   };
 
   return (
+    <motion.div
+    animate={{opacity: 1}}
+    initial={{opacity: 0}}
+    exit={{opacity: 0}}
+    transition={{duration: 0.5}}
+    >
     <Formik
       initialValues={initialValues}
       onSubmit={handleSubmit}
@@ -123,7 +130,8 @@ const JobAdForm = ({ closeModal }: Props) => {
           </StyledForm>
         </StyledFormContainer>
       )}
-    </Formik>
+      </Formik>
+      </motion.div>
   );
 };
 
