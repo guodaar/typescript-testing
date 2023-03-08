@@ -56,6 +56,7 @@ const Container = styled(Modal)<{ modalSize: string }>`
   background-color: white;
   border-radius: ${borderRadius};
   border: 1px solid ${lightGrey};
+  outline: none;
 
   ${({ modalSize }) => {
     if (modalSize === "large") {
